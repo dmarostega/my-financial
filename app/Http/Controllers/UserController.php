@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository as UserRepo;
+use App\Http\Repositories\UserRepository as UserRepo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserController extends Controller 
 {
-    // protected $userRepo;// = new UserRepo();
-
     public function index(Request $request){
         $listUser = UserRepo::list(); 
         return view('user.index',['listUser'=> $listUser]);
