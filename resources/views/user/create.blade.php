@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        Cadastrando Usuário
+       <h2> Cadastrando Usuário </h2>
     </x-slot>
     <form action="{{ route('user.store') }}" method="post">
         @csrf
@@ -14,10 +14,7 @@
                     <p>{{ $error }}</p>
                 @endforeach         
             @endif
-            <div>
-                <button type="button">Cancelar</button>
-                <button type="submit">Salvar</button>
-            </div>
+            <x-form-action-buttons></x-form-action-buttons>
         </div>
     </form>
 </x-app-layout>
