@@ -30,7 +30,8 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::get('edit/{id}',[UserController::class,'edit'])->name('edit');
     Route::put('update/{id}',[UserController::class,'update'])->name('update');
 
-    Route::delete('delete',[UserController::class,'delete'])->name('delete');
+    Route::get('delete/{id}',[UserController::class,'delete'])->name('delete');
+    Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';

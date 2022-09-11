@@ -3,6 +3,6 @@
         {{ __('Cancelar') }}
    </x-button>
    <x-button>
-       {{ __('Salvar') }}
+       {{ $submitTitle ?? __('Salvar') }}
    </x-button>
 </div>

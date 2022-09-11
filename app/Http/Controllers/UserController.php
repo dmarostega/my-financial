@@ -39,7 +39,18 @@ class UserController extends Controller
         return redirect()->action([UserController::class, 'index']);
     }
 
-    public function delete(Request $request, $user){
+    public function delete($id){
+        $userRepo = new UserRepo();
+        $user = $userRepo->find($id);     
+        return view('user.delete', [
+            'user' => $user
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $userRepo = new UserRepo();
+        $user = $userRepo->find($id);
         $user->delete();
         return redirect()->action([UserController::class, 'index']);
     }
