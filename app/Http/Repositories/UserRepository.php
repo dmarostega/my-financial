@@ -29,7 +29,8 @@ class UserRepository
     public function update($request, $id) : User
     {
         $user = User::find($id);
-        $campos = $request->only(['name','email']);
+        $campos = ['name','email'];
+        $campos = $request->only($campos);
         $user->update($campos);
 
         return $user;

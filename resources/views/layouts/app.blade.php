@@ -20,12 +20,12 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{-- {{ $header }} --}}
+                    {{ $header ?? 'No tittle' }}
                 </div>
             </header>
 
             <!-- Page Content -->
-            <main class="px-12 py-12 text-sm">
+            <main class="max-w-7xl mx-auto px-12 py-12 text-sm">
                  {{ $slot }} 
             </main>
         </div>

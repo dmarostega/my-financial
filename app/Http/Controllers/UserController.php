@@ -32,7 +32,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id){
+    public function update(UserRequest $request, $id){
         $userRepo = new UserRepo();
         $userRepo->update($request, $id);
 
