@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\UserRepository as UserRepo;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(Request $request){
+    public function store(UserRequest $request){
         $userRepo = new UserRepo();
         $userRepo->save($request);
 
