@@ -28,6 +28,7 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::post('store',[UserController::class,'store'])->name('store');  
 
     Route::get('edit/{id}',[UserController::class,'edit'])->name('edit');
+    Route::put('update/{id}',[UserController::class,'update'])->name('update');
 
     Route::delete('delete',[UserController::class,'delete'])->name('delete');
 });

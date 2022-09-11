@@ -27,14 +27,17 @@ class UserController extends Controller
     }
 
     public function edit($id){
-         $user = UserRepo::find($id);     
+        $user = UserRepo::find($id);     
         return view('user.edit',[
             'user' => $user
         ]);
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $id){
+        $userRepo = new UserRepo();
+        $userRepo->update($request, $id);
 
+        return redirect()->action([UserController::class, 'index']);
     }
 
     public function delete(Request $request, $user){
