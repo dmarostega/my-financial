@@ -8,7 +8,7 @@
           Usuários          
         </div>
       </x-system-icon>
-      <x-system-icon   :link="__(route('users'))">
+      <x-system-icon   :link="__(route('categories'))">
         <div>
           Categorias
         </div>

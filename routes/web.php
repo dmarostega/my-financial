@@ -34,4 +34,5 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('destroy');
 });
 
+Route::get('/categories',[CategoryController::class,'index'])->name('categories');
 require __DIR__.'/auth.php';
