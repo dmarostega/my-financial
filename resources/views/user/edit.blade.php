@@ -6,10 +6,10 @@
         @csrf
         @method('PUT')
         <div class="flex flex-col">        
-            <label for="name" class="text-base">Nome</label>
-            <input type="text" name="name" id="name" value="{{ $user->name }}">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email" value="{{ $user->email }}">                    
+            <x-label for="name">Nome</x-label>
+            <x-input type="text" name="name" id="name" value="{{ $user->name }}"/>
+            <x-label for="email" >Email</x-label>
+            <x-input type="text" name="email" id="email" value="{{ $user->email }}"/>                    
             @if($errors)
                 @foreach ($errors->all() as $error)
                     <p>{{ $error }}</p>

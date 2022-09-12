@@ -5,10 +5,10 @@
     <form action="{{ route('user.store') }}" method="post">
         @csrf
         <div class="flex flex-col">
-            <label for="name">Nome</label>
-            <input type="text" name="name" id="name">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email">
+            <x-label for="name">Nome</x-label>
+            <x-input type="text" name="name" id="name" />
+            <x-label for="email">Email</x-label>
+            <x-input type="text" name="email" id="email"/>
             @if($errors)
                 @foreach ($errors->all() as $error)
                     <p>{{ $error }}</p>
