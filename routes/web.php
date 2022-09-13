@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,15 @@ Route::prefix('user')->name('user.')->group(function(){
 });
 
 Route::get('/categories',[CategoryController::class,'index'])->name('categories');
+Route::prefix('category')->name('category.')->group(function(){
+    Route::get('create',[CategoryController::class,'create'])->name('create');
+    Route::post('store',[CategoryController::class,'store'])->name('store');
+
+    Route::get('{id}',[CategoryController::class,'edit'])->name('edit');
+    Route::put('{id}',[CategoryController::class,'update'])->name('update');
+
+    Route::get('{id}/delete',[CategoryController::class,'delete'])->name('delete');
+    Route::delete('{id}',[CategoryController::class,'destroy'])->name('destroy');
+});
+
 require __DIR__.'/auth.php';

@@ -2,6 +2,9 @@
     <x-slot name="header">
         <h2>{{ __('Categorias') }}</h2>
     </x-slot>
+    <x-button type="button">
+        <a class="block mx-auto" href="{{ route('category.create') }}">Novo</a>
+    </x-button>
     <table>
         <thead>
             <tr>
@@ -33,10 +36,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ route('user.edit',['id' => $item->id]) }}">{{ __('edit') }}</a>
+                            <a href="{{ route('category.edit',['id' => $item->id]) }}">{{ __('edit') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('user.delete',['id' => $item->id]) }}">{{ __('delete') }}</a>
+                            <a href="{{ route('category.delete',['id' => $item->id]) }}">{{ __('delete') }}</a>
                         </li>
                     </ul>
                 </td>
