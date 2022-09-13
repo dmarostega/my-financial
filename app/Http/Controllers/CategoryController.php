@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private $repository;
+
     public function index()
     {
-        $categories = CategoryRepo::list();
+        $categories = CategoryRepository::list();
         return view('category.index',['categories' => $categories]);
     }
 
@@ -21,14 +23,14 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        $categoryRepo = new CategoryRepo();
-        $categoryRepo->save($request);
+        $this->repository()->save($request);
         return redirect()->action([CategoryController::class, 'index']);
     }
 
     public function edit(Request $request, $id)
     {
-        return view('category.edit',['id' => $id]);
+        $category = $this->repository()->find($id);
+        return view('category.edit',['category' => $category]);
     }
 
     public function update(CategoryRequest $request,$id)
@@ -39,5 +41,12 @@ class CategoryController extends Controller
     public function delete(Request $request, $id)
     {
         return view('category.delete',['id' => $id]);
+    }
+
+    private function repository(){
+        if(!$this->repository){
+            $this->repository = new CategoryRepository();
+        }
+        return  $this->repository;
     }
 }

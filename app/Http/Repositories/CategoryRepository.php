@@ -7,6 +7,13 @@ use Illuminate\Http\Response;
 
 class CategoryRepository
 {
+    private $category;
+
+    public function __construct()
+    {
+        $this->category = new Category();
+    }
+
     public function list()
     {
         return Category::get();
@@ -14,9 +21,14 @@ class CategoryRepository
 
     public function save($request)
     {
-        $category = new Category();
         $campos = $request->except(['_token']);
-        $category->fill($campos);
-        $category->save();        
+        $this->category->fill($campos);
+        $this->category->save();        
+    }
+
+    public function find($id)
+    {
+        return  $this->category->findOrFail($id);
+    }
     }
 }
