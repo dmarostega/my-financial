@@ -2,8 +2,9 @@
 
 <div style="
     border: 1px solid rgb(67, 82, 75);
-    width: 5em;
+    width: 15em;
     height: 5em;
+    padding: 1em;
     background: rgb(46, 47, 59);
     color: white;
     margin: .5em;
