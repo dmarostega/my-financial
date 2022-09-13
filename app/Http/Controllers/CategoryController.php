@@ -41,7 +41,15 @@ class CategoryController extends Controller
 
     public function delete(Request $request, $id)
     {
-        return view('category.delete',['id' => $id]);
+        $category = $this->repository()->find($id);
+
+        return view('category.delete',['category' => $category]);
+    }
+
+    public function destroy($id){
+        $category = $this->repository()->find($id);
+        $category->delete();
+        return redirect()->action([CategoryController::class, 'index']);
     }
 
     private function repository(){
