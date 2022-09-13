@@ -22,7 +22,7 @@ class UserRepository
 
     public function find($id) : User
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return $user;
     }
 
