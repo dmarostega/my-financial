@@ -21,7 +21,7 @@ class UserRequest extends FormRequest
     public function messages(){
         return [
             'name.required' => ':attribute is required',
-            'name.string' => ':attribute invalid format',
+            'name.string' => ':attribute with invalid format',
             'email.required' => ':attribute is required',
             'email.email' => ':attribute not is email format',
             'email.unique' => 'There is already a record with informed :attribute'
