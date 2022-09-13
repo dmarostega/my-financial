@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\CategoryRepository as CategoryRepo;
+use App\Http\Repositories\CategoryRepository;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
@@ -35,7 +35,8 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request,$id)
     {
-        return redirect()->action([UserController::class, 'index']);
+        $this->repository()->update($request, $id);
+        return redirect()->action([CategoryController::class, 'index']);
     }
 
     public function delete(Request $request, $id)

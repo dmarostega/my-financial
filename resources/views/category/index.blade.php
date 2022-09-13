@@ -22,7 +22,7 @@
                     {{ $item->name }}
                 </td>
                 <td>
-                    {{ $item->email }}
+                    {{ $item->description }}
                 </td>
                 <td>
                     {{ $item->created_at }}

@@ -30,5 +30,13 @@ class CategoryRepository
     {
         return  $this->category->findOrFail($id);
     }
+
+    public function update($request,$id)
+    {
+        $category = $this->find($id);
+        $campos = $request->only(['name','description']);
+        $category->update($campos);
+
+        return $category;
     }
 }
