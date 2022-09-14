@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FinancialEntityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,18 @@ Route::prefix('category')->name('category.')->group(function(){
 
     Route::get('{id}/delete',[CategoryController::class,'delete'])->name('delete');
     Route::delete('{id}',[CategoryController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/financial-entities', [FinancialEntityController::class,'index'])->name('financial_entities');
+Route::prefix('/financial-entity')->name('financial_entity.')->group(function(){
+    Route::get('create',[FinancialEntityController::class,'create'])->name('create');
+    Route::post('store',[FinancialEntityController::class,'store'])->name('store');
+
+    Route::get('{id}',[FInancialEntityController::class,'edit'])->name('edit');
+    Route::put('{id}',[FinancialEntityController::class,'update'])->name('update');
+
+    Route::get('{id}/delete',[FinancialEntityController::class,'delete'])->name('delete');
+    Route::delete('{id}', [FinancialEntityController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';

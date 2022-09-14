@@ -16,7 +16,7 @@
       <x-system-icon :link="__(route('users'))">
         Contratos
       </x-system-icon>
-      <x-system-icon :link="__('banks')">
+      <x-system-icon :link="__(route('financial_entities'))">
         Agências bancárias
       </x-system-icon>
       <x-system-icon :link="__(route('users'))">
