@@ -10,7 +10,7 @@
             <tr>
                 <th>{{ __('code') }}</th>
                 <th>{{ __('name') }}</th>
-                <th>{{__('created') }}</th>
+                <th>{{ __('created') }}</th>
                 <th>{{ __('updated') }}</th>
                 <th>{{ __('deleted') }}</th>
                 <th>{{ __('actions') }}</th>
