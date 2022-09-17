@@ -25,7 +25,7 @@
       <x-system-icon :link="__(route('users'))">
          Cartões de Crédito
       </x-system-icon>
-      <x-system-icon :link="__('payments')">
+      <x-system-icon :link="__(route('payment_types'))">
         {{ __('tipos') }} de {{ __('pagamento') }}
       </x-system-icon>
     </x-flex-box>      
