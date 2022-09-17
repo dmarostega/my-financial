@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
             'user_name' => $user->name,
             'name' => $user->name
         ]);
-dd($user, $person);
+        
         event(new Registered($user));
 
         Auth::login($user);
