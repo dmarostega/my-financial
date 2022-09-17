@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FinancialEntityController;
+use App\Http\Controllers\PaymentTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,18 @@ Route::prefix('/financial-entity')->name('financial_entity.')->group(function(){
 
     Route::get('{id}/delete',[FinancialEntityController::class,'delete'])->name('delete');
     Route::delete('{id}', [FinancialEntityController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/payment-types',[PaymentTypeController::class,'index'])->name('payment_types');
+Route::prefix('/payment-type')->name('payment_type.')->group(function(){
+    Route::get('create',[PaymentTypeController::class,'create'])->name('create');
+    Route::post('store',[PaymentTypeController::class,'store'])->name('store');
+    
+    Route::get('{id}',[PaymentTypeController::class,'edit'])->name('edit');
+    Route::put('{id}',[PaymentTypeController::class,'update'])->name('update');
+
+    Route::get('{id}/delete',[PaymentTypeController::class,'delete'])->name('delete');
+    Route::delete('{id}',[PaymentTypeController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';
