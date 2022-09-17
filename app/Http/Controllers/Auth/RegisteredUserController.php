@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Person;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -45,6 +46,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $person = Person::create([
+            'user_id' => $user->id,
+            'user_name' => $user->name,
+            'name' => $user->name
+        ]);
+dd($user, $person);
         event(new Registered($user));
 
         Auth::login($user);
