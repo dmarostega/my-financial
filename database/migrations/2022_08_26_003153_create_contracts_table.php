@@ -19,8 +19,8 @@ class CreateContractsTable extends Migration
             $table->string('title');
             $table->double('value');
             $table->double('prediction');
-            $table->timestamp('data_init');
-            $table->timestamp('data_end')->nullable();
+            $table->timestamp('date_init');
+            $table->timestamp('date_end')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
