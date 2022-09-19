@@ -15,13 +15,14 @@ class CreatePersonsTable extends Migration
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('user_name');
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('user_name')->nullable();
             $table->string('name');
             $table->string('last_name')->nullable();
             $table->string('register_number')->nullable();
             $table->enum('type',['individual','legal'])->default('individual');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_name')->references('name')->on('users');
         });
