@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\FinancialEntityController;
 use App\Http\Controllers\PaymentTypeController;
 
@@ -19,7 +20,7 @@ use App\Http\Controllers\PaymentTypeController;
 
 Route::get('/', function () {
     return view('index');
-})->name('index');
+})/*->middleware(['guest'])*/->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -71,6 +72,18 @@ Route::prefix('/payment-type')->name('payment_type.')->group(function(){
 
     Route::get('{id}/delete',[PaymentTypeController::class,'delete'])->name('delete');
     Route::delete('{id}',[PaymentTypeController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/contracts',[ContractController::class,'index'])->name('contracts');
+Route::prefix('contract')->name('contract.')->group(function(){
+    Route::get('create',[ContractController::class,'create'])->name('create');
+    Route::post('store',[ContractController::class,"store"])->name('store');
+
+    Route::get('{id}',[ContractController::class,'edit'])->name('edit');
+    Route::put('{id}',[ContractController::class,'update'])->name('update');
+
+    Route::get('{id}/delete',[ContractController::class,'delete'])->name('delete');
+    Route::delete('{id}',[ContractController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';

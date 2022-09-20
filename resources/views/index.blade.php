@@ -13,7 +13,7 @@
           Categorias
         </div>
       </x-system-icon>
-      <x-system-icon :link="__(route('users'))">
+      <x-system-icon :link="__(route('contracts'))">
         Contratos
       </x-system-icon>
       <x-system-icon :link="__(route('financial_entities'))">
