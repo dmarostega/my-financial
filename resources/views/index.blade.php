@@ -19,7 +19,7 @@
       <x-system-icon :link="__(route('financial_entities'))">
         {{ __('Agências') }} {{ __('bancárias') }}
       </x-system-icon>
-      <x-system-icon :link="__(route('users'))">
+      <x-system-icon :link="__(route('financial_accounts'))">
         {{ __('Contas') }} {{ __('Bancárias') }}
       </x-system-icon>
       <x-system-icon :link="__(route('users'))">

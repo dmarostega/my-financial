@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\FinancialAccountController;
 use App\Http\Controllers\FinancialEntityController;
 use App\Http\Controllers\PaymentTypeController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,18 @@ Route::prefix('contract')->name('contract.')->group(function(){
 
     Route::get('{id}/delete',[ContractController::class,'delete'])->name('delete');
     Route::delete('{id}',[ContractController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/financial-accounts',[FinancialAccountController::class,'index'])->name('financial_accounts');
+Route::prefix('/financial-account')->name('financial_account.')->group(function(){
+    Route::get('create',[FinancialAccountController::class,'create'])->name('create');
+    Route::post('store',[FinancialAccountController::class,'store'])->name('store');
+
+    Route::get('{id}',[FinancialAccountController::class,'edit'])->name('edit');
+    Route::put('{id}',[FinancialAccountController::class,'update'])->name('update');
+
+    Route::get('{id}/delete',[FinancialAccountController::class, 'delete'])->name('delete');
+    Route::delete('{id}',[FinancialAccountController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';
