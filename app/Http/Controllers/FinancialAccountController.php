@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\FinancialAccount;
+use App\Http\Repositories\FinancialAccountRepository;
+use App\Http\Repositories\FinancialEntityRepository;
+use App\Http\Requests\FinancialAccountRequest;
 
 class FinancialAccountController extends Controller 
 {
@@ -9,24 +11,38 @@ class FinancialAccountController extends Controller
 
     public function index()
     {        
-        return view('financial-account.index');
+        return view('financial-account.index', ['financialAccounts' => self::repository()->list()]);
     }
 
     public function create()
     {        
-        return view('financial-account.create');
+        return view('financial-account.create',['entities' => FinancialEntityRepository::list()]);
     }
 
-    public function store(){}
-    public function edit(){
-        return view('financial-account.edit');
+    public function store(FinancialAccountRequest $request)
+    {
+        self::repository()->save($request);
+        return redirect()->route('financial_accounts');
     }
-    public function update(){}
-    public function delete(){
-        return view('financial-account.delete');
-    }
-    public function destroy(){}
 
+    public function edit($id)
+    {
+        return view('financial-account.edit', ['financialAccount' => self::repository()->find($id), 'financialEntities' => FinancialEntityRepository::list() ]);    
+    }
+
+    public function update(FinancialAccountRequest $request,$id){
+        self::repository()->update($request, $id);        
+        return redirect()->route('financial_accounts');
+    }
+    
+    public function delete($id){        
+        return view('financial-account.delete', ['financialAccount' => self::repository()->find($id)]);
+    }
+
+    public function destroy($id){
+        self::repository()->delete($id);
+        return redirect()->route('financial_accounts');
+    }
 
     private static function repository()
     {
