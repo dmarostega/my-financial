@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreditCardsTable extends Migration
+class CreateCardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCreditCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credit_cards', function (Blueprint $table) {
+        Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('financial_entity_id');
@@ -23,9 +23,8 @@ class CreateCreditCardsTable extends Migration
             $table->string('holder_name');
             $table->string('flag');
             $table->smallInteger('security_code');
-            $table->double('credit');
-            $table->double('amount');
-            $table->enum('status',['ativo','inativo','bloqueado','desbloqueado','cancelado']);
+            $table->enum('type',['credit','debit','multiple','prepaid','virtual'])->default('multiple');
+            $table->enum('status',['active','inactive','locked','unlocked','canceled'])->default('locked');
             $table->timestamps();
 
             $table->foreign('financial_entity_id')->references('id')->on('financial_entities');
