@@ -31,16 +31,12 @@ class FinancialAccountRepository
     }
 
     public function update($request, $id){
-
-        // dd($request->all(), $id);
-
         $fields = $request->except(['_token']);
-
         $financialAccount = self::model()->find($id);
-        // dd($financialAccount);
 
         $financialAccount->update($fields);
-        // $financialAccount->save();
+
+        return self::model();
     }
 
     public function delete($id)
