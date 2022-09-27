@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\FinancialAccountController;
@@ -101,6 +102,18 @@ Route::prefix('/financial-account')->middleware(['auth'])->name('financial_accou
 
     Route::get('{id}/delete',[FinancialAccountController::class, 'delete'])->name('delete');
     Route::delete('{id}',[FinancialAccountController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/cards', [CardController::class, 'index'])->middleware(['auth'])->name('cards');
+Route::prefix('card')->middleware(['auth'])->name('card.')->group(function(){
+    Route::get('create', [CardController::class,'create'])->name('create');
+    Route::post('store', [CardController::class,'store'])->name('store');
+
+    Route::get('{id}', [CardController::class, 'edit'])->name('edit');
+    Route::put('{id}', [CardController::class,'update'])->name('update');
+
+    Route::get('{id}/delete', [CardController::class,'delete'])->name('delete');
+    Route::delete('{id}', [CardController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';
