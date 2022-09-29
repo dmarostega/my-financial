@@ -1,6 +1,8 @@
 <?php 
 namespace App\Observers;
 
+use App\Models\FinancialAccount;
+
 class FinancialAccountObserver 
 {
     /**
@@ -14,6 +16,6 @@ class FinancialAccountObserver
 
      public function creating(FinancialAccount $financialAccount)
      {
-        $finaicialAccount->person_id = auth()->user()->person->id;
+        $financialAccount->person_id = auth()->user()->person->id;
      }
 }
