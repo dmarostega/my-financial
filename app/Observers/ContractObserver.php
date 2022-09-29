@@ -7,10 +7,12 @@ use App\Models\Person;
 class ContractObserver 
 {
     /**
+     * 
      * Handle the Contract "creating" event.
      * 
      * @param \App\Models\Contract $contract
      * @return void
+     * 
      */
 
      public function creating(Contract $contract)
