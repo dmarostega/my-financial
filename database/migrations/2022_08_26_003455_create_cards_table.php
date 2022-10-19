@@ -19,13 +19,14 @@ class CreateCardsTable extends Migration
             $table->unsignedBigInteger('financial_entity_id');
             $table->string('user_name');
             $table->string('title');
-            $table->integer('number');
+            $table->bigInteger('number')->unsigned();
             $table->string('holder_name');
             $table->string('flag');
-            $table->smallInteger('security_code');
+            $table->smallInteger('security_code')->nullable();
             $table->enum('type',['credit','debit','multiple','prepaid','virtual'])->default('multiple');
             $table->enum('status',['active','inactive','locked','unlocked','canceled'])->default('locked');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('financial_entity_id')->references('id')->on('financial_entities');
             $table->foreign('user_name')->references('name')->on('users');            
