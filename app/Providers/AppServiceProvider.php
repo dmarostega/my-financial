@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Card;
+use App\Observers\CardObserver;
 use App\Models\Contract;
 use App\Observers\ContractObserver;
 use App\Models\FinancialAccount;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Card::observe(CardObserver::class);
         Contract::observe(ContractObserver::class);
         FinancialAccount::observe(FinancialAccountObserver::class);
     }
