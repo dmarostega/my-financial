@@ -15,12 +15,12 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('caregories_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('user_name');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->tinyInteger('repeat')->defatul('0');
+            $table->tinyInteger('repeat')->default('0');
             $table->double('prediction')->nullable();
             $table->double('value');
             $table->dateTime('date', $precision = 0);
