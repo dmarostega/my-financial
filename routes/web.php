@@ -6,6 +6,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\FinancialAccountController;
 use App\Http\Controllers\FinancialEntityController;
 use App\Http\Controllers\PaymentTypeController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -114,6 +115,18 @@ Route::prefix('card')->middleware(['auth'])->name('card.')->group(function(){
 
     Route::get('{id}/delete', [CardController::class,'delete'])->name('delete');
     Route::delete('{id}', [CardController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/transactions', [TransactionController::class,'index'])->name('transactions');
+Route::prefix('transaction')->name('transaction.')->group(function(){
+    Route::get('create',[TransactionController::class, 'create'])->name('create');
+    Route::post('store',[TransactionController::class, 'store'])->name('store');
+
+    Route::get('{id}',[TransactionController::class, 'edit'])->name('edit');
+    Route::put('{id}',[TransactionController::class, 'update'])->name('update');
+
+    Route::get('{id}/delete', [TransactionController::class, 'delete'])->name('delete');
+    Route::delete('{id}',[TransactionController::class,'destroy'])->name('destroy');
 });
 
 require __DIR__.'/auth.php';

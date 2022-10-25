@@ -35,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         Card::observe(CardObserver::class);
         Contract::observe(ContractObserver::class);
         FinancialAccount::observe(FinancialAccountObserver::class);
+        \App\Models\Transaction::observe(\App\Observers\TransactionObserver::class);
     }
 }

@@ -1,6 +1,6 @@
 <x-app-layout>   
     <x-flex-box>
-      <x-system-icon :link="__(route('users'))">
+      <x-system-icon :link="__(route('transactions'))">
         {{ __('Transações') }}
       </x-system-icon>
       <x-system-icon :link="__(route('users'))">
