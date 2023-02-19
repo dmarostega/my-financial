@@ -25,7 +25,7 @@ class CardRepository
         self::model()->fill($fields);
         self::model()->save();
 
-        if($request->has('credit')){
+        if($request->has('credit') && $request->credit){
             self::model()->creditCard->credit = $request->credit;
             self::model()->creditCard->save();
         }
