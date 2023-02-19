@@ -5,8 +5,8 @@
     <x-button type="button">
         <a href="{{ route('financial_entity.create') }}">
         {{ __('novo') }}</a></x-button>
-    <table class="table table-dark">
-        <thead>
+    <x-table class="table table-dark">
+        <x-slot name="headers">
             <tr>
                 <th>{{ __('code') }}</th>
                 <th>{{ __('name') }}</th>
@@ -15,8 +15,8 @@
                 <th>{{ __('deleted') }}</th>
                 <th>{{ __('actions') }}</th>
             </tr>
-        </thead>
-        <tbody>
+        </x-slot>
+        <x-slot name="body">
              @foreach ($financialEntities  as $financialEntity)
                 <tr>
                     <td>
@@ -42,6 +42,6 @@
                     </td>
                 </tr>                 
              @endforeach
-        </tbody>
-    </table>
+        </x-slot>
+    </x-table>
 </x-app-layout>
