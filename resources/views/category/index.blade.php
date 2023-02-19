@@ -14,7 +14,7 @@
                 <td>{{ __('description') }}</td>
                 <td>{{ __('created at') }}</td>
                 <td>{{ __('updated at') }}</td>
-                <td>{{ __('deleted at') }}</td>
+                {{-- <td>{{ __('deleted at') }}</td> --}}
                 <td>{{ __('actions') }}</td>
             </tr>
         </x-slot>
@@ -33,9 +33,9 @@
                     <td>
                         {{ $item->updated_at }}
                     </td>
-                    <td>
+                    {{-- <td>
                         {{ $item->deleted_at }}
-                    </td>
+                    </td> --}}
                     <td>
                         <x-link href="{{ route('category.edit',['id' => $item->id]) }}">
                             {{ __('edit') }}
