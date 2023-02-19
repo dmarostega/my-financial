@@ -10,8 +10,11 @@ class CardRepository
 {   
     private static $model; 
 
-    public function list()
+    public function list(array $with = null)
     {
+        if($with)
+            return self::model()->with($with)->get();
+
         return self::model()->get();
     }
 

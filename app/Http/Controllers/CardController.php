@@ -11,7 +11,7 @@ class CardController
 
     public function index() 
     {
-        return view('card.index',['cards' => self::repository()->list()]);
+        return view('card.index',['cards' => self::repository()->list(['financialEntity'])]);
     }
 
     public function create() 
