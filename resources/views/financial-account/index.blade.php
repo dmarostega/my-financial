@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ __('Suas') }}{{ __('Contas') }} {{ __('Bancárias') }}
+        {{ __('Accounts') }}
     </x-slot>
     <div>
         <x-link :href="route('financial_account.create')">

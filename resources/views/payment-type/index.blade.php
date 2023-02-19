@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2>
-            {{ __('Tipos') }} {{ __('de') }} {{ __('pagamento') }}
+            {{ __('Payment Types') }}
         </h2>
     </x-slot>
     <x-button type="button">

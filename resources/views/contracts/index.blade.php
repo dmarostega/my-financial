@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Listando') }} {{ __('contratos') }}</h2>
+        <h2>{{ __('Contracts') }}</h2>
     </x-slot>
     
         <x-link :href="route('contract.create')">

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Listando') }} {{ __('Cartões') }}</h2>
+        <h2>{{ __('Cards') }}</h2>
     </x-slot>
     <div>
         <x-link :href="route('card.create')">Novo</x-link>

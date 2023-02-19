@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Categorias') }}</h2>
+        <h2>{{ __('Categories') }}</h2>
     </x-slot>
     <x-button type="button">
         <a class="block mx-auto" href="{{ route('category.create') }}">

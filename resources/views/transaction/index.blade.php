@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Transações') }}</h2>
+        <h2>{{ __('Transactions') }}</h2>
     </x-slot>
     <x-link href="{{ route('transaction.create') }}">
         Novo

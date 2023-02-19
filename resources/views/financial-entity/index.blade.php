@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Agências Bancárias') }}</h2>
+        <h2>{{ __('Financial Entities') }}</h2>
     </x-slot>
     <x-button type="button">
         <a href="{{ route('financial_entity.create') }}">
