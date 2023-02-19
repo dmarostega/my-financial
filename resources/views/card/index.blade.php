@@ -7,7 +7,7 @@
     </div>
     <x-table>
         <x-slot name="headers">            
-                <tr>
+                <tr>                    
                     <th>{{ __('Título') }}</td>
                     <th>{{ __('Número') }}</th>
                     <th>{{ __('Títular') }}</th>
@@ -23,7 +23,10 @@
         <x-slot name="body">
             @foreach($cards as $card)
                 <tr>
-                    <td>{{ $card->title }}</td>
+                    <td>
+                        <p>{{ $card->title }}</p>
+                        <p>{{ $card->financialEntity->name }}</p>
+                    </td>
                     <td>{{ $card->number }}</td>
                     <td>{{ $card->holder_name }}</td>
                     <td>{{ $card->security_code }}</td>
