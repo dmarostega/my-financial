@@ -4,7 +4,7 @@
     </x-slot>
     <x-button type="button">
         <a href="{{ route('financial_entity.create') }}">
-        {{ __('novo') }}</a></x-button>
+        {{ __('New') }}</a></x-button>
     <x-table class="table table-dark">
         <x-slot name="headers">
             <tr>
@@ -27,9 +27,11 @@
                         {{ $financialEntity->updated_at }}
                     </td>
                     <td>
-                        <x-link :href="route('financial_entity.edit',['id' => $financialEntity->id])">{{ __('edit') }}</x-link>
+                        <x-link :href="route('financial_entity.edit',['id' => $financialEntity->id])">
+                            {{ __('Edit') }}
+                        </x-link>
                         <x-link :href="route('financial_entity.delete',['id' => $financialEntity->id]) ">
-                            Deletar
+                            {{ __('Delete') }}
                         </x-link>
                     </td>
                 </tr>                 
