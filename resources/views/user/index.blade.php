@@ -22,10 +22,10 @@
                     <td>{{ $user->updated_at }}</td>   
                     <td>
                         <x-link href="{{ route('user.edit', ['id' => $user->id]) }}">
-                            {{ __('edit') }}
+                            {{ __('Edit') }}
                         </x-link>
                         <x-link href="{{ route('user.delete', ['id' => $user->id]) }}">
-                            {{ __('remove') }}
+                            {{ __('Delete') }}
                         </x-link>
                     </td>
                 </tr>

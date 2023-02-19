@@ -30,10 +30,10 @@
                     </td>
                     <td>
                         <x-link href="{{ route('category.edit',['id' => $item->id]) }}">
-                            {{ __('edit') }}
+                            {{ __('Edit') }}
                         </x-link>
                         <x-link href="{{ route('category.delete',['id' => $item->id]) }}">
-                            {{ __('delete') }}
+                            {{ __('Delete') }}
                         </x-link>
                     </td>
                 </tr>            

@@ -39,10 +39,10 @@
                     <td>{{ $card->updated_at }}</td>
                     <td>
                         <x-link :href="route('card.edit', ['id' => $card->id])">
-                            Editar
+                            {{ __('Edit') }}
                         </x-link>
                         <x-link :href="route('card.delete', ['id' => $card->id])">
-                            Deletar
+                            {{ __('Delete') }}
                         </x-link>
                     </td>
                 </tr>

@@ -30,10 +30,10 @@
                 <td>{{ $transaction->updated_at }}</td>
                 <td>
                     <x-link :href="route('transaction.edit',['id' => $transaction->id])">
-                        {{ __('Editar') }}
+                        {{ __('Edit') }}
                     </x-link>
                     <x-link :href="route('transaction.delete', ['id' => $transaction->id])">
-                        {{ __('Deletar') }}
+                        {{ __('Delete') }}
                     </x-link>
                 </td>
             </tr>

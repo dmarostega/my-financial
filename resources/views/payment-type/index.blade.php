@@ -32,10 +32,10 @@
                     </td>
                     <td>
                         <x-link :href="route('payment_type.edit', ['id' => $paymentType->id])">
-                            {{ __('Editar') }}
+                            {{ __('Edit') }}
                         </x-link>
                         <x-link :href="route('payment_type.delete', ['id' => $paymentType->id])">
-                            {{ __('Deletar') }}
+                            {{ __('Delete') }}
                         </x-link>
                     </td>
                 </tr>

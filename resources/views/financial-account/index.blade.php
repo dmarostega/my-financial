@@ -28,10 +28,10 @@
                 <td>{{ $financialAccount->updated_at }}</td>
                 <td>
                     <x-link :href="route('financial_account.edit',['id' => $financialAccount->id])">
-                        {{ __('Editar') }}
+                        {{ __('Edit') }}
                     </x-link>
                     <x-link :href="route('financial_account.delete', ['id' => $financialAccount->id])">
-                        {{ __('Deletar') }}
+                        {{ __('Delete') }}
                     </x-link>
                 </td>
             </tr>

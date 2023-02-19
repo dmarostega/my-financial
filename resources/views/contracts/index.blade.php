@@ -37,8 +37,8 @@
                     {{ $contrat->updated_at }}
                 </td>
                 <td>
-                    <x-link :href="route('contract.edit',['id' => $contract->id])">{{ __('Editar') }}</x-link>
-                    <x-link :href="route('contract.delete',['id' => $contract->id])">{{ __('Deletar') }}</x-link>
+                    <x-link :href="route('contract.edit',['id' => $contract->id])">{{ __('Edit') }}</x-link>
+                    <x-link :href="route('contract.delete',['id' => $contract->id])">{{ __('Delete') }}</x-link>
                 </td>
             </tr>
             @endforeach
