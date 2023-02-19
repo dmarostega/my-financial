@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index(Request $request){
         $listUser = UserRepo::list(); 
-        return view('user.index',['listUser'=> $listUser]);
+        return view('user.index',['users'=> $listUser]);
     }
 
     public function create(){

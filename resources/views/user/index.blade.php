@@ -2,47 +2,34 @@
     <x-slot name="header">
         <h2>{{ __('Users') }}</h2>
     </x-slot>
-    <h1 class="text-center h-20 text-lg">Lista de usuários cadastrados.</h1>
-    <a type="button" href="{{ route('user.create') }}">Novo</a>
-    <table>
-        <thead>
+    <x-link href="{{ route('user.create') }}">
+        {{ __('new') }}
+    </x-link>
+    <x-table>
+        <x-slot name="headers">
             <tr>
-                <td>{{ __('name') }}</td>
-                <td>{{ __('email') }}</td>
-                <td>{{ __('created at') }}</td>
-                <td>{{ __('updated at') }}</td>
-                <td>{{ __('deleted at') }}</td>
-                <td>{{ __('actions') }}</td>
-            </tr>            
-        </thead>
-        @foreach ($listUser as $user)
-            <tr>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('email') }}</th>
+                <th>{{ __('updated') }}</th>
+                <th>{{ __('actions') }}</th>
+            </tr>
+        </x-slot>
+        <x-slot name="body">
+            @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->updated_at }}</td>   
                     <td>
-                        {{ $user->name }}
+                        <x-link href="{{ route('user.edit', ['id' => $user->id]) }}">
+                            {{ __('edit') }}
+                        </x-link>
+                        <x-link href="{{ route('user.delete', ['id' => $user->id]) }}">
+                            {{ __('remove') }}
+                        </x-link>
                     </td>
-                    <td>
-                        {{ $user->email }}
-                    </td>
-                    <td>
-                        {{ $user->created_at }}
-                    </td>
-                    <td>
-                        {{ $user->updated_at }}
-                    </td>
-                    <td>
-                        {{ $user->deleted_at }}
-                    </td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ route('user.edit',['id' => $user->id]) }}">{{ __('edit') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('user.delete',['id' => $user->id]) }}">{{ __('delete') }}</a>
-                            </li>
-                        </ul>
-                    </td>
-            </tr>            
-        @endforeach
-    </table>
+                </tr>
+            @endforeach
+        </x-slot>
+    </x-table>    
 </x-app-layout>
