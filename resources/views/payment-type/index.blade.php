@@ -12,12 +12,10 @@
     <x-table>
         <x-slot name="headers">
             <tr>
-                <th>name</th>
-                <th>description</th>                
-                <th>created</th>
-                <th>update</th>
-                <th>delete</th>
-                <th>actions</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Description') }}</th>
+                <th>{{ __('Update') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -28,15 +26,9 @@
                     </td>
                     <td>
                         {{ $paymentType->description }}
-                    </td>
-                    <td>
-                        {{ $paymentType->created_at }}
-                    </td>
+                    </td>                 
                     <td>
                         {{ $paymentType->updated_at }}
-                    </td>
-                    <td>
-                        {{ $paymentType->deleted_at }}
                     </td>
                     <td>
                         <x-link :href="route('payment_type.edit', ['id' => $paymentType->id])">

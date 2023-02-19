@@ -10,12 +10,10 @@
     <x-table>
         <x-slot name="headers">
             <tr>
-                <td>{{ __('name') }}</td>
-                <td>{{ __('description') }}</td>
-                <td>{{ __('created at') }}</td>
-                <td>{{ __('updated at') }}</td>
-                {{-- <td>{{ __('deleted at') }}</td> --}}
-                <td>{{ __('actions') }}</td>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Description') }}</th>
+                <th>{{ __('Update') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -28,14 +26,8 @@
                         {{ $item->description }}
                     </td>
                     <td>
-                        {{ $item->created_at }}
-                    </td>
-                    <td>
                         {{ $item->updated_at }}
                     </td>
-                    {{-- <td>
-                        {{ $item->deleted_at }}
-                    </td> --}}
                     <td>
                         <x-link href="{{ route('category.edit',['id' => $item->id]) }}">
                             {{ __('edit') }}

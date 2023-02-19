@@ -10,13 +10,12 @@
     <x-table class="table table-dark">
         <x-slot name="headers">
             <tr>
-                <th>{{ __('Número') }}</th>
-                <th>{{ __('Agência') }}</th>
-                <th>{{ __('Conta') }}</th>
-                <th>{{ __('Instituição') }}</th>
-                <th>{{ __('Criado') }}</th>
-                <th>{{ __('Atualizado') }}</th>
-                <th>{{ __('Deletado') }}</th>
+                <th>{{ __('Number') }}</th>
+                <th>{{ __('Agency') }}</th>
+                <th>{{ __('Accout') }}</th>
+                <th>{{ __('Institution') }}</th>
+                <th>{{ __('Update') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
         <x-slot name="body">    
@@ -27,7 +26,6 @@
                 <td>{{ $financialAccount->entity->name }}</td>
                 <td>{{ $financialAccount->created_at }}</td>
                 <td>{{ $financialAccount->updated_at }}</td>
-                <td>{{ $financialAccount->deleted_at }}</td>
                 <td>
                     <x-link :href="route('financial_account.edit',['id' => $financialAccount->id])">
                         {{ __('Editar') }}

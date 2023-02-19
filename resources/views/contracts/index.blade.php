@@ -10,10 +10,11 @@
     <x-table>
         <x-slot name="headers">
             <tr>
-                <th>{{ __('Título') }}</th>
-                <th>{{ __('Valor') }}</th>
-                <th>{{ __('Nome') }}</th>
-                <th>{{ __('Registro') }}</th>
+                <th>{{ __('Title') }}</th>
+                <th>{{ __('Value') }}</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Record') }}</th>
+                <th>{{ __('Update') }}</th>
                 <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
@@ -31,6 +32,9 @@
                 </td>
                 <td>
                     {{ $contract->person->register_number }}
+                </td>
+                <td>
+                    {{ $contrat->updated_at }}
                 </td>
                 <td>
                     <x-link :href="route('contract.edit',['id' => $contract->id])">{{ __('Editar') }}</x-link>

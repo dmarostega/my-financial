@@ -9,9 +9,9 @@
         <x-slot name="headers">
             <tr>
                 <th>{{ __('Name') }}</th>
-                <th>{{ __('email') }}</th>
-                <th>{{ __('updated') }}</th>
-                <th>{{ __('actions') }}</th>
+                <th>{{ __('Email') }}</th>
+                <th>{{ __('Update') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
         <x-slot name="body">

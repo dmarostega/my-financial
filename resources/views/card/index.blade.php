@@ -8,16 +8,17 @@
     <x-table>
         <x-slot name="headers">            
                 <tr>                    
-                    <th>{{ __('Título') }}</td>
-                    <th>{{ __('Número') }}</th>
-                    <th>{{ __('Títular') }}</th>
-                    <th>{{ __('Código Segurança') }}</th>
-                    <th>{{ __('Bandeira') }}</th>
-                    <th>{{ __('Tipo') }}</th>
-                    <th>{{ __('Limite') }}</th>
-                    <th>{{ __('Usado') }}</th>
+                    <th>{{ __('Title') }}</td>
+                    <th>{{ __('Number') }}</th>
+                    <th>{{ __('Holder') }}</th>
+                    <th>{{ __('Secutiry Code') }}</th>
+                    <th>{{ __('Flag') }}</th>
+                    <th>{{ __('Type') }}</th>
+                    <th>{{ __('Limit') }}</th>
+                    <th>{{ __('Used') }}</th>
                     <th>{{ __('Status') }}</th>
-                    <th>{{ __('Ações') }}</th>
+                    <th>{{ __('Update') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
         </x-slot>
         <x-slot name="body">
@@ -35,6 +36,7 @@
                     <td>{{ $card->creditCard ? $card->creditCard->credit : '' }}</td>
                     <td>{{ $card->creditCard ? $card->creditCard->amount : '' }}</td>
                     <td>{{ $card->status }}</td>
+                    <td>{{ $card->updated_at }}</td>
                     <td>
                         <x-link :href="route('card.edit', ['id' => $card->id])">
                             Editar

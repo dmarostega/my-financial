@@ -8,13 +8,14 @@
     <x-table>
         <x-slot name="headers">
             <tr>
-                <th>{{ __('Data') }}</th>
-                <th>{{ __('Título') }}</th>
-                <th>{{ __('Valor') }}</th>
-                <th>{{ __('Categoria') }}</th>
-                <th>{{ __('Pagamento') }}</th>
-                <th>{{ __('Bandeira') }}</th>
-                <th>{{ __('Ações') }}</th>
+                <th>{{ __('Date') }}</th>
+                <th>{{ __('Title') }}</th>
+                <th>{{ __('Value') }}</th>
+                <th>{{ __('Category') }}</th>
+                <th>{{ __('Payment') }}</th>
+                <th>{{ __('Flag') }}</th>
+                <th>{{ __('Update') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -26,6 +27,7 @@
                 <td>{{ $transaction->category->name }}</td>
                 <td>{{ $transaction->paymentType->name }}</td>
                 <td>.</td>
+                <td>{{ $transaction->updated_at }}</td>
                 <td>
                     <x-link :href="route('transaction.edit',['id' => $transaction->id])">
                         {{ __('Editar') }}

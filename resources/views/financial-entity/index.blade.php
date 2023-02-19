@@ -8,12 +8,10 @@
     <x-table class="table table-dark">
         <x-slot name="headers">
             <tr>
-                <th>{{ __('code') }}</th>
-                <th>{{ __('name') }}</th>
-                <th>{{ __('created') }}</th>
-                <th>{{ __('updated') }}</th>
-                <th>{{ __('deleted') }}</th>
-                <th>{{ __('actions') }}</th>
+                <th>{{ __('Code') }}</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Update') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -26,13 +24,7 @@
                         {{ $financialEntity->name }}
                     </td>
                     <td>
-                        {{ $financialEntity->created_at }}
-                    </td>
-                    <td>
                         {{ $financialEntity->updated_at }}
-                    </td>
-                    <td>
-                        {{ $financialEntity->deleted_at }}
                     </td>
                     <td>
                         <x-link :href="route('financial_entity.edit',['id' => $financialEntity->id])">{{ __('edit') }}</x-link>
