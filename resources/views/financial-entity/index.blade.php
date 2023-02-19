@@ -2,9 +2,9 @@
     <x-slot name="header">
         <h2>{{ __('Financial Entities') }}</h2>
     </x-slot>
-    <x-button type="button">
-        <a href="{{ route('financial_entity.create') }}">
-        {{ __('New') }}</a></x-button>
+    <x-link :href="route('financial_entity.create')">
+        {{ __('New') }}
+    </x-link>
     <x-table class="table table-dark">
         <x-slot name="headers">
             <tr>

@@ -3,7 +3,7 @@
         <h2>{{ __('Transactions') }}</h2>
     </x-slot>
     <x-link href="{{ route('transaction.create') }}">
-        Novo
+        {{ __('New') }}
     </x-link>
     <x-table>
         <x-slot name="headers">

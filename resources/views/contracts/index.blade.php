@@ -2,11 +2,9 @@
     <x-slot name="header">
         <h2>{{ __('Contracts') }}</h2>
     </x-slot>
-    
-        <x-link :href="route('contract.create')">
-            Novo
-        </x-link>
-    
+    <x-link :href="route('contract.create')">
+        {{ __('New') }}
+    </x-link>
     <x-table>
         <x-slot name="headers">
             <tr>

@@ -4,11 +4,9 @@
             {{ __('Payment Types') }}
         </h2>
     </x-slot>
-    <x-button type="button">
-        <a href="{{ route('payment_type.create') }}">
-            {{ __('novo') }}
-        </a>
-    </x-button>
+    <x-link :href="route('payment_type.create')">
+        {{ __('New') }}
+    </x-link>
     <x-table>
         <x-slot name="headers">
             <tr>

@@ -2,11 +2,9 @@
     <x-slot name="header">
         <h2>{{ __('Categories') }}</h2>
     </x-slot>
-    <x-button type="button">
-        <a class="block mx-auto" href="{{ route('category.create') }}">
-            {{ __('new') }}
-        </a>
-    </x-button>
+    <x-link :href="route('category.create')">
+        {{ __('New') }}
+    </x-link>
     <x-table>
         <x-slot name="headers">
             <tr>

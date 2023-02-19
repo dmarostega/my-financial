@@ -3,7 +3,7 @@
         <h2>{{ __('Users') }}</h2>
     </x-slot>
     <x-link href="{{ route('user.create') }}">
-        {{ __('new') }}
+        {{ __('New') }}
     </x-link>
     <x-table>
         <x-slot name="headers">

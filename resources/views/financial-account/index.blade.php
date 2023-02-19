@@ -2,11 +2,9 @@
     <x-slot name="header">
         {{ __('Accounts') }}
     </x-slot>
-    <div>
-        <x-link :href="route('financial_account.create')">
-            Novo
-        </x-link>
-    </div>
+    <x-link :href="route('financial_account.create')">
+        {{ __('New') }}
+    </x-link>
     <x-table class="table table-dark">
         <x-slot name="headers">
             <tr>
