@@ -25,7 +25,7 @@ class Card extends Model
 
     public function financialEntity()
     {
-        return $this->hasOne(FinancialEntity::class);
+        return $this->belongsTo(FinancialEntity::class);
     }
 
     public function creditCard()
