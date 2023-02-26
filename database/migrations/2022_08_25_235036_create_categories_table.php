@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
