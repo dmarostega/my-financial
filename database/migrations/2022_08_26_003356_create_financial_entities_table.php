@@ -17,6 +17,7 @@ class CreateFinancialEntitiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
