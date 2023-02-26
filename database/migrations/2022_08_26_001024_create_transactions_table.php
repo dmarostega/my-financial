@@ -24,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->double('prediction')->nullable();
             $table->double('value');
             $table->dateTime('date', $precision = 0);
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->foreignId('type')->constrained('payment_types');
             $table->timestamps();
             $table->softDeletes();
