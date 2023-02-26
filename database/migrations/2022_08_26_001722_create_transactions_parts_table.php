@@ -19,8 +19,10 @@ class CreateTransactionsPartsTable extends Migration
             $table->dateTime('due_date');
             $table->double('value');
             $table->double('value_paid')->default('0');
+            $table->dateTime('payment_date')->nullable();
+            $table->smallInteger('parcel')->default('1');
             $table->double('discount')->default('0');
-            $table->double('rate')->default('0');
+            $table->double('fees')->default('0'); // tarifas
             $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
