@@ -23,6 +23,7 @@ class CreateFinancialAccountsTable extends Migration
             $table->string('entity_dv',5);
             $table->string('account',200);
             $table->string('account_dv',2);
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
 
