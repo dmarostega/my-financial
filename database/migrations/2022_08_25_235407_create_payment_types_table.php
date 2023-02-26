@@ -19,6 +19,7 @@ class CreatePaymentTypesTable extends Migration
             $table->text('description')->nullable();
             $table->enum('type',['dinheiro','credito','debito']);
             $table->tinyInteger('is_installment')->default('0');
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
