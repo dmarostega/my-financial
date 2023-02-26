@@ -21,6 +21,7 @@ class CreateTransactionsPartsTable extends Migration
             $table->double('value_paid')->default('0');
             $table->double('discount')->default('0');
             $table->double('rate')->default('0');
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
