@@ -21,6 +21,7 @@ class CreateContractsTable extends Migration
             $table->double('prediction');
             $table->timestamp('date_init');
             $table->timestamp('date_end')->nullable();
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
