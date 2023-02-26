@@ -1,7 +1,7 @@
 
 @props(['headers'])
 
-<table class="table table-dark">
+<table class="table table-dark table-default">
     <thead class="thead-dark">
         {{ $headers }}
     </thead>
