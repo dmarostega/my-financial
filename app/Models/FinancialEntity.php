@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FinancialEntity extends Model
 {
-    use HandelUser;
-    
+    use HandleUser;
+
     use SoftDeletes;
 
     protected $table = 'financial_entities';
