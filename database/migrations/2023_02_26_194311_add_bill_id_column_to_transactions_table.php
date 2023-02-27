@@ -14,7 +14,7 @@ class AddBillIdColumnToTransactionsTable extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->unsignedBigInteger('bill_id')->after('category_id')->nullable();
+            $table->unsignedBigInteger('bill_id')->after('payment_type_id')->nullable();
 
             $table->foreign('bill_id')->references('id')->on('bills');
         });

@@ -15,9 +15,9 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->string('user_name');
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('payment_type_id')->constrained('payment_types');
             $table->string('title');
             $table->text('description')->nullable();
             $table->tinyInteger('repeat')->default('0');
@@ -25,11 +25,8 @@ class CreateTransactionsTable extends Migration
             $table->double('value');
             $table->dateTime('date', $precision = 0);
             $table->enum('status', ['active','inactive'])->default('active');
-            $table->foreignId('type')->constrained('payment_types');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('user_name')->references('name')->on('users');
         });
 
 

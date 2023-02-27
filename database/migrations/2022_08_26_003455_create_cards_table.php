@@ -28,7 +28,6 @@ class CreateCardsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('financial_entity_id')->references('id')->on('financial_entities');
-            $table->foreign('financial_entity_user_id')->references('user_id')->on('financial_entities');
         });
     }
 
@@ -39,6 +38,6 @@ class CreateCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credit_cards');
+        Schema::dropIfExists('cards');
     }
 }

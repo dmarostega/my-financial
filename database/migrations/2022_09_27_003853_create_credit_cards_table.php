@@ -20,7 +20,7 @@ class CreateCreditCardsTable extends Migration
             $table->double('credit')->default(0);
             $table->double('amount')->default(0);
             $table->timestamps();
-            $table->softDeletes();              
+            $table->softDeletes();
         });
     }
 
