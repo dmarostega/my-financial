@@ -15,6 +15,7 @@ class CreatePaymentTypesTable extends Migration
     {
         Schema::create('payment_types', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();            
             $table->string('name');
             $table->text('description')->nullable();
             $table->enum('type',['dinheiro','credito','debito']);

@@ -15,6 +15,7 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->unsignedBiginteger('contract_id')->nullable();
             $table->string('title',255);
             $table->double('value');

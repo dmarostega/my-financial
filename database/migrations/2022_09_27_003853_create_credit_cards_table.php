@@ -16,14 +16,11 @@ class CreateCreditCardsTable extends Migration
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('card_id')->constrained();
-            $table->string('card_user_name');            
             $table->foreignId('card_user_id')->constrained();
-            $table->foreignId('card_user_person_id')->constrained();
             $table->double('credit')->default(0);
             $table->double('amount')->default(0);
             $table->timestamps();
             $table->softDeletes();              
-            $table->foreign('card_user_name')->references('name')->on('users');
         });
     }
 

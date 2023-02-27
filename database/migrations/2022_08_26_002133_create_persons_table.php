@@ -16,7 +16,6 @@ class CreatePersonsTable extends Migration
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
-            $table->string('user_name')->nullable();
             $table->string('name');
             $table->string('last_name')->nullable();
             $table->string('register_number')->nullable();
@@ -24,7 +23,6 @@ class CreatePersonsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_name')->references('name')->on('users');
         });
     }
 

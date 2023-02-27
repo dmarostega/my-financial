@@ -15,7 +15,8 @@ class CreateContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            // $table->foreignId('person_id')->constrained();
             $table->string('title');
             $table->double('value');
             $table->double('prediction');

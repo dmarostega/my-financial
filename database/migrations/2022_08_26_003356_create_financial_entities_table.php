@@ -15,6 +15,7 @@ class CreateFinancialEntitiesTable extends Migration
     {
         Schema::create('financial_entities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('code');
             $table->enum('status', ['active','inactive'])->default('active');
