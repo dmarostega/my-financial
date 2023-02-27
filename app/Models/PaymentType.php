@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PaymentType extends Model
 {
     use HandleUser;
+    
     use SoftDeletes;
     
     protected $table = 'payment_types';
