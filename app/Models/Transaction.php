@@ -19,12 +19,12 @@ class Transaction extends Model
         "category_id"
     ];
 
-    public function PaymentType()
+    public function paymentType()
     {
         return $this->hasOne(PaymentType::class,'id','type');
     }
 
-    public function Category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
