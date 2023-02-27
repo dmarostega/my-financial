@@ -16,6 +16,7 @@ class CreateFinancialAccountsTable extends Migration
         Schema::create('financial_accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('financial_entity_id');
+            $table->unsignedBigInteger('financial_entity_user_id');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('person_id')->constrained();
             $table->string('user_name');
@@ -28,7 +29,7 @@ class CreateFinancialAccountsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('financial_entity_id')->references('id')->on('financial_entities');
-            $table->foreign('user_name')->references('name')->on('users');
+            $table->foreign('financial_entity_user_id')->references('user_id')->on('financial_entities');
         });
     }
 
