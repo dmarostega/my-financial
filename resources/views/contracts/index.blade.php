@@ -26,13 +26,13 @@
                     {{ $contract->value }}
                 </td>
                 <td>
-                    {{ $contract->person->name }}
+                    {{ $contract->user->person->name }}
                 </td>
                 <td>
-                    {{ $contract->person->register_number }}
+                    {{ $contract->user->person->register_number }}
                 </td>
                 <td>
-                    {{ $contrat->updated_at }}
+                    {{ $contract->updated_at }}
                 </td>
                 <td>
                     <x-link :href="route('contract.edit',['id' => $contract->id])">{{ __('Edit') }}</x-link>

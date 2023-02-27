@@ -14,14 +14,10 @@ class ContractRepository
 
     public function save($request)
     {   
-        $personFields = ['name','last_name','register_number','type'];
-        $fields = $request->except(array_merge(['_token'], $personFields));
+        $fields = $request->except(['_token']);
         self::model()->fill($fields);
         self::model()->save();
 
-        $person = self::model()->person()->first();
-        $person->fill($request->only($personFields));
-        $person->save();
         return self::model();
     }
 
@@ -32,13 +28,9 @@ class ContractRepository
 
     public function update($request,$id)
     {
-        $personFields = ['name','last_name','register_number','type'];
         $contract = $this->find($id);
         $fields = $request->except(array_merge(['_token'],$personFields));
         $contract->update($fields);
-        
-        $person =  $contract->person()->first();
-        $person->update( $request->only($personFields) );
 
         return $contract;
     }
