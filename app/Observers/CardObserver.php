@@ -29,9 +29,7 @@ class CardObserver
             $user = auth()->user();
             CreditCard::create([
                 'card_id' => $card->id,
-                'card_user_name' => $card->user_name,
-                'card_user_id' => $card->user_id,
-                'card_user_person_id' => $user->person->id
+                'card_user_id' => $card->user_id
             ]);
         }
     }
@@ -44,9 +42,7 @@ class CardObserver
             $user = auth()->user();
             CreditCard::updateOrCreate([
                 'card_id' => $card->id,
-                'card_user_name' => $card->user_name,
-                'card_user_id' => $card->user_id,
-                'card_user_person_id' => $user->person->id
+                'card_user_id' => $card->user_id
             ]);
         }
     }

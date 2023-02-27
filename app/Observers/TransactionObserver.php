@@ -10,7 +10,6 @@ class TransactionObserver
     {   
         $user = auth()->user();
         $transaction->user_id = $user->id;
-        $transaction->user_name = $user->name;
         $transaction->repeat = 0;
     }
 }
