@@ -16,8 +16,6 @@ class FinancialAccountRepository
     {
         $fields = $request->except(['_token']);
         $user = auth()->user();
-        $fields['user_id'] = $user->id;
-        $fields['user_name'] = $user->name;
 
         self::model()->fill($fields);
         self::model()->save();

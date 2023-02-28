@@ -2,6 +2,7 @@
 namespace App\Observers;
 
 use App\Models\FinancialAccount;
+use App\Models\FinancialEntity;
 
 class FinancialAccountObserver 
 {
@@ -16,6 +17,6 @@ class FinancialAccountObserver
 
      public function creating(FinancialAccount $financialAccount)
      {
-        $financialAccount->person_id = auth()->user()->person->id;
+        $financialAccount->financial_entity_user_id = FinancialEntity::find($financialAccount->financial_entity_id)->id;
      }
 }

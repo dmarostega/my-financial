@@ -18,8 +18,6 @@ class CreateFinancialAccountsTable extends Migration
             $table->unsignedBigInteger('financial_entity_id');
             $table->unsignedBigInteger('financial_entity_user_id');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('person_id')->constrained();
-            $table->string('user_name');
             $table->string('entity_number',200);
             $table->string('entity_dv',5);
             $table->string('account',200);
