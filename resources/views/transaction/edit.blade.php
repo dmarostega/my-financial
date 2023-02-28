@@ -11,8 +11,8 @@
         <x-textarea id="description" name="description"></x-textarea>
         <x-label for="value">{{ __('Valor') }}</x-label>
         <x-input id="value" name="value" value="{{ $transaction->value }}" />
-        <x-label for="type">{{ __('Tipo') }} {{ __('Pagamento') }}</x-label>
-        <x-select id="type" name="type">
+        <x-label for="payment_type_id">{{ __('Tipo') }} {{ __('Pagamento') }}</x-label>
+        <x-select id="payment_type_id" name="payment_type_id">
             @foreach($types as $type)
                 <x-select-option value="{{ $type->id }}" :isSelected="(bool)($type->id === $transaction->paymentType->id)">{{ $type->name }}</x-select-option>
             @endforeach

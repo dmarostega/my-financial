@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HandleUser;
     
-    use SoftDeletes; 
+    use SoftDeletes;
     
     protected $table = 'transactions';
 
@@ -18,13 +18,13 @@ class Transaction extends Model
         "title",
         "description",
         "value",
-        "type",
+        "payment_type_id",
         "category_id"
     ];
 
     public function paymentType()
     {
-        return $this->hasOne(PaymentType::class,'id','type');
+        return $this->belongsTo(PaymentType::class);
     }
 
     public function category()
