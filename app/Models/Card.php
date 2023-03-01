@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HandleUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Card extends Model
 {
+    use HandleUser; 
+    
     use SoftDeletes;
 
     protected $table = 'cards';
