@@ -16,9 +16,7 @@ class CardObserver
      */
     public function creating(Card $card)
     {
-        $user = auth()->user();
-        $card->user_id = $user->id;
-        $card->user_name = $user->name;
+        // removed
     }
 
     public function created(Card $card)
