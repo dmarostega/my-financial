@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CardRequest;
 use App\Http\Repositories\CardRepository;
 
-class CardController 
+class CardController extends Controller
 {
     private static $repository;
 
