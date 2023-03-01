@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContractController;
@@ -45,6 +46,17 @@ Route::prefix('user')->middleware(['auth'])->name('user.')->group(function(){
     Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('destroy');
 });
 
+Route::get('/bills', [BillController::class, 'index'])->name('bills');
+Route::prefix('bill')->name('.bill')->group(function(){ 
+    Route::get('create',[BillController::class,'create'])->name('create');
+    Route::post('store',[BillController::class,'store'])->name('store');
+
+    Route::get('{id}', [BillController::class,'edit'])->name('edit');
+    Route::put('{id}', [BillController::class,'udpate'])->name('update');
+
+    Route::get('{id}/delete', [BillController::class,'delete'])->name('delete');
+    Route::delete('{id}', [BillController::class,'destroy'])->name('destroy');
+});
 
 Route::get('/cards', [CardController::class, 'index'])->middleware(['auth'])->name('cards');
 Route::prefix('card')->middleware(['auth'])->name('card.')->group(function(){
