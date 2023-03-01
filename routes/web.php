@@ -45,6 +45,19 @@ Route::prefix('user')->middleware(['auth'])->name('user.')->group(function(){
     Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('destroy');
 });
 
+
+Route::get('/cards', [CardController::class, 'index'])->middleware(['auth'])->name('cards');
+Route::prefix('card')->middleware(['auth'])->name('card.')->group(function(){
+    Route::get('create', [CardController::class,'create'])->name('create');
+    Route::post('store', [CardController::class,'store'])->name('store');
+
+    Route::get('{id}', [CardController::class, 'edit'])->name('edit');
+    Route::put('{id}', [CardController::class,'update'])->name('update');
+
+    Route::get('{id}/delete', [CardController::class,'delete'])->name('delete');
+    Route::delete('{id}', [CardController::class,'destroy'])->name('destroy');
+});
+
 Route::get('/categories',[CategoryController::class,'index'])->middleware(['auth'])->name('categories');
 Route::prefix('category')->middleware(['auth'])->name('category.')->group(function(){
     Route::get('create',[CategoryController::class,'create'])->name('create');
@@ -55,30 +68,6 @@ Route::prefix('category')->middleware(['auth'])->name('category.')->group(functi
 
     Route::get('{id}/delete',[CategoryController::class,'delete'])->name('delete');
     Route::delete('{id}',[CategoryController::class,'destroy'])->name('destroy');
-});
-
-Route::get('/financial-entities', [FinancialEntityController::class,'index'])->middleware(['auth'])->name('financial_entities');
-Route::prefix('/financial-entity')->middleware(['auth'])->name('financial_entity.')->group(function(){
-    Route::get('create',[FinancialEntityController::class,'create'])->name('create');
-    Route::post('store',[FinancialEntityController::class,'store'])->name('store');
-
-    Route::get('{id}',[FInancialEntityController::class,'edit'])->name('edit');
-    Route::put('{id}',[FinancialEntityController::class,'update'])->name('update');
-
-    Route::get('{id}/delete',[FinancialEntityController::class,'delete'])->name('delete');
-    Route::delete('{id}', [FinancialEntityController::class,'destroy'])->name('destroy');
-});
-
-Route::get('/payment-types',[PaymentTypeController::class,'index'])->middleware(['auth'])->name('payment_types');
-Route::prefix('/payment-type')->middleware(['auth'])->name('payment_type.')->group(function(){
-    Route::get('create',[PaymentTypeController::class,'create'])->name('create');
-    Route::post('store',[PaymentTypeController::class,'store'])->name('store');
-    
-    Route::get('{id}',[PaymentTypeController::class,'edit'])->name('edit');
-    Route::put('{id}',[PaymentTypeController::class,'update'])->name('update');
-
-    Route::get('{id}/delete',[PaymentTypeController::class,'delete'])->name('delete');
-    Route::delete('{id}',[PaymentTypeController::class,'destroy'])->name('destroy');
 });
 
 Route::get('/contracts',[ContractController::class,'index'])->middleware(['auth'])->name('contracts');
@@ -105,16 +94,28 @@ Route::prefix('/financial-account')->middleware(['auth'])->name('financial_accou
     Route::delete('{id}',[FinancialAccountController::class,'destroy'])->name('destroy');
 });
 
-Route::get('/cards', [CardController::class, 'index'])->middleware(['auth'])->name('cards');
-Route::prefix('card')->middleware(['auth'])->name('card.')->group(function(){
-    Route::get('create', [CardController::class,'create'])->name('create');
-    Route::post('store', [CardController::class,'store'])->name('store');
+Route::get('/financial-entities', [FinancialEntityController::class,'index'])->middleware(['auth'])->name('financial_entities');
+Route::prefix('/financial-entity')->middleware(['auth'])->name('financial_entity.')->group(function(){
+    Route::get('create',[FinancialEntityController::class,'create'])->name('create');
+    Route::post('store',[FinancialEntityController::class,'store'])->name('store');
 
-    Route::get('{id}', [CardController::class, 'edit'])->name('edit');
-    Route::put('{id}', [CardController::class,'update'])->name('update');
+    Route::get('{id}',[FInancialEntityController::class,'edit'])->name('edit');
+    Route::put('{id}',[FinancialEntityController::class,'update'])->name('update');
 
-    Route::get('{id}/delete', [CardController::class,'delete'])->name('delete');
-    Route::delete('{id}', [CardController::class,'destroy'])->name('destroy');
+    Route::get('{id}/delete',[FinancialEntityController::class,'delete'])->name('delete');
+    Route::delete('{id}', [FinancialEntityController::class,'destroy'])->name('destroy');
+});
+
+Route::get('/payment-types',[PaymentTypeController::class,'index'])->middleware(['auth'])->name('payment_types');
+Route::prefix('/payment-type')->middleware(['auth'])->name('payment_type.')->group(function(){
+    Route::get('create',[PaymentTypeController::class,'create'])->name('create');
+    Route::post('store',[PaymentTypeController::class,'store'])->name('store');
+    
+    Route::get('{id}',[PaymentTypeController::class,'edit'])->name('edit');
+    Route::put('{id}',[PaymentTypeController::class,'update'])->name('update');
+
+    Route::get('{id}/delete',[PaymentTypeController::class,'delete'])->name('delete');
+    Route::delete('{id}',[PaymentTypeController::class,'destroy'])->name('destroy');
 });
 
 Route::get('/transactions', [TransactionController::class,'index'])->name('transactions');
