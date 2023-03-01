@@ -47,8 +47,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $person = Person::create([
-            'user_id' => $user->id,
-            'user_name' => $user->name,
+            'user_id' => $user->id, 
             'name' => $user->name
         ]);
         
