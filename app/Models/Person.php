@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Person extends Model
 {
-    use HandleUser;
+    // use HandleUser;
     
     use SoftDeletes;
     
@@ -15,7 +15,6 @@ class Person extends Model
 
     protected $fillable = [
         'user_id',
-        'user_name',
         'name',
         'last_name',
         'type',
