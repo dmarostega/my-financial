@@ -1,7 +1,7 @@
 <?php 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\TransactionRepository;
+use App\Repositories\TransactionRepository;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller

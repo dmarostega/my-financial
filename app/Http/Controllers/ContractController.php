@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\ContractRepository;
+use App\Repositories\ContractRepository;
 use App\Http\Requests\ContractRequest;
 
 class ContractController extends Controller

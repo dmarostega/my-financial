@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\FinancialAccountRepository;
-use App\Http\Repositories\FinancialEntityRepository;
+use App\Repositories\FinancialAccountRepository;
+use App\Repositories\FinancialEntityRepository;
 use App\Http\Requests\FinancialAccountRequest;
 
 class FinancialAccountController extends Controller 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\FinancialEntityRepository;
+use App\Repositories\FinancialEntityRepository;
 use Illuminate\Http\Request;
 
 class FinancialEntityController extends Controller

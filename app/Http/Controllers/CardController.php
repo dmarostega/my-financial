@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CardRequest;
-use App\Http\Repositories\CardRepository;
+use App\Repositories\CardRepository;
 
 class CardController extends Controller
 {

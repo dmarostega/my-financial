@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentType;
 use App\Http\Requests\PaymentTypeRequest;
-use App\Http\Repositories\PaymentTypeRepository;
+use App\Repositories\PaymentTypeRepository;
 use Illuminate\Http\Request;
 
 class PaymentTypeController extends Controller 
