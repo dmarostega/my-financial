@@ -3,6 +3,9 @@
       <x-system-icon :link="route('transactions')">
         {{ __('Transações') }}
       </x-system-icon>
+      <x-system-icon :link="route('bills')">
+        {{ __('Contas') }}
+      </x-system-icon>      
       <x-system-icon :link="route('users')">
         {{ __('Usuários') }}      
       </x-system-icon>

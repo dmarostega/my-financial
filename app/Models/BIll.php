@@ -1,0 +1,50 @@
+<?php 
+
+namespace App\Models;
+
+use App\Traits\HandleUser;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Bill extends Model
+{    
+    use HandleUser;
+
+    use SoftDeletes;
+
+    protected $table = 'bills';
+
+    protected $fillable = [
+        'title',
+        'value',
+        'type',
+        'frequency',
+        'status',
+        'user_id'
+    ];  
+
+    public function frequencies() : array
+    {
+        return [
+                    'daily' => 'Diário',
+                    'monthly' => 'Mensal',
+                    'yearly' => 'Anual'
+                ];
+    }
+    
+    public function types() : array
+    {
+        return [
+                    'to_pay' => 'A pagar',
+                    'to_receive' => 'A receber'
+                ];
+    }
+
+    public function statuses() : array 
+    {
+        return [
+                    'active' => 'Ativo',
+                    'inactive' => 'Inativo'
+                ];
+    }
+}

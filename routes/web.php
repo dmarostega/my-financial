@@ -47,12 +47,12 @@ Route::prefix('user')->middleware(['auth'])->name('user.')->group(function(){
 });
 
 Route::get('/bills', [BillController::class, 'index'])->name('bills');
-Route::prefix('bill')->name('.bill')->group(function(){ 
+Route::prefix('bill')->name('bill.')->group(function(){ 
     Route::get('create',[BillController::class,'create'])->name('create');
     Route::post('store',[BillController::class,'store'])->name('store');
 
     Route::get('{id}', [BillController::class,'edit'])->name('edit');
-    Route::put('{id}', [BillController::class,'udpate'])->name('update');
+    Route::put('{id}', [BillController::class,'update'])->name('update');
 
     Route::get('{id}/delete', [BillController::class,'delete'])->name('delete');
     Route::delete('{id}', [BillController::class,'destroy'])->name('destroy');
