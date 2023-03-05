@@ -1,12 +1,12 @@
 <?php 
 namespace App\Repositories;
 
-use App\Models\Transaction;
+use App\Traits\HandleModel;
 use Str;
 
 class TransactionRepository
 {
-    private static $model;
+    use HandleModel;
 
     public function list()
     {
@@ -41,13 +41,5 @@ class TransactionRepository
         $relation = Str::ucfirst($relation);
         $model = $namespace . $relation;
         return $model::get();
-    }
-
-    private static function model() : Transaction
-    {
-        if(!self::$model)
-            self::$model = new Transaction();
-
-        return self::$model;
     }
 }

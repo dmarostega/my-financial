@@ -1,12 +1,12 @@
 <?php 
 namespace App\Http\Controllers;
 
-use App\Repositories\TransactionRepository;
+use App\Traits\HandleRepository;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    private static $repository;
+    use HandleRepository;
 
     public function index()
     {
@@ -56,11 +56,4 @@ class TransactionController extends Controller
         return redirect()->route('transactions');   
     }
 
-    private static function repository()
-    {
-        if(!self::$repository)
-            self::$repository = new TransactionRepository();
-
-        return self::$repository;
-    }
 }
