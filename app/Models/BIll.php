@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Category;
 use App\Traits\HandleUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,7 +21,9 @@ class Bill extends Model
         'type',
         'frequency',
         'status',
-        'user_id'
+        'user_id',
+        'category_id',
+        'due_date'
     ];  
 
     public function frequencies() : array
@@ -46,5 +49,9 @@ class Bill extends Model
                     'active' => 'Ativo',
                     'inactive' => 'Inativo'
                 ];
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

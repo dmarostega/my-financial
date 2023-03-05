@@ -11,6 +11,7 @@
                 <th>{{ __('Title') }}</th>
                 <th>{{ __('Value') }}</th>
                 <th>{{ __('Type') }}</th>
+                <th>{{ __('Category') }}</th>
                 <th>{{ __('Frequency') }}</th>
                 <th>{{ __('Status') }}</th>
                 <th>{{ __('Created at') }}</th>
@@ -24,6 +25,7 @@
                 <td>{{ $bill->title }}</td>
                 <td>{{ $bill->value }}</td>
                 <td>{{ $types[$bill->type] }}</td>
+                <td>{{ $bill->category->name }}</td>
                 <td>{{ $frequencies[$bill->frequency] }}</td>
                 <td>{{ $statuses[$bill->status] }}</td>
                 <td>{{ $bill->created_at }}</td>

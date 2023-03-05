@@ -17,8 +17,10 @@ class CreateBillsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->unsignedBiginteger('contract_id')->nullable();
+            $table->foreignId('category_id')->constrained();
             $table->string('title',255);
             $table->double('value');
+            $table->dateTime('due_date', $precision = 0);
             $table->enum('type',['to_pay','to_receive']);
             $table->enum('frequency',['daily', 'monthly', 'yearly'])->default('monthly');
             $table->enum('status', [ 'active','inactive'])->default('active');            

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Contract;
 use App\Http\Requests\BillRequest;
 use App\Traits\HandleRepository;
@@ -20,12 +21,13 @@ class BillController extends Controller
                     );
     }
 
-    public function create(){;
+    public function create(){
         return view('bill.create',[
             'frequencies' => self::repository()->returnFrequencies(),
             'types' => self::repository()->returnTypes(),
             'statuses' => self::repository()->returnStatuses(),
-            'contracts' => Contract::get()         
+            'categories' => Category::get(),
+            'contracts' => Contract::get()
         ]);
     }
     public function store(BillRequest $request){
@@ -41,6 +43,7 @@ class BillController extends Controller
                                     'frequencies' => self::repository()->returnFrequencies(),
                                     'types' => self::repository()->returnTypes(),
                                     'statuses' => self::repository()->returnStatuses(),
+                                    'categories' => Category::get(),
                                     'contracts' => Contract::get()
                                 ]
                     );
