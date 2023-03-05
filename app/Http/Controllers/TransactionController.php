@@ -56,4 +56,9 @@ class TransactionController extends Controller
         return redirect()->route('transactions');   
     }
 
+    public function checkBills()
+    {
+        self::repository()->checkBills();
+        return  back();
+    }
 }

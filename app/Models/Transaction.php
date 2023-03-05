@@ -19,7 +19,8 @@ class Transaction extends Model
         "description",
         "value",
         "payment_type_id",
-        "category_id"
+        "category_id",
+        'bill_id'
     ];
 
     public function paymentType()
@@ -30,5 +31,10 @@ class Transaction extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function bill()
+    {
+        return $this->belongsTo(Bill::class);
     }
 }

@@ -1,7 +1,9 @@
 <?php 
 namespace App\Repositories;
 
+use App\Models\Bill;
 use App\Traits\HandleModel;
+use Carbon\Carbon;
 use Str;
 
 class TransactionRepository
@@ -34,6 +36,41 @@ class TransactionRepository
     public function findById($id)
     {
         return self::model()->findOrFail($id);
+    }
+
+    public function checkBills()
+    {
+        $bills = Bill::where('status','active')->where('type','to_pay');
+        $today = new Carbon();
+
+        foreach($bills->get() as $bill){
+            switch($bill->frequency){
+                case 'daily':
+                    break;
+                case 'monthly':                    
+                    if ( !self::model()
+                                ->where('bill_id',$bill->id)
+                                ->whereMonth('date', $today->month)
+                                ->count()
+                        ){
+                            $fields = [
+                                'bill_id' => $bill->id,
+                                'title' => $bill->title,
+                                'value' => $bill->value,
+                                'date' => $bill->due_date,
+                                'category_id' => $bill->category_id,
+                                'payment_type_id' => $this->listRelation('paymentType')[0]->id
+                            ];
+                            
+                             self::model()->create(
+                                $fields 
+                             );
+                        }
+                    break;
+                case 'yearly':
+                    break;
+            }
+        }
     }
 
     public function listRelation($relation){

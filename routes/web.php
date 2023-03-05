@@ -142,4 +142,6 @@ Route::prefix('transaction')->name('transaction.')->group(function(){
     Route::delete('{id}',[TransactionController::class,'destroy'])->name('destroy');
 });
 
+Route::get('/check-bills',[TransactionController::class,'checkBills'])->name('check_bills');
+
 require __DIR__.'/auth.php';
