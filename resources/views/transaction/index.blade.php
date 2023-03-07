@@ -20,7 +20,7 @@
         <x-slot name="body">
             @foreach($transactions as $transaction)
             <tr>
-                <td>{{ $transaction->date }}</td>
+                <td>{{ date('d/m',strtotime($transaction->date)) }}</td>
                 <td>{{ $transaction->title }}</td>
                 <td>{{ $transaction->value }}</td>
                 <td>{{ $transaction->category->name }}</td>
