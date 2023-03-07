@@ -19,6 +19,7 @@
         </x-select>
         <x-label for="card_id">{{ __('Card') }}</x-label>
         <x-select id="card_id" name="card_id">
+            <x-select-option></x-select-option>
             @foreach($cards as $card)
                 <x-select-option value="{{ $card->id }}">{{ $card->title }}</x-select-option>
             @endforeach
