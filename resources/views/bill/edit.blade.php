@@ -6,7 +6,7 @@
         <x-label for="title">{{ __('Title') }}</x-label>
         <x-input type="text" id="title" name="title" value="{{ $bill->title }}"/>
         <x-label for="value">{{ __('Value') }}</x-label>
-        <x-input type="number" id="value" name="value" value="{{ $bill->value }}"/>
+        <x-input type="text" id="value" name="value" value="{{ $bill->value }}"/>
         <x-label for="due_date">{{ __('due_date') }}</x-label>
         <x-input type="date" id="due_date" name="due_date" value="{{ $bill->due_date }}"/>
         <x-label for="type">{{ __('Type') }}</x-label>
@@ -43,6 +43,7 @@
         </x-select>
         <x-label for="contract">Contracts</x-label>
         <x-select name="contract" id="contract">
+            <x-select-option></x-select-option>
             @foreach($contracts as $contract)
                 <x-select-option :value="$contract->id" :isSelected="(bool)($bill->contract_id == $contract->id)">
                     {{ $contract->title }}
