@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('payment_type_id')->constrained('payment_types');
+            $table->foreignId('card_id')->constrained('cards')->nullable(); // nullabel deve ser antes de constrainde
             $table->string('title');
             $table->text('description')->nullable();
             $table->tinyInteger('repeat')->default('0');

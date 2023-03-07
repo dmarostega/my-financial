@@ -17,6 +17,12 @@
                 <x-select-option value="{{ $type->id }}" :isSelected="(bool)($type->id === $transaction->paymentType->id)">{{ $type->name }}</x-select-option>
             @endforeach
         </x-select>
+        <x-label for="card_id">{{ __('Card') }}</x-label>        
+        <x-select id="card_id" name="card_id">
+            @foreach($cards as $card)
+                <x-select-option value="{{ $card->id }}" :isSelecte="(bool)($transaction->card_id === $card->id)">{{ $card->title }}</x-select-option>
+            @endforeach
+        </x-select>
         <x-label for="category_id">{{ __('Categoria') }}</x-label>
         <x-select id="category_id" name="category_id">
             @foreach($categories as $category)

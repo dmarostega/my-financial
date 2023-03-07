@@ -17,6 +17,7 @@ class TransactionController extends Controller
     {
         return view('transaction.create', [
                     'types' => self::repository()->listRelation('paymentType'), 
+                    'cards' => self::repository()->listRelation('card'),
                     'categories'=> self::repository()->listRelation('category')]);
     }
 
@@ -33,6 +34,7 @@ class TransactionController extends Controller
         return view('transaction.edit',[
                     'transaction' => $transaction,
                     'types' => self::repository()->listRelation('paymentType'),
+                    'cards' => self::repository()->listRelation('card'),
                     'categories' => self::repository()->listRelation('category')]);
     }
 

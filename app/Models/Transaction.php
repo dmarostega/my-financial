@@ -20,12 +20,18 @@ class Transaction extends Model
         "value",
         "payment_type_id",
         "category_id",
-        'bill_id'
+        'bill_id',
+        'card_id'
     ];
 
     public function paymentType()
     {
         return $this->belongsTo(PaymentType::class);
+    }
+
+    public function card()
+    {
+        return $this->belongsTo(Card::class);
     }
 
     public function category()

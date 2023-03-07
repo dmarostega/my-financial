@@ -13,8 +13,7 @@
                 <th>{{ __('Value') }}</th>
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Payment') }}</th>
-                <th>{{ __('Flag') }}</th>
-                <th>{{ __('Update') }}</th>
+
                 <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
@@ -25,9 +24,10 @@
                 <td>{{ $transaction->title }}</td>
                 <td>{{ $transaction->value }}</td>
                 <td>{{ $transaction->category->name }}</td>
-                <td>{{ $transaction->paymentType->name }}</td>
-                <td>.</td>
-                <td>{{ $transaction->updated_at }}</td>
+                <td>
+                    <p>{{ $transaction->paymentType->name }}</p>
+                    <p>{{ $transaction->card->title ?? '' }}</p>
+                </td>
                 <td>
                     <x-link :href="route('transaction.edit',['id' => $transaction->id])">
                         {{ __('Edit') }}
