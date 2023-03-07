@@ -2,9 +2,12 @@
     <x-slot name="header">
         <h2>{{ __('Bills') }}</h2>
     </x-slot>
-    <x-link :href="route('bill.create')">
-        {{ __("New") }}
-    </x-link>
+    <div>
+        <x-link :href="route('bill.create')">
+            {{ __("New") }}
+        </x-link>
+        <h5>Total ativas: {{ $bills->where('status','active')->pluck('value')->sum() }}</h5>
+    </div>
     <x-table>
         <x-slot name="headers">
             <tr>
