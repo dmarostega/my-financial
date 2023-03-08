@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Person extends Model
 {
-    // use HandleUser;
+    use HandleUser;
     
     use SoftDeletes;
     
