@@ -39,7 +39,7 @@
         @php
             $types = ['individual','legal'];
         @endphp
-        <x-select>
+        <x-select id="type" name="type">
             @foreach ($types as $type)
                 <x-select-option :value="$type">
                     {{ $type }}

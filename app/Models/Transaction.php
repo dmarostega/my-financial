@@ -23,6 +23,13 @@ class Transaction extends Model
         'bill_id',
         'card_id'
     ];
+    /**
+     * 
+     * CRIAR TABELA "ESTABECIMENTO, APLICATIVO"
+     * CRIAR RELAÇÃO 
+     * CRIAR COLUNA OBSERVAÇÃO
+     * 
+     */
 
     public function paymentType()
     {

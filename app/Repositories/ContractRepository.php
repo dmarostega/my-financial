@@ -2,6 +2,8 @@
 namespace App\Repositories;
 
 use App\Models\Contract;
+use App\Models\Person;
+
 
 class ContractRepository 
 {
@@ -15,7 +17,26 @@ class ContractRepository
     public function save($request)
     {   
         $fields = $request->except(['_token']);
+
         self::model()->fill($fields);
+
+        $dataPerson = [
+            'name' => self::model()->title,
+            'type' => $fields['type'],
+            "last_name" => $fields['last_name']
+        ];
+        
+        /**
+         * TODO: não salva, ver depois.
+         */
+        if($fields['type'] == 'legal'){
+            $dataPersons['register_number'] = $fields['register_number'];
+        }
+        
+        $person = Person::create( $dataPerson );        
+        
+        self::model()->person_id = $person->id;
+
         self::model()->save();
 
         return self::model();

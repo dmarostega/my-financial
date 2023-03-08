@@ -12,7 +12,7 @@
                 <th>{{ __('Value') }}</th>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Record') }}</th>
-                <th>{{ __('Update') }}</th>
+                <th>{{ __('Period') }}</th>
                 <th>{{ __('Actions') }}</th>
             </tr>
         </x-slot>
@@ -26,13 +26,23 @@
                     {{ $contract->value }}
                 </td>
                 <td>
-                    {{ $contract->user->person->name }}
+                    <p>
+                        {{ $contract->person->name }}
+                    </p>
+                    <p>
+                        {{ $contract->person->last_name }}
+                    </p>
                 </td>
                 <td>
-                    {{ $contract->user->person->register_number }}
+                    {{ $contract->person->register_number }}
                 </td>
                 <td>
-                    {{ $contract->updated_at }}
+                    <p>
+                        {{ $contract->date_init }}
+                    </p>
+                    <p>
+                        {{ !empty($contract->date_end) ? $contract->date_end : ' - ' }}
+                    </p>
                 </td>
                 <td>
                     <x-link :href="route('contract.edit',['id' => $contract->id])">{{ __('Edit') }}</x-link>

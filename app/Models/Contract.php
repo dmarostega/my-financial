@@ -19,7 +19,8 @@ class Contract extends Model
         'value',
         'prediction',
         'date_init',
-        'date_end'
+        'date_end',
+        'person_id'
     ];
 
     public function person()

@@ -17,11 +17,16 @@ class ContractObserver
 
      public function creating(Contract $contract)
      {
-         //removed        
+        // $person = Person::create([
+        //     'name' => $contract->title,
+        //     'type' => $contract->type
+        // ]);
+
+        // $contract->person_id = $person->id;
      }
 
      public function deleted(Contract $contract)
      {
-        //removed
+        $contract->person()->delete();
      }
 }
