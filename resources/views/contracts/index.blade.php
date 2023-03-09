@@ -13,7 +13,16 @@
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Record') }}</th>
                 <th>{{ __('Period') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th>
+                    <p>
+                        {{ __('Actions') }}
+                    </p>
+                    <p>
+                        <small>
+                            {{ __('Updated at') }}
+                        </small>
+                    </p>
+                </th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -47,6 +56,9 @@
                 <td>
                     <x-link :href="route('contract.edit',['id' => $contract->id])">{{ __('Edit') }}</x-link>
                     <x-link :href="route('contract.delete',['id' => $contract->id])">{{ __('Delete') }}</x-link>
+                    <div>
+                        {{ $contract->updated_at }}
+                    </div>
                 </td>
             </tr>
             @endforeach

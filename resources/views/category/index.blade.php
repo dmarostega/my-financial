@@ -11,7 +11,14 @@
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Description') }}</th>
                 <th>{{ __('Update') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th>
+                    <p>
+                        {{ __('Actions') }}
+                    </p>
+                    <p>
+                        <small>{{ __('Updated at') }}</small>
+                    </p>
+                </th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -24,15 +31,17 @@
                         {{ $item->description }}
                     </td>
                     <td>
-                        {{ $item->updated_at }}
-                    </td>
-                    <td>
                         <x-link href="{{ route('category.edit',['id' => $item->id]) }}">
                             {{ __('Edit') }}
                         </x-link>
                         <x-link href="{{ route('category.delete',['id' => $item->id]) }}">
                             {{ __('Delete') }}
                         </x-link>
+                        <div>
+                            <small>
+                               {{ $item->updated_at }}
+                            </small>
+                        </div>
                     </td>
                 </tr>            
             @endforeach

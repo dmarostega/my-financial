@@ -17,8 +17,16 @@
                     <th>{{ __('Limit') }}</th>
                     <th>{{ __('Used') }}</th>
                     <th>{{ __('Status') }}</th>
-                    <th>{{ __('Update') }}</th>
-                    <th>{{ __('Actions') }}</th>
+                    <th>
+                        <p>
+                            {{ __('Actions') }}
+                        </p>
+                        <p>
+                            <small>
+                                {{ __('Updated at') }}
+                            </small>
+                        </p>
+                    </th>
                 </tr>
         </x-slot>
         <x-slot name="body">
@@ -36,7 +44,6 @@
                     <td>{{ $card->creditCard ? $card->creditCard->credit : '' }}</td>
                     <td>{{ $card->creditCard ? $card->creditCard->amount : '' }}</td>
                     <td>{{ $card->status }}</td>
-                    <td>{{ $card->updated_at }}</td>
                     <td>
                         <x-link :href="route('card.edit', ['id' => $card->id])">
                             {{ __('Edit') }}
@@ -44,6 +51,11 @@
                         <x-link :href="route('card.delete', ['id' => $card->id])">
                             {{ __('Delete') }}
                         </x-link>
+                        <div>
+                            <small>
+                                {{ $card->updated_at }}
+                            </small>
+                        </div>
                     </td>
                 </tr>
             @endforeach

@@ -12,8 +12,14 @@
                 <th>{{ __('Agency') }}</th>
                 <th>{{ __('Accout') }}</th>
                 <th>{{ __('Institution') }}</th>
-                <th>{{ __('Update') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th>
+                    <p>
+                        {{ __('Actions') }}
+                    </p>
+                    <p>
+                        <small>{{ __('Update') }}</small>
+                    </p>
+                </th>
             </tr>
         </x-slot>
         <x-slot name="body">    
@@ -22,8 +28,8 @@
                 <td>{{ $financialAccount->entity_number }} - {{ $financialAccount->entity_dv }}</td>
                 <td>{{ $financialAccount->account }} - {{ $financialAccount->account_dv }}</td>
                 <td>{{ $financialAccount->entity->name }}</td>
-                <td>{{ $financialAccount->created_at }}</td>
-                <td>{{ $financialAccount->updated_at }}</td>
+                <td>...</td>
+                <td></td>
                 <td>
                     <x-link :href="route('financial_account.edit',['id' => $financialAccount->id])">
                         {{ __('Edit') }}
@@ -31,6 +37,9 @@
                     <x-link :href="route('financial_account.delete', ['id' => $financialAccount->id])">
                         {{ __('Delete') }}
                     </x-link>
+                    <div>
+                        {{ $financialAccount->updated_at }}
+                    </div>
                 </td>
             </tr>
             @endforeach

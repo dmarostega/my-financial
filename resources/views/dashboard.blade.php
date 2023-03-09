@@ -16,11 +16,6 @@
                             <p>{{ $summary->contracts->sum('value') }}</p>
                         </div>
 
-                        <div class="mb-4 p-6">
-                            <p>{{ __('Balance Bills') }}</p>
-                            <p>{{ $summary->contracts->sum('value') - $summary->bills->where('type','to_pay')->sum('value') }}</p>                          
-                        </div>
-
                         <div class="mb-4 p-6 ">
                             <p>{{ __('Bills to pay') }}</p>
                             <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
@@ -36,10 +31,9 @@
                             <p>{{ $summary->bills->where('type','to_receive')->sum('value') }}</p>
                         </div>
 
-
                         <div class="mb-4 p-6">
-                            <p>{{ __('Balance Transactions') }}</p>
-                            <p>{{ $summary->contracts->sum('value') - $summary->transactions->whereNull('bill_id')->sum('value') }}</p>
+                            <p>{{ __('Balance Bills') }}</p>
+                            <p>{{ $summary->contracts->sum('value') - $summary->bills->where('type','to_pay')->sum('value') }}</p>                          
                         </div>
 
                         <div class="mb-4 p-6 ">
@@ -50,6 +44,12 @@
                                 {{ $summary->transactions->sum('value') }}
                             </p>
                         </div>
+
+                        <div class="mb-4 p-6">
+                            <p>{{ __('Balance Transactions') }}</p>
+                            <p>{{ $summary->contracts->sum('value') - $summary->transactions->whereNull('bill_id')->sum('value') }}</p>
+                        </div>
+
 
 
                             

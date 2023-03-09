@@ -11,7 +11,16 @@
                 <th>{{ __('Code') }}</th>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Update') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th>
+                    <p>
+                        {{ __('Actions') }}
+                    </p>
+                    <p>
+                        <small>
+                            {{ __('Updated at') }}
+                        </small>
+                    </p>
+                </th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -24,7 +33,7 @@
                         {{ $financialEntity->name }}
                     </td>
                     <td>
-                        {{ $financialEntity->updated_at }}
+                        
                     </td>
                     <td>
                         <x-link :href="route('financial_entity.edit',['id' => $financialEntity->id])">
@@ -33,6 +42,9 @@
                         <x-link :href="route('financial_entity.delete',['id' => $financialEntity->id]) ">
                             {{ __('Delete') }}
                         </x-link>
+                        <div>
+                            {{ $financialEntity->updated_at }}
+                        </div>
                     </td>
                 </tr>                 
              @endforeach

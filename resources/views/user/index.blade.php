@@ -10,23 +10,31 @@
             <tr>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Email') }}</th>
-                <th>{{ __('Update') }}</th>
-                <th>{{ __('Actions') }}</th>
+                <th>
+                    <p>
+                        {{ __('Actions') }}
+                    </p>
+                    <p><small>{{ __('Updated at') }}</small></p>
+                </th>
             </tr>
         </x-slot>
         <x-slot name="body">
             @foreach ($users as $user)
                 <tr>
                     <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->updated_at }}</td>   
+                    <td>{{ $user->email }}</td>                    
                     <td>
-                        <x-link href="{{ route('user.edit', ['id' => $user->id]) }}">
-                            {{ __('Edit') }}
-                        </x-link>
-                        <x-link href="{{ route('user.delete', ['id' => $user->id]) }}">
-                            {{ __('Delete') }}
-                        </x-link>
+                        <div>
+                            <x-link href="{{ route('user.edit', ['id' => $user->id]) }}">
+                                {{ __('Edit') }}
+                            </x-link>
+                            <x-link href="{{ route('user.delete', ['id' => $user->id]) }}">
+                                {{ __('Delete') }}
+                            </x-link>
+                        </div>
+                        <div>
+                            {{ $user->updated_at }}
+                        </div>
                     </td>
                 </tr>
             @endforeach

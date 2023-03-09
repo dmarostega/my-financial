@@ -14,7 +14,10 @@
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Payment') }}</th>
 
-                <th>{{ __('Actions') }}</th>
+                <th>
+                        <p>{{ __('Actions') }}</p> 
+                        <p><small>{{ __('Updated at') }}</small></p>
+                </th>
             </tr>
         </x-slot>
         <x-slot name="body">
@@ -29,12 +32,17 @@
                     <p>{{ $transaction->card->title ?? '' }}</p>
                 </td>
                 <td>
-                    <x-link :href="route('transaction.edit',['id' => $transaction->id])">
-                        {{ __('Edit') }}
-                    </x-link>
-                    <x-link :href="route('transaction.delete', ['id' => $transaction->id])">
-                        {{ __('Delete') }}
-                    </x-link>
+                    <div>
+                        <x-link :href="route('transaction.edit',['id' => $transaction->id])">
+                            {{ __('Edit') }}
+                        </x-link>
+                        <x-link :href="route('transaction.delete', ['id' => $transaction->id])">
+                            {{ __('Delete') }}
+                        </x-link>
+                    </div>
+                    <div>
+                        {{ $transaction->updated_at }}
+                    </div>
                 </td>
             </tr>
             @endforeach
