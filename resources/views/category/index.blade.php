@@ -10,7 +10,6 @@
             <tr>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Description') }}</th>
-                <th>{{ __('Update') }}</th>
                 <th>
                     <p>
                         {{ __('Actions') }}
