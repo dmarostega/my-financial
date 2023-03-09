@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Category;
+use App\Traits\CommonFilter;
 use App\Traits\HandleUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Bill extends Model
 {    
     use HandleUser;
+
+    use CommonFilter;
 
     use SoftDeletes;
 
@@ -45,7 +48,7 @@ class Bill extends Model
 
     public function statuses() : array 
     {
-        return [
+        return  [
                     'active' => 'Ativo',
                     'inactive' => 'Inativo'
                 ];
