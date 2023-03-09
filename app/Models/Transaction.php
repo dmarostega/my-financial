@@ -53,4 +53,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(Bill::class);
     }
+
+    public function transactionParts()
+    {
+        return $this->hasMany(TransactionPart::class);
+    }
 }

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Bill;
+use App\Models\TransactionPart;
 use App\Traits\HandleModel;
 use Carbon\Carbon;
 use Str;
@@ -70,6 +71,23 @@ class TransactionRepository
                 case 'yearly':
                     break;
             }
+        }
+    }
+
+    public function checkTransactions()
+    {
+        $transactions = self::model()->whereDoesntHave('transactionParts');
+
+        foreach ($transactions->get() as $key => $transaction) {
+            $fields = [
+                'transaction_id' => $transaction->id,
+                'due_date' =>  $transaction->date,
+                'value' => $transaction->value
+            ];
+
+            TransactionPart::create(
+                $fields
+            );
         }
     }
 

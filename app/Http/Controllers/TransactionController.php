@@ -63,4 +63,10 @@ class TransactionController extends Controller
         self::repository()->checkBills();
         return  back();
     }
+
+    public function checkTransactions()
+    {
+        self::repository()->checkTransactions();
+        return back();
+    }
 }
