@@ -1,4 +1,12 @@
-<x-app-layout>   
+<x-app-layout>  
+    <div>
+      <x-link href="{{ route('check_bills') }}">
+        {{ __('Check bills') }}
+      </x-link>
+      <x-link href="{{ route('check_transactions') }}">
+        {{ __('Check transactions') }}
+      </x-link>
+    </div> 
     <x-flex-box>
       <x-system-icon :link="route('transactions')">
         {{ __('Transações') }}
@@ -27,5 +35,5 @@
       <x-system-icon :link="route('payment_types')">
         {{ __('Tipos') }} {{ __('de') }} {{ __('pagamento') }}
       </x-system-icon>
-    </x-flex-box>      
+    </x-flex-box> 
 </x-app-layout>

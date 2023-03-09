@@ -9,7 +9,51 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $month }}) {{ date('M') }}</h1>
+                    <div style="width: 90%; margin: 0 auto; display: flex">
+                        <div class="mb-4 p-6">
+                            <p>{{ __('Sum Contracts') }}</p>
+                            <p>{{ $summary->contracts->sum('value') }}</p>
+                        </div>
+
+                        <div class="mb-4 p-6">
+                            <p>{{ __('Balance Bills') }}</p>
+                            <p>{{ $summary->contracts->sum('value') - $summary->bills->where('type','to_pay')->sum('value') }}</p>                          
+                        </div>
+
+                        <div class="mb-4 p-6 ">
+                            <p>{{ __('Bills to pay') }}</p>
+                            <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
+                            <p>{{ __('Paid out') }}: [{{ $summary->transactions->whereNotNull('bill_id')->count() }}] {{ $summary->transactions->whereNotNull('bill_id')
+                                ->filter(function ($value, int $key) {
+                                    return $value->transactionParts->whereNotNull('payment_date');
+                                })
+                                ->sum('transaction.value') }}</p>
+                        </div>       
+                        
+                        <div class="mb-4 p-6 ">
+                            <p>{{ __('Bills to receive') }}</p>
+                            <p>{{ $summary->bills->where('type','to_receive')->sum('value') }}</p>
+                        </div>
+
+
+                        <div class="mb-4 p-6">
+                            <p>{{ __('Balance Transactions') }}</p>
+                            <p>{{ $summary->contracts->sum('value') - $summary->transactions->whereNull('bill_id')->sum('value') }}</p>
+                        </div>
+
+                        <div class="mb-4 p-6 ">
+                            <p>
+                                {{ __('Transactions') }}
+                            </p>
+                            <p>
+                                {{ $summary->transactions->sum('value') }}
+                            </p>
+                        </div>
+
+
+                            
+                    </div>
                 </div>
             </div>
         </div>

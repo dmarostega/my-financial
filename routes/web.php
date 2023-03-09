@@ -4,6 +4,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DashBoardController;   
 use App\Http\Controllers\FinancialAccountController;
 use App\Http\Controllers\FinancialEntityController;
 use App\Http\Controllers\PaymentTypeController;
@@ -26,9 +27,9 @@ Route::get('/', function () {
     return view('auth.register');
 })->middleware(['guest'])->name('register');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard',[DashBoardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 Route::get('/', function () {
     return view('index');
