@@ -9,6 +9,7 @@ use App\Http\Controllers\FinancialAccountController;
 use App\Http\Controllers\FinancialEntityController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionPartController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -141,6 +142,11 @@ Route::prefix('transaction')->name('transaction.')->group(function(){
 
     Route::get('{id}/delete', [TransactionController::class, 'delete'])->name('delete');
     Route::delete('{id}',[TransactionController::class,'destroy'])->name('destroy');
+});
+
+Route::prefix('paying')->name('paying.')->group( function(){
+    Route::get('{id}', [TransactionPartController::class,'confirm'])->name('confirm');
+    Route::post('{id}', [TransactionPartController::class,'paying'])->name('paying');
 });
 
 Route::get('/check-transactions',[TransactionController::class,'checkTransactions'])->name('check_transactions');

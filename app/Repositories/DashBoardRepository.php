@@ -18,7 +18,9 @@ class DashBoardRepository
                 $query->isActive();
                 $query->whereActualMonth();
             },
-            'transactions.transactionParts',
+            'transactions.transactionParts' => function($query){
+                $query->whereNotNull('payment_date');
+            },
             'contracts'           
         ])       
         ->first();

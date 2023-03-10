@@ -33,15 +33,26 @@
                 </td>
                 <td>
                     <div>
-                        <x-link :href="route('transaction.edit',['id' => $transaction->id])">
-                            {{ __('Edit') }}
-                        </x-link>
-                        <x-link :href="route('transaction.delete', ['id' => $transaction->id])">
-                            {{ __('Delete') }}
-                        </x-link>
+                        @if(!filled($transaction->transactionParts->first()->payment_date))
+                            <x-link :href="route('transaction.edit',['id' => $transaction->id])">
+                                {{ __('Edit') }}
+                            </x-link>
+                            @if($transaction->bill && !$transaction->card)                        
+                                <x-link :href="route('paying.confirm',['id' => $transaction->transactionParts->first()->id])">
+                                    {{ __('Pay') }}
+                                </x-link>
+                            @endif
+                            <x-link class="bg-red-800" :href="route('transaction.delete', ['id' => $transaction->id])">
+                                {{ __('Delete') }}
+                            </x-link>
+                        @else
+                            <p> {{  __('Paid Out')  }}</p>
+                        @endif
                     </div>
                     <div>
-                        {{ $transaction->updated_at }}
+                        <small>
+                            {{ $transaction->updated_at }}
+                        </small>
                     </div>
                 </td>
             </tr>
