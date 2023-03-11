@@ -14,41 +14,50 @@
                         <div class="mb-4 p-6">
                             <p>{{ __('Sum Contracts') }}</p>
                             <p>{{ $summary->contracts->sum('value') }}</p>
+                            <p>{{ __('Balance') }}</p>
+                            <p>{{
+                                    $summary->contracts->sum('value') -  $summary->transactions->map(function($transaction){
+                                                                            return $transaction->transactionParts->whereNotNull('payment_date')->sum('value_paid');
+                                                                        })->sum()
+                                }}
+                            </p>
                         </div>
 
                         <div class="mb-4 p-6 ">
-                            <p>{{ __('Bills to pay') }}</p>
+                            <p>{{ __('Total bills to pay') }}</p>
                             <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
-                            <p>{{ __('Paid out') }}: [{{ $summary->transactions->whereNotNull('bill_id')->count() }}] {{ $summary->transactions->whereNotNull('bill_id')
-                                ->filter(function ($value, int $key) {
-                                    return $value->transactionParts->whereNotNull('payment_date');
-                                })
-                                ->sum('transaction.value') }}</p>
+                            <p>{{ __('Paid out') }}:
+                            {{ 
+                                $summary->transactions->whereNotNull('bill_id')
+                                                        ->whereNull('card_id')->map(function($transaction){
+                                                            return $transaction->transactionParts->whereNotNull('payment_date')->sum('value_paid');
+                                                        })->sum()
+                            }}
+                            </p>
+                            <p>{{ __('Balance') }}</p>
+                            <p>{{  $summary->bills->where('type','to_pay')->sum('value')  -  $summary->transactions->map(function($transaction){
+                                                                            return $transaction->transactionParts->whereNotNull('payment_date')->sum('value_paid');
+                                                                        })->sum() }}</p>
                         </div>       
                         
                         <div class="mb-4 p-6 ">
                             <p>{{ __('Bills to receive') }}</p>
                             <p>{{ $summary->bills->where('type','to_receive')->sum('value') }}</p>
-                        </div>
-
-                        <div class="mb-4 p-6">
-                            <p>{{ __('Balance Bills') }}</p>
-                            <p>{{ $summary->contracts->sum('value') - $summary->bills->where('type','to_pay')->sum('value') }}</p>                          
-                        </div>
+                        </div>                    
 
                         <div class="mb-4 p-6 ">
                             <p>
-                                {{ __('Transactions') }}
+                                {{ __('All transactions') }}
                             </p>
                             <p>
                                 {{ $summary->transactions->sum('value') }}
                             </p>
                         </div>
 
-                        <div class="mb-4 p-6">
+                        {{-- <div class="mb-4 p-6">
                             <p>{{ __('Balance Transactions') }}</p>
-                            <p>{{ $summary->contracts->sum('value') - $summary->transactions->whereNull('bill_id')->sum('value') }}</p>
-                        </div>
+                            <p>{{ $summary->contracts->sum('value') - $summary->transactions->sum('value') }}</p>
+                        </div> --}}
 
 
 
