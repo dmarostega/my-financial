@@ -42,7 +42,7 @@ class CardRepository
         $card = self::model()->find($id);
         $card->update($fields);
         if($request->credit){
-            $card->creditCard()->update(['credit' => $request->credit]);
+            $card->creditCard()->update(['credit' => $request->credit, 'due_day' => $request->due_day]);
         }
 
         return $card;

@@ -1,19 +1,24 @@
-<x-app-layout>
+1<x-app-layout>
     <x-slot name="header">
         <h2>{{ __('Cadastrando') }} {{ __('cartão') }}</h2>
     </x-slot>
     <x-form :action="route('card.store')">
-        <x-label for="title">{{ __('Título') }}</x-label>
+        <x-label for="title">{{ __('Title') }}</x-label>
         <x-input id="title" name="title" value="{{ old('title') }}" />
-        <x-label for="number" >{{ __('number') }}</x-label>
+        <x-label for="number" >{{ __('Number') }}</x-label>
         <x-input type="number" id="number" name="number" value="{{ old('number') }}" />
-        <x-label for="holder_name">{{ __('Títular') }}</x-label>
+        <x-label for="holder_name">{{ __('Holder') }}</x-label>
         <x-input id="holder_name" name="holder_name" value="{{ old('holder_name') }}" />
-        <x-label for="security_code">{{ __('Código') }} {{ __('de') }} {{ __('segurança') }}</x-label>
-        <x-input type="number" id="security_code" name="security_code" value="{{ old('security_code') }}" />
-        <x-label for="credit">Limite</x-label>
+        <div>
+            <x-label for="security_code">{{ __('Security code') }}</x-label>
+            <x-input type="number" id="security_code" name="security_code" value="{{ old('security_code') }}" />
+            <x-label for="due_day">{{ __('Due day') }}</x-label>
+            <x-input type="number" id="due_day" name="due_day" value="{{ old('due_day') }}" />
+        </div>
+                
+        <x-label for="credit">{{ __('Ammount') }}</x-label>
         <x-input type="number" id="credit" name="credit" value="{{ old('credit') }}"/>
-        <x-label for="flag">{{ __('Bandeira') }}</x-label>
+        <x-label for="flag">{{ __('Flag') }}</x-label>
         <x-input id="flag" name="flag" value="{{ old('flag') }}" />
         <x-label for="financial_entity_id">Instituição Financeira</x-label>
         <x-select name="financial_entity_id" id="financial_entity_id">
@@ -26,7 +31,7 @@
                 {{ __('new') }}
             </x-link>
         </div>
-        <x-label for="type">{{ __('Tipo') }}</x-label>
+        <x-label for="type">{{ __('Type') }}</x-label>
         <x-select name="type">
             <x-select-option value="credit">{{ __('Crédito') }}</x-select-option>
             <x-select-option value="debit">{{ __('Débito') }}</x-select-option>

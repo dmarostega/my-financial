@@ -1,19 +1,25 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Editando') }} {{ __('cartão') }}</h2>
+        <h2>{{ __('Editing Card') }}</h2>
     </x-slot>
     <x-form :action="route('card.update',['id' => $card->id])" :method="__('put')">
-        <x-label for="title">{{ __('Título') }}</x-label>
+        <x-label for="title">{{ __('Title') }}</x-label>
         <x-input id="title" name="title" value="{{ $card->title }}" />
-        <x-label for="number" >{{ __('number') }}</x-label>
+        <x-label for="number" >{{ __('Number') }}</x-label>
         <x-input id="number" name="number" value="{{ $card->number }}" />
-        <x-label for="holder_name">{{ __('Títular') }}</x-label>
+        <x-label for="holder_name">{{ __('Holder') }}</x-label>
         <x-input id="holder_name" name="holder_name" value="{{ $card->holder_name }}" />
-        <x-label for="security_code">{{ __('Código') }} {{ __('de') }} {{ __('segurança') }}</x-label>
-        <x-input id="security_code" name="security_code" value="{{ $card->security_code }}" />
-        <x-label for="credit">Limite</x-label>
+       
+        <div>
+            <x-label for="security_code">{{ __('Security code') }}</x-label>
+            <x-input id="security_code" name="security_code" value="{{ $card->security_code }}" />
+            <x-label for="due_day">{{ __('Due day') }}</x-label>
+            <x-input type="number" id="due_day" name="due_day" value="{{ $card->creditCard ? $card->creditCard->due_day : '' }}" />
+        </div>
+                
+        <x-label for="credit">{{ __('Ammout') }}</x-label>
         <x-input id="credit" name="credit" value="{{ $card->creditCard ? $card->creditCard->credit : '' }}"/>
-        <x-label for="flag">{{ __('Bandeira') }}</x-label>
+        <x-label for="flag">{{ __('Flag') }}</x-label>
         <x-input id="flag" name="flag" value="{{ $card->flag }}" />
         <x-label for="financial_entity_id">Instituição Financeira</x-label>
         <x-select name="financial_entity_id" id="financial_entity_id">
@@ -21,7 +27,7 @@
                 <x-select-option value="{{ $entity->id }}" :isSelected="($card->financial_entity_id === $entity->id)">{{ $entity->name }}</x-select-option>
             @endforeach
         </x-select>
-        <x-label for="type">{{ __('Tipo') }}</x-label>
+        <x-label for="type">{{ __('Type') }}</x-label>
         <x-select name="type">
             <x-select-option value="credit" :isSelected="( $card->type === 'credit')">{{ __('Crédito') }}</x-select-option>
             <x-select-option value="debit"  :isSelected="( $card->type === 'debit')">{{ __('Débito') }}</x-select-option>
