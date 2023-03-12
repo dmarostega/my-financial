@@ -33,12 +33,12 @@
                 </td>
                 <td>
                     <div>
-                        @if(!filled($transaction->transactionParts->first()->payment_date))
+                        @if(!filled($transaction->transactionPartOfMonth()->payment_date))
                             <x-link :href="route('transaction.edit',['id' => $transaction->id])">
                                 {{ __('Edit') }}
                             </x-link>
                             @if($transaction->bill && !$transaction->card)                        
-                                <x-link :href="route('paying.confirm',['id' => $transaction->transactionParts->first()->id])">
+                                <x-link :href="route('paying.confirm',['id' => $transaction->transactionPartOfMonth()->id])">
                                     {{ __('Pay') }}
                                 </x-link>
                             @endif
@@ -47,6 +47,7 @@
                             </x-link>
                         @else
                             <p> {{  __('Paid Out')  }}</p>
+                            <p> {{  $transaction->transactionPartOfMonth()->value_paid }}</p>
                         @endif
                     </div>
                     <div>

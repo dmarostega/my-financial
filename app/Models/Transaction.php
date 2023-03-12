@@ -58,4 +58,9 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionPart::class);
     }
+
+    public function scopeTransactionPartOfMonth($query){
+        return $this->transactionParts->toQuery()->whereMonth('due_date', date('m',strtotime($this->attributes['date']) ) )  
+            ->first();
+    }
 }
