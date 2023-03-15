@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Category;
+use App\Models\Contract;
 use App\Traits\CommonFilter;
 use App\Traits\HandleUser;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,8 @@ class Bill extends Model
         'status',
         'user_id',
         'category_id',
-        'due_date'
+        'due_date',
+        'contract_id'
     ];  
 
     public function frequencies() : array
@@ -53,8 +55,19 @@ class Bill extends Model
                     'inactive' => 'Inativo'
                 ];
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
     }
 }

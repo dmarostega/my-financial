@@ -27,4 +27,9 @@ class Contract extends Model
     {
         return $this->belongsTo(Person::class);
     }
+
+    public function bill()
+    {
+        return $this->hasOne(Bill::class);
+    }
 }

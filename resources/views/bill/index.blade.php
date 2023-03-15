@@ -6,7 +6,9 @@
         <x-link :href="route('bill.create')">
             {{ __("New") }}
         </x-link>
-        <h5>Total ativas: {{ $bills->where('status','active')->pluck('value')->sum() }}</h5>
+        <h5>{{ __('All') }}: {{ $bills->where('status','active')->pluck('value')->sum() }}</h5>
+        <h5>{{ __('To Pay') }}: {{ $bills->where('status','active')->where('type','to_pay')->pluck('value')->sum() }}</h5>
+        <h5>{{ __('To Receive') }}: {{ $bills->where('status','active')->where('type', 'to_receive')->pluck('value')->sum() }}</h5>
     </div>
     <x-table>
         <x-slot name="headers">
