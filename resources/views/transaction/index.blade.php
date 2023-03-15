@@ -13,7 +13,7 @@
                 <th>{{ __('Value') }}</th>
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Payment') }}</th>
-
+                <th>{{ __('Infos') }}</th>
                 <th>
                         <p>{{ __('Actions') }}</p> 
                         <p><small>{{ __('Updated at') }}</small></p>
@@ -32,23 +32,37 @@
                     <p>{{ $transaction->card->title ?? '' }}</p>
                 </td>
                 <td>
-                    <div>
-                        @if(!filled($transaction->transactionPartOfMonth()->payment_date))
-                            <x-link :href="route('transaction.edit',['id' => $transaction->id])">
-                                {{ __('Edit') }}
-                            </x-link>
-                            @if($transaction->bill && !$transaction->card)                        
-                                <x-link :href="route('paying.confirm',['id' => $transaction->transactionPartOfMonth()->id])">
-                                    {{ __('Pay') }}
-                                </x-link>
+                    <p> 
+                        @if(filled($transaction->transactionPartOfMonth()->payment_date) ) 
+                            @if ($transaction->bill && $transaction->bill->type == 'to_receive') 
+                                {{  __('Received Out')  }}
+                            @else
+                                {{  __('Paid Out')  }}
                             @endif
-                            <x-link class="bg-red-800" :href="route('transaction.delete', ['id' => $transaction->id])">
-                                {{ __('Delete') }}
-                            </x-link>
-                        @else
-                            <p> {{  __('Paid Out')  }}</p>
                             <p> {{  $transaction->transactionPartOfMonth()->value_paid }}</p>
                         @endif
+                    </p>
+
+                </td>
+                <td>
+                    <div>
+                        <x-link :href="route('transaction.edit',['id' => $transaction->id])">
+                            {{ __('Edit') }}
+                        </x-link>
+                        <x-link class="bg-red-800" :href="route('transaction.delete', ['id' => $transaction->id])">
+                            {{ __('Delete') }}
+                        </x-link>
+                        @if(!filled($transaction->transactionPartOfMonth()->payment_date))
+                            @if($transaction->bill &&  $transaction->bill->type == 'to_pay'  && !$transaction->card)                        
+                                <x-link :href="route('resolving.confirm',['id' => $transaction->transactionPartOfMonth()->id])">
+                                    {{ __('Pay') }}
+                                </x-link>
+                            @elseif ($transaction->bill && $transaction->bill->type == 'to_receive')
+                                <x-link :href="route('resolving.confirm',['id' => $transaction->transactionPartOfMonth()->id, 'to_receive'])">
+                                    {{ __('To receive') }}
+                                </x-link>
+                            @endif
+                        @endif                        
                     </div>
                     <div>
                         <small>
