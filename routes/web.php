@@ -144,10 +144,11 @@ Route::prefix('transaction')->name('transaction.')->group(function(){
     Route::delete('{id}',[TransactionController::class,'destroy'])->name('destroy');
 });
 
-Route::prefix('paying')->name('paying.')->group( function(){
+Route::prefix('resolving')->name('resolving.')->group( function(){
     Route::get('{id}', [TransactionPartController::class,'confirm'])->name('confirm');
-    Route::post('{id}', [TransactionPartController::class,'paying'])->name('paying');
+    Route::post('{id}', [TransactionPartController::class,'transaction'])->name('transaction');
 });
+
 
 Route::get('/check-transactions',[TransactionController::class,'checkTransactions'])->name('check_transactions');
 Route::get('/check-bills',[TransactionController::class,'checkBills'])->name('check_bills');

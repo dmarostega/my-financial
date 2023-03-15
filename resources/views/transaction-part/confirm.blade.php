@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2> {{ __('Payment Confirm') }}</h2>
     </x-slot>
-    <x-form :action="route('paying.paying',['id' => $transactionPart->id ])" >
+    <x-form :action="route('resolving.transaction',['id' => $transactionPart->id ])" >
         <x-dialog-message>
             <h2>{{ __('Confirm payment?') }}</h2>
         </x-dialog-message>

@@ -16,7 +16,7 @@ class TransactionPartController extends Controller
         return view('transaction-part.confirm', ['transactionPart' => $transactionPart]);
     }
 
-    public function paying(Request $request, $id)
+    public function transaction(Request $request, $id)
     {
         $transactionPart = TransactionPart::find($id);
         $transactionPart->value_paid = $request->value_paid ?? $transactionPart->transaction->value;
@@ -32,7 +32,7 @@ class TransactionPartController extends Controller
 
         $transactionPart->payment_date = Carbon::now();
 
-       $transactionPart->save();
+        $transactionPart->save();
 
         return redirect()->route('transactions');
     }

@@ -41,7 +41,7 @@ class TransactionRepository
 
     public function checkBills()
     {
-        $bills = Bill::where('status','active')->where('type','to_pay');
+        $bills = Bill::where('status','active');
         $today = new Carbon();
 
         foreach($bills->get() as $bill){
@@ -88,6 +88,17 @@ class TransactionRepository
             TransactionPart::create(
                 $fields
             );
+        }
+
+        foreach(self::model()->with(['transactionParts'])->whereIn('payment_type_id', [1,3,4])->whereHas('transactionParts', function($query){
+            $query->whereNull('payment_date');
+        })->get() as $transaction){
+            $transactinPart = $transaction->transactionPartOfMonth();
+            
+            $transactinPart->payment_date = $transaction->date;
+            $transactinPart->value_paid = $transaction->value;
+            
+            $transactinPart->save();
         }
     }
 
