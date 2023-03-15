@@ -21,8 +21,9 @@ class BillRepository
 
     public function update($request, $id)
     {
-        $fields = $request->except('_token','method');
-        $this->find($id)->update(
+        $fields = $request->except('_token','_method');
+
+            $this->find($id)->update(
             $fields
         );
     }
