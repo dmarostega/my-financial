@@ -17,23 +17,26 @@
         </x-system-icon>
       </div>
       <div>
+        <x-system-icon :link="route('categories')">
+          {{ __('Categories') }}
+        </x-system-icon>
         <x-system-icon :link="route('contracts')">
-          {{ __('Contratos') }}
+          {{ __('Contracts') }}
         </x-system-icon>
         <x-system-icon :link="route('financial_entities')">
-          {{ __('Agências') }} {{ __('bancárias') }}
+          {{ __('Financial entities') }} {{ __('bancárias') }}
         </x-system-icon>
         <x-system-icon :link="route('financial_accounts')">
-          {{ __('Contas') }} {{ __('Bancárias') }}
+          {{ __('Fin. account') }} {{ __('Bancárias') }}
         </x-system-icon>
         <x-system-icon :link="route('cards')">
-          {{ __('Cartões') }} 
+          {{ __('Cards') }} 
         </x-system-icon>
         <x-system-icon :link="route('payment_types')">
-          {{ __('Tipos') }} {{ __('de') }} {{ __('pagamento') }}
+          {{ __('Payment Types') }}
         </x-system-icon>
         <x-system-icon :link="route('users')">
-          {{ __('Usuários') }}      
+          {{ __('Users') }}      
         </x-system-icon>
       </div>
     </x-flex-box> 
