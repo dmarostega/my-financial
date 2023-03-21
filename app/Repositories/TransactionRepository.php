@@ -90,9 +90,11 @@ class TransactionRepository
             );
         }
 
-        foreach(self::model()->with(['transactionParts'])->whereIn('payment_type_id', [1,3,4])->whereHas('transactionParts', function($query){
-            $query->whereNull('payment_date');
-        })->get() as $transaction){
+        foreach(self::model()->with(['transactionParts'])
+                ->whereIn('payment_type_id', [1,3,4])
+                ->whereHas('transactionParts', function($query){
+                    $query->whereNull('payment_date');
+                })->get() as $transaction){
             $transactinPart = $transaction->transactionPartOfMonth();
             
             $transactinPart->payment_date = $transaction->date;
