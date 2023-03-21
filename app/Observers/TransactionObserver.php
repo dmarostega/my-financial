@@ -34,4 +34,32 @@ class TransactionObserver
             $fields
         );
     }
+
+    public function updated(Transaction $transaction)
+    {
+        $fields = [
+            'transaction_id' => $transaction->id,
+            'due_date' =>  $transaction->date,
+            'value' => $transaction->value
+        ];
+
+        switch($transaction->payment_type_id){
+            case 1:
+            case 3:
+            case 4:
+                $fields['payment_date'] = date('Y-m-d h:i:s');
+                $fields['value_paid'] = $transaction->value;
+                $fields['value'] = $transaction->value;
+                break;
+            case 2:
+                
+                $fields['payment_date'] = '';
+                $fields['value_paid'] = '';
+                break;
+        }
+        
+        $transaction->transactionPartOfMonth()->update(
+            $fields            
+        );
+    }
 }
