@@ -4,7 +4,7 @@
     </x-slot>
     <x-link :href="route('card.create')">
         {{ __('New') }}
-    </x-link>
+    </x-link> 
     <x-table>
         <x-slot name="headers">            
                 <tr>                    
@@ -14,8 +14,12 @@
                     <th>{{ __('Secutiry Code') }}</th>
                     <th>{{ __('Flag') }}</th>
                     <th>{{ __('Type') }}</th>
-                    <th>{{ __('Limit') }}</th>
-                    <th>{{ __('Used') }}</th>
+                    <th>{{ __('Limit / Used') }}</th>
+                    <th> <p>
+                            {{ __('Infos') }}
+                        </p>
+                        <p><small>{{ __('Transactions') }}</small></p>
+                    </th>
                     <th>{{ __('Status') }}</th>
                     <th>
                         <p>
@@ -41,8 +45,11 @@
                     <td>{{ $card->security_code }}</td>
                     <td>{{ $card->flag }}</td>
                     <td>{{ $card->type }}</td>
-                    <td>{{ $card->creditCard ? $card->creditCard->credit : '' }}</td>
-                    <td>{{ $card->creditCard ? $card->creditCard->amount : '' }}</td>
+                    <td>{{ $card->creditCard ? $card->creditCard->credit : '' }} / {{ $card->creditCard ? $card->creditCard->amount : '' }}</td>
+                    <td>
+                        <p>All: {{ $card->transactions->count() }}</p>  
+                        <p>{{ __('This month') }}: {{ $card->allTransactionOfMonth()->count() }}</p>  
+                    </td>
                     <td>{{ $card->status }}</td>
                     <td>
                         <x-link :href="route('card.edit', ['id' => $card->id])">

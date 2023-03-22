@@ -35,4 +35,19 @@ class Card extends Model
     {
         return $this->hasOne(CreditCard::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function scopeAllTransactionOfMonth()
+    {
+        return $this->transactions()->whereMonth('date',date("m"));
+    }
+    
+    public function returnTypes()
+    {
+        return ['credit','debit','multiple','prepaid','virtual'];
+    }
 }
