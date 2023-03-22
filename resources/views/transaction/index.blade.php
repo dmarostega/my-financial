@@ -35,7 +35,7 @@
                     <p> 
                         @if(filled($transaction->transactionPartOfMonth()->payment_date) ) 
                             @if ($transaction->bill && $transaction->bill->type == 'to_receive') 
-                                {{  __('Received Out')  }}
+                                {{  __('Received')  }}
                             @else
                                 {{  __('Paid Out')  }}
                             @endif
