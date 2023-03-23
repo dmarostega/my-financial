@@ -45,6 +45,27 @@ class Bill extends Model
     {
         return $this->hasOne(Transaction::class);
     }
+
+    public function scopeToReceive($query){
+        return $query->where('type', 'to_receive');
+    }
+    
+    public function scopeToPay($query){
+        return $query->where('type', 'to_pay');
+    }
+
+    public function scopeInCards($query)
+    {
+        return $query->whereHas('transaction', function($query){
+            $query->whereHas('card');
+        });
+    }
+
+    public function scopeContractsToReceive($query)
+    {
+        return $query->toReceive()->whereHas('contract');
+    }
+        
     public function frequencies() : array
     {
         return [
