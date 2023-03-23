@@ -16,21 +16,13 @@
                             <p>{{ __('Sum Contracts') }}</p>
                             <p>{{ $summary->contracts->sum('value') }}</p>
                             
-                            <p>{{ __('Contracts to receive') }}</p> 
-
-                            <p>{{ $summary->transactions->toQuery()
-                            ->whereHas('bill', function($query){
-                                $query->where('type', 'to_receive');
-                                $query->whereNotNull('contract_id');    
-                            })->whereDoesntHave('transactionParts')->sum('value') }}</p>
+                            <p>{{ __('Contracts to receive') }}</p>                            
+                            <p>
+                                {{ $summary->transactions->toQuery()->contractsToReceive()->sum('value') }}
+                            </p>
 
                             <p>{{ __('Contracts Received') }}</p>
-                            <p>{{ $summary->transactions->toQuery()->whereHas('bill', function($query){
-                                $query->where('type', 'to_receive');
-                                $query->whereNotNull('contract_id');
-                            })->whereHas('transactionParts', function($query){
-                                $query->whereNotNull('payment_date');
-                            })->sum('value') }}</p>
+                            <p>{{ $summary->transactions->toQuery()->contractsReceived()->sum('value') }}</p>
                         </div>
 
                         <div class="mb-4 p-6 ">
@@ -38,51 +30,28 @@
                             <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
 
                             <p>{{ __('Paid out') }}</p>
-                            <p>{{ 
-                                $summary->transactions->toQuery()
-                                ->whereHas('bill', function($query){
-                                    $query->where('type','to_pay');
-                                })
-                                ->whereHas('transactionParts', function($query){
-                                    $query->whereNotNull('payment_date');
-                                })->sum('value')
-                            }}
+                            <p>{{ $summary->transactions->toQuery()->paidOut()->sum('value') }}
                             <small>(
                                     {{ 
-                                        $summary->bills->toQuery()
-                                        ->whereHas('transaction', function($query){
-                                            $query->whereHas('card');
-                                        })->sum('value')
+                                        $summary->bills->toQuery()->inCards()->sum('value')
                                     }}  
                                 ) in Card</small>
                             </p>
                             <p>{{ __('Balance payments') }}</p>
-                            <p>{{                                  
-                            
-                            $summary->transactions->toQuery()->whereHas('bill', function($query){
-                                $query->where('type', 'to_receive');
-                                $query->whereNotNull('contract_id');
-                            })->whereHas('transactionParts', function($query){
-                                $query->whereNotNull('payment_date');
-                            })->sum('value') 
-                            -
-                            $summary->transactions->toQuery()->whereHas('bill', function($query){
-                                $query->where('type','to_pay');
-                            })
-                            ->whereHas('transactionParts', function($query){
-                                $query->whereNotNull('payment_date');
-                            })->sum('value')
-                            
-                            }}</p>
+                            <p>
+                                {{
+                                    $summary->transactions->toQuery()->contractsReceived()->sum('value') 
+                                    -
+                                    $summary->transactions->toQuery()->paidOut()->sum('value')
+                                }}
+                            </p>
                         </div>       
                         <div class="mb-4 p-6">
                             <p>{{ __('Spending') }}</p>
                             <p>
                                Money: {{
                                    $summary->transactions->toQuery()
-                                    ->whereHas('paymentType', function($query){
-                                        $query->where('id',1);
-                                    })
+                                    ->hasPaymentIn(1)                                    
                                     ->whereDoesntHave('bill')
                                     ->whereDoesntHave('card')
                                     ->sum('value')
@@ -91,12 +60,10 @@
                             <p>
                                 Debit: {{ 
                                     $summary->transactions->toQuery()
+                                        ->hasPaymentIn([3,4])
                                         ->whereDoesntHave('bill')
                                         ->whereHas('card', function($query){
                                             $query->whereIn('type',['debit','multiple']);
-                                        })
-                                        ->whereHas('paymentType', function($query){
-                                            $query->whereIn('id', [3,4]);   
                                         })
                                         ->sum('value')
                                        }}
@@ -105,19 +72,11 @@
                             <p>
                                 Credit: {{ 
                                     $summary->transactions->toQuery()
+                                        ->hasPaymentIn([2])
                                         ->whereDoesntHave('bill')
                                         ->whereHas('card')
-                                        ->whereHas('paymentType', function($query){
-                                            $query->whereIn('id', [2]);   
-                                        })
                                         ->sum('value')
                                        }}
-                            </p>
-                        
-                            <p>
-
-                                {{ $summary->transactions->sum('value') }}
-
                             </p>
                         </div>
                         <div  class="mb-4 p-6">
@@ -125,41 +84,22 @@
                             <h2>
                                 {{ 
                                     (   
-                                        $summary->transactions->toQuery()
-                                            ->whereHas('bill', function($query){
-                                                $query->where('type', 'to_receive');
-                                                // $query->whereNotNull('contract_id');
-                                            })->whereHas('transactionParts', function($query){
-                                                $query->whereNotNull('payment_date');
-                                            })->sum('value') 
+                                        $summary->transactions->toQuery()->contractsReceived()->sum('value')
                                     )
                                     -
                                     (
-                                        $summary->transactions->toQuery()
-                                            ->whereHas('bill', function($query){
-                                                $query->where('type','to_pay');
-                                            })
-                                            ->whereHas('transactionParts', function($query){
-                                                $query->whereNotNull('payment_date');
-                                            })->sum('value') 
+                                        $summary->transactions->toQuery()->paidOut()->sum('value')
                                             +
                                         $summary->transactions->toQuery()
-                                            ->whereHas('paymentType', function($query){
-                                                $query->where('id',1);
-                                            })
+                                            ->hasPaymentIn(1)
                                             ->whereDoesntHave('bill')
                                             ->whereDoesntHave('card')
                                             ->sum('value')
                                         +
                                         $summary->transactions->toQuery()
                                             ->whereDoesntHave('bill')
-                                            // ->whereHas('card', function($query){
-                                            //     $query->whereIn('type',['debit','multiple']);
-                                            // })
-                                            ->whereHas('paymentType', function($query){
-                                                $query->whereIn('id', [3,4]);   
-                                            })
-                                                ->sum('value')                                       
+                                            ->hasPaymentIn([3,4])
+                                            ->sum('value')                                       
                                     )
                                 }}
                             </h2>
