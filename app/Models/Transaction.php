@@ -59,8 +59,66 @@ class Transaction extends Model
         return $this->hasMany(TransactionPart::class);
     }
 
+    /**
+     *  FIXME: scope sem query.. ver
+     */
     public function scopeTransactionPartOfMonth($query){
         return $this->transactionParts()->whereMonth('due_date', date('m',strtotime($this->attributes['date']) ) )  
             ->first();
+    }
+
+    /**
+     * 
+     * NOTE: scopes
+     * 
+     */
+    public function scopeContractsToReceive($query)
+    {
+        return $query->whereHas('bill', function($query){
+            $query->contractsToReceive();
+        })
+        ->notPayment();
+    }
+
+    public function scopeContractsReceived($query)
+    {
+        return $query->whereHas('bill', function($query){
+            $query->contractsToReceive();
+        })
+        ->hasPayment();
+    }
+
+    public function scopeHasPayment($query)
+    {
+        return $query->whereHas('transactionParts', function($query){
+            $query->whereNotNull("payment_date");
+        });
+    }
+
+    /**
+     * FIXME: pagamento é validado com payment_date is  null
+     */
+    public function scopeNotPayment()
+    {
+        return $this->whereDoesntHave('transactionParts');
+    }
+
+    public function scopePaidOut($query)
+    {
+        return $query->whereHas('bill', function($query){
+            $query->toPay();
+        })
+        ->hasPayment();
+    }
+
+    public function scopeHasPaymentIn($query, $paymentTypeIds)
+    {
+        if(!is_array( $paymentTypeIds )){
+            $paymentTypeIds = [ $paymentTypeIds ];
+        }
+
+        return $query->whereHas('paymentType', function($query) use ($paymentTypeIds) {
+            $query->whereIn('id', $paymentTypeIds);
+        });
     }
 }
