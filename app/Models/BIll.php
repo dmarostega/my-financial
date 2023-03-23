@@ -31,6 +31,20 @@ class Bill extends Model
         'contract_id'
     ];  
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
     public function frequencies() : array
     {
         return [
@@ -54,20 +68,5 @@ class Bill extends Model
                     'active' => 'Ativo',
                     'inactive' => 'Inativo'
                 ];
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function contract()
-    {
-        return $this->belongsTo(Contract::class);
-    }
-
-    public function transaction()
-    {
-        return $this->hasOne(Transaction::class);
     }
 }
