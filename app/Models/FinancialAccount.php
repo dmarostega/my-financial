@@ -20,7 +20,8 @@ class FinancialAccount extends Model
         'entity_number',
         'entity_dv',
         'account',
-        'account_dv'
+        'account_dv',
+        'balance'
     ];
 
     public function entity()

@@ -10,7 +10,6 @@
             <tr>
                 <th>{{ __('Code') }}</th>
                 <th>{{ __('Name') }}</th>
-                <th>{{ __('Update') }}</th>
                 <th>
                     <p>
                         {{ __('Actions') }}
@@ -31,9 +30,6 @@
                     </td>
                     <td>
                         {{ $financialEntity->name }}
-                    </td>
-                    <td>
-                        
                     </td>
                     <td>
                         <x-link :href="route('financial_entity.edit',['id' => $financialEntity->id])">

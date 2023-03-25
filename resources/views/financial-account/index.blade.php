@@ -9,15 +9,15 @@
         <x-slot name="headers">
             <tr>
                 <th>{{ __('Number') }}</th>
-                <th>{{ __('Agency') }}</th>
-                <th>{{ __('Accout') }}</th>
+                <th>{{ __('Account') }}</th>
+                <th>{{ __('Balance') }}</th>
                 <th>{{ __('Institution') }}</th>
-                <th>
+                <th class="action-col">
                     <p>
                         {{ __('Actions') }}
                     </p>
                     <p>
-                        <small>{{ __('Update') }}</small>
+                        <small>{{ __('Update at') }}</small>
                     </p>
                 </th>
             </tr>
@@ -27,10 +27,9 @@
             <tr>
                 <td>{{ $financialAccount->entity_number }} - {{ $financialAccount->entity_dv }}</td>
                 <td>{{ $financialAccount->account }} - {{ $financialAccount->account_dv }}</td>
+                <td>{{ $financialAccount->balance }}</td>
                 <td>{{ $financialAccount->entity->name }}</td>
-                <td>...</td>
-                <td></td>
-                <td>
+                <td class="action-col">
                     <x-link :href="route('financial_account.edit',['id' => $financialAccount->id])">
                         {{ __('Edit') }}
                     </x-link>
@@ -38,7 +37,9 @@
                         {{ __('Delete') }}
                     </x-link>
                     <div>
-                        {{ $financialAccount->updated_at }}
+                        <small>
+                            {{ $financialAccount->updated_at }}
+                        </small>
                     </div>
                 </td>
             </tr>
