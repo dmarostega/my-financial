@@ -24,10 +24,10 @@
           {{ __('Contracts') }}
         </x-system-icon>
         <x-system-icon :link="route('financial_entities')">
-          {{ __('Financial entities') }} {{ __('bancárias') }}
+          {{ __('Financial entities') }}
         </x-system-icon>
         <x-system-icon :link="route('financial_accounts')">
-          {{ __('Fin. account') }} {{ __('Bancárias') }}
+          {{ __('Financial accounts') }}
         </x-system-icon>
         <x-system-icon :link="route('cards')">
           {{ __('Cards') }} 
