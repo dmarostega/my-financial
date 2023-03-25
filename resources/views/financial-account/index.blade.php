@@ -5,6 +5,9 @@
     <x-link :href="route('financial_account.create')">
         {{ __('New') }}
     </x-link>
+    <div>
+        <h1> {{ __('Total') }} <small>{{ $financialAccounts->sum('balance') }}</small></h1>
+    </div>
     <x-table class="table table-dark">
         <x-slot name="headers">
             <tr>
