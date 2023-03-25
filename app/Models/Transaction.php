@@ -77,7 +77,7 @@ class Transaction extends Model
         return $query->whereHas('bill', function($query){
             $query->contractsToReceive();
         })
-        ->notPayment();
+        ->noHasPayment();
     }
 
     public function scopeContractsReceived($query)
@@ -98,9 +98,12 @@ class Transaction extends Model
     /**
      * FIXME: pagamento é validado com payment_date is  null
      */
-    public function scopeNotPayment()
+    public function scopeNoHasPayment($query)
     {
-        return $this->whereDoesntHave('transactionParts');
+        return $query->whereDoesntHave('transactionParts')
+                    ->orWhereHas('transactionParts', function($query){
+                        $query->whereNull("payment_date");
+                    });
     }
 
     public function scopePaidOut($query)

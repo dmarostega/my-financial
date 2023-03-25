@@ -21,10 +21,11 @@ class DashBoardRepository
             'transactions.transactionParts' => function($query){
                 $query->whereNotNull('payment_date');
             },
-            'contracts'           
+            'contracts',
+            'financialAccounts.entity'           
         ])       
         ->first();
-
+        
         return $results;
     }
 }

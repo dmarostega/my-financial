@@ -13,7 +13,7 @@
                     <div style="width: 90%; margin: 0 auto; display: flex">
                         <div class="mb-4 p-6">
                             
-                            <p>{{ __('Sum Contracts') }}</p>
+                            <p>{{ __('Contracts') }}</p>
                             <p>{{ $summary->contracts->sum('value') }}</p>
                             
                             <p>{{ __('Contracts to receive') }}</p>                            
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="mb-4 p-6 ">
-                            <p>{{ __('Total bills to pay') }}</p>
+                            <p>{{ __('BILLS') }}</p>
                             <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
 
                             <p>{{ __('Paid out') }}</p>
@@ -37,7 +37,7 @@
                                     }}  
                                 ) in Card</small>
                             </p>
-                            <p>{{ __('Balance payments') }}</p>
+                            <p>{{ __('Balance') }}</p>
                             <p>
                                 {{
                                     $summary->transactions->toQuery()->contractsReceived()->sum('value') 
@@ -47,37 +47,37 @@
                             </p>
                         </div>       
                         <div class="mb-4 p-6">
-                            <p>{{ __('Spending') }}</p>
-                            <p>
-                               Money: {{
-                                   $summary->transactions->toQuery()
-                                    ->hasPaymentIn(1)                                    
-                                    ->whereDoesntHave('bill')
-                                    ->whereDoesntHave('card')
-                                    ->sum('value')
-                                }}
-                            </p>
-                            <p>
-                                Debit: {{ 
-                                    $summary->transactions->toQuery()
-                                        ->hasPaymentIn([3,4])
-                                        ->whereDoesntHave('bill')
-                                        ->whereHas('card', function($query){
-                                            $query->whereIn('type',['debit','multiple']);
-                                        })
-                                        ->sum('value')
-                                       }}
-                            </p>
-                            
-                            <p>
-                                Credit: {{ 
-                                    $summary->transactions->toQuery()
-                                        ->hasPaymentIn([2])
-                                        ->whereDoesntHave('bill')
-                                        ->whereHas('card')
-                                        ->sum('value')
-                                       }}
-                            </p>
+                            <div class="pb-3">
+                                {{ __('Spending') }}: 
+                                <p>All: 
+                                    {{
+                                        $summary->transactions->toQuery()
+                                        ->whereDoesntHave('bill')                                      
+                                        ->sum('value') 
+                                    }}
+                                </p>
+                                <p> To pay: 
+                                    {{
+                                        $summary->transactions->toQuery()
+                                            ->whereDoesntHave('bill')
+                                            ->noHasPayment()
+                                            ->sum('value') 
+                                    }}
+                                </p>
+                            </div>
+                            <div>
+                                @foreach ($summary->transactions->pluck('paymentType.name','paymentType.id')->unique() as $paymentType => $name)
+
+                                    <p> {{ $name }}: 
+                                        {{ 
+                                            $summary->transactions->toQuery()
+                                            ->hasPaymentIn([$paymentType])
+                                            ->whereDoesntHave('bill')
+                                            ->sum('value')
+                                            }}
+                                    </p>
+                                @endforeach
+                            </div>
                         </div>
                         <div  class="mb-4 p-6">
                             <h3>Balance</h3>
@@ -105,6 +105,20 @@
                             </h2>
                         </div>                            
                     </div>
+                </div>
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <h1  class="mb-4 ">{{ __('My accounts') }}</h1>
+                    <div style="width: 90%; margin: 0 auto; display: flex">
+                        <div class="mb-4 p-6">
+                            <h3 class="pb-8"> Total: {{ $summary->financialAccounts->sum('balance') }}</h3>
+                            @foreach($summary->financialAccounts as $account)
+                                <div class="pb-3">
+                                    <p>{{ __('Entity') }}: {{ $account->entity->name }}</p>
+                                    <p>   {{ __('balance') }}: {{ $account->balance }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
