@@ -12,6 +12,8 @@ class TransactionPart extends Model
     protected $fillable = [
         'transaction_id',
         'due_date',
+        'payment_date',
+        'value_paid',
         'value'
     ];
 

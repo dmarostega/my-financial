@@ -22,7 +22,7 @@ class TransactionObserver
             'value' => $transaction->value
         ];
 
-        switch($transaction->type){
+        switch($transaction->payment_type_id){
             case 1:
             case 3:
             case 4:
@@ -57,7 +57,7 @@ class TransactionObserver
                 $fields['value_paid'] = '';
                 break;
         }
-        
+        // dd($fields, $transaction->transactionPartOfMonth());
         $transaction->transactionPartOfMonth()->update(
             $fields            
         );
