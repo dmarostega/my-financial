@@ -12,7 +12,7 @@ class LogUpdate extends Model
 
     protected $fillable = [
         'user_id',
-        'entity_id'.
+        'entity_id',
         'date',
         'model'
     ];
