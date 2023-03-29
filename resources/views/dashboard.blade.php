@@ -14,67 +14,87 @@
                         <div class="mb-4 p-6">
                             
                             <p>{{ __('Contracts') }}</p>
+                            @if($summary->contracts->count() > 0)
                             <p>{{ $summary->contracts->sum('value') }}</p>
-                            
+                            @endif
                             <p>{{ __('Contracts to receive') }}</p>                            
                             <p>
+                                @if($summary->transactions->count() > 0)
                                 {{ $summary->transactions->toQuery()->contractsToReceive()->sum('value') }}
+                                @endif
                             </p>
 
                             <p>{{ __('Contracts Received') }}</p>
+                            @if($summary->transactions->count() > 0)
                             <p>{{ $summary->transactions->toQuery()->contractsReceived()->sum('value') }}</p>
+                            @endif
                         </div>
 
                         <div class="mb-4 p-6 ">
                             <p>{{ __('BILLS') }}</p>
+                            @if($summary->bills->count() > 0)
                             <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
+                            @endif
 
                             <p>{{ __('Paid out') }}</p>
+                            @if($summary->transactions->count() > 0)
                             <p>{{ $summary->transactions->toQuery()->paidOut()->sum('value') }}
+                            @endif
+                            @if($summary->bills->count() > 0)
                             <small>(
                                     {{ 
                                         $summary->bills->toQuery()->inCards()->sum('value')
                                     }}  
                                 ) in Card</small>
                             </p>
+                            @endif
                             <p>{{ __('Balance') }}</p>
                             <p>
+                                @if($summary->transactions->count() > 0)
                                 {{
                                     $summary->transactions->toQuery()->contractsReceived()->sum('value') 
                                     -
                                     $summary->transactions->toQuery()->paidOut()->sum('value')
                                 }}
+                                @endif
                             </p>
                         </div>       
                         <div class="mb-4 p-6">
                             <div class="pb-3">
                                 {{ __('Spending') }}: 
                                 <p>All: 
+                                    @if($summary->transactions->count() > 0)
                                     {{
                                         $summary->transactions->toQuery()
                                         ->whereDoesntHave('bill')                                      
                                         ->sum('value') 
                                     }}
+                                    @endif
                                 </p>
                                 <p> To pay: 
+                                    @if($summary->transactions->count() > 0)
                                     {{
                                         $summary->transactions->toQuery()
                                             ->whereDoesntHave('bill')
                                             ->noHasPayment()
                                             ->sum('value') 
                                     }}
+                                    @endif
                                 </p>
                             </div>
                             <div>
                                 @foreach ($summary->transactions->pluck('paymentType.name','paymentType.id')->unique() as $paymentType => $name)
 
                                     <p> {{ $name }}: 
+                                @if($summary->transactions->count() > 0)
+
                                         {{ 
                                             $summary->transactions->toQuery()
                                             ->hasPaymentIn([$paymentType])
                                             ->whereDoesntHave('bill')
                                             ->sum('value')
                                             }}
+                                            @endif
                                     </p>
                                 @endforeach
                             </div>
@@ -82,6 +102,7 @@
                         <div  class="mb-4 p-6">
                             <h3>Balance</h3>
                             <h2>
+                                @if($summary->transactions->count() > 0)
                                 {{ 
                                     (   
                                         $summary->transactions->toQuery()->contractsReceived()->sum('value')
@@ -102,6 +123,7 @@
                                             ->sum('value')                                       
                                     )
                                 }}
+                                @endif
                             </h2>
                         </div>                            
                     </div>
