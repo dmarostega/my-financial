@@ -120,6 +120,21 @@
                         </div>
                     </div>                    
                 </div>
+
+                <div  class="p-6 bg-white border-b border-gray-200">
+                    <div style="width: 90%; margin: 0 auto; display: flex">
+
+                        <x-link href="{{ route('check_bills') }}" class="m-1">
+                        {{ __('Check bills') }}
+                        </x-link>
+                        <x-link href="{{ route('check_transactions') }}" class="m-3">
+                        {{ __('Check transactions') }}
+                        </x-link>
+                        <x-link href="{{ route('check_summary_month') }}" class="m-3">
+                        {{ __('Check summary month') }}
+                        </x-link>
+                  </div> 
+                </div>
             </div>
         </div>
     </div>

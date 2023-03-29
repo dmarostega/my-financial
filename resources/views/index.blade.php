@@ -1,14 +1,6 @@
 <x-app-layout>  
   <x-flex-box>
     <div>
-        <div>
-          <x-link href="{{ route('check_bills') }}">
-            {{ __('Check bills') }}
-          </x-link>
-          <x-link href="{{ route('check_transactions') }}">
-            {{ __('Check transactions') }}
-          </x-link>
-        </div> 
         <x-system-icon :link="route('transactions')">
           {{ __('Transações') }}
         </x-system-icon>
