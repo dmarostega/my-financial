@@ -48,7 +48,8 @@ class TransactionRepository
             switch($bill->frequency){
                 case 'daily':
                     break;
-                case 'monthly':                    
+                case 'monthly':      
+                   
                     if ( !self::model()
                                 ->where('bill_id',$bill->id)
                                 ->whereMonth('date', $today->month)
@@ -58,7 +59,7 @@ class TransactionRepository
                                 'bill_id' => $bill->id,
                                 'title' => $bill->title,
                                 'value' => $bill->value,
-                                'date' => $bill->due_date,
+                                'date' =>  $today,
                                 'category_id' => $bill->category_id,
                                 'payment_type_id' => $this->listRelation('paymentType')[0]->id
                             ];
