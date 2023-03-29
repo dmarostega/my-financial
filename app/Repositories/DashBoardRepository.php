@@ -2,14 +2,13 @@
 namespace App\Repositories;
 
 use DB;
+use App\Models\User;
 
 class DashBoardRepository
 {
     public function index()
     {
-        $user = auth()->user();
-
-        $results =  $user->with([
+        $results =  User::with([
             'bills' => function($query){
                 $query->isActive();
                 $query->whereDueDateActualMonth();
@@ -24,8 +23,7 @@ class DashBoardRepository
             'contracts',
             'financialAccounts.entity'           
         ])       
-        ->first();
-        
+        ->find(auth()->user()->id);
         return $results;
     }
 }
