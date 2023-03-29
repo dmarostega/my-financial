@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use App\Traits\HandleUser;
+use App\Traits\CommonFilter;
 use App\Traits\HandleLogUpdate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,8 @@ class FinancialAccount extends Model
 
     use HandleLogUpdate;
     
+    use CommonFilter;
+
     use SoftDeletes;
 
     protected $table = 'financial_accounts';

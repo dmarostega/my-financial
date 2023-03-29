@@ -3,12 +3,15 @@ namespace App\Models;
 
 use App\Models\Person;
 use App\Traits\HandleUser;
+use App\Traits\CommonFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contract extends Model 
 {
     use HandleUser;
+
+    use CommonFilter;
 
     use SoftDeletes;
 
