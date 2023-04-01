@@ -3,18 +3,18 @@ namespace App\Traits;
 
 trait CommonFIlter
 {
-    public function scopeWhereActualMonth()
+    public function scopeWhereActualMonth($query)
     {
-        return $this->whereMonth('date',date('m'));
+        return $query->whereMonth('date',date('m'));
     }
 
-    public function scopeWhereDueDateActualMonth()
+    public function scopeWhereDueDateActualMonth($query)
     {
-        return $this->whereMonth('due_date',date('m'));
+        return $query->whereMonth('due_date',date('m'));
     }
 
-    public function scopeIsActive()
+    public function scopeIsActive($query)
     {
-        return $this->where('status','active');
+        return $query->where('status','active');
     }
 }
