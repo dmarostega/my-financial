@@ -12,7 +12,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = CategoryRepository::list();
+        $categories = $this->repository()->list();
+
         return view('category.index',['categories' => $categories]);
     }
 
