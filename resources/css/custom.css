@@ -1,0 +1,17 @@
+.table-default {
+    width: 100%;
+}
+.table td, 
+.table th{
+    width: 10%;
+    padding: 1px 10px;
+    border: 1px solid rgb(35, 48, 73);
+}
+
+body{ 
+    background-color: black;
+}
+
+.ola-mundo {
+    color: red;
+}
