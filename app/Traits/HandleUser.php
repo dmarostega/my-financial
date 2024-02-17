@@ -18,7 +18,9 @@ trait HandleUser
 
     protected static function bootHandleUser(){
         self::creating(function($model){
+            if(!$model->user_id){
             $model->user_id = Auth::user()->id;
+            }
         });
     }
 
