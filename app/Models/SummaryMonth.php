@@ -27,4 +27,9 @@ class SummaryMonth extends Model
     {
         return $this->belongsTo(FinancialAccount::class);
     }
+
+    public function items()
+    {
+        return $this->hasMany(SummaryMonthItem::class);
+    }
 }
