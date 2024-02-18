@@ -9,8 +9,11 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller 
 {
+
+    private $repository;
+
     public function index(Request $request){
-        $listUser = UserRepo::list(); 
+        $listUser = $this->repository()->list(); 
         return view('user.index',['users'=> $listUser]);
     }
 
@@ -19,29 +22,26 @@ class UserController extends Controller
     }
 
     public function store(UserRequest $request){
-        $userRepo = new UserRepo();
-        $userRepo->save($request);
+        $this->repository()->save($request);
 
         return redirect()->action([UserController::class, 'index']);
     }
 
     public function edit($id){
-        $user = UserRepo::find($id);     
+        $user = $this->repository()->find($id);     
         return view('user.edit',[
             'user' => $user
         ]);
     }
 
     public function update(UserRequest $request, $id){
-        $userRepo = new UserRepo();
-        $userRepo->update($request, $id);
+        $this->repository()->update($request, $id);
 
         return redirect()->action([UserController::class, 'index']);
     }
 
     public function delete($id){
-        $userRepo = new UserRepo();
-        $user = $userRepo->find($id);     
+        $user = $this->repository()->find($id);     
         return view('user.delete', [
             'user' => $user
         ]);
@@ -49,9 +49,16 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $userRepo = new UserRepo();
-        $user = $userRepo->find($id);
+        $user = $this->repository()->find($id);
         $user->delete();
         return redirect()->action([UserController::class, 'index']);
+    }
+
+    public function repository()
+    {
+        if(!$this->repository)
+            $this->repository = new UserRepo();
+
+        return $this->repository;
     }
 }
