@@ -9,7 +9,7 @@ class FinancialEntityRepository
 
     public function list()
     {
-        return FinancialEntity::get();
+        return $this->model()->get();
     }
 
     public function save($request)
@@ -42,5 +42,4 @@ class FinancialEntityRepository
 
         return $this->model;
     }
-
 }
