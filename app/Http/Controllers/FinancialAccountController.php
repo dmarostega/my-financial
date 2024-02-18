@@ -16,7 +16,8 @@ class FinancialAccountController extends Controller
 
     public function create()
     {        
-        return view('financial-account.create',['entities' => FinancialEntityRepository::list()]);
+        $financialEntities = new FinancialEntityRepository();
+        return view('financial-account.create',['entities' => $financialEntities->list()]);
     }
 
     public function store(FinancialAccountRequest $request)
