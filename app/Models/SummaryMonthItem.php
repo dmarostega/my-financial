@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SummaryMonthItem extends Model
 {
+    use SoftDeletes;
+    
     protected $table = 'summary_month_itens';
 
     protected $fillable = [
@@ -15,9 +17,7 @@ class SummaryMonthItem extends Model
         'value',
         'ammount',
         'in_process'
-    ];
-    
-    use SoftDeletes;
+    ];    
 
     public function contract()
     {
