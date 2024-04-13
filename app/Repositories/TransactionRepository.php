@@ -39,12 +39,14 @@ class TransactionRepository
         return self::model()->findOrFail($id);
     }
 
-    public function checkBills()
+    public function checkBills($bills = null)
     {
-        $bills = Bill::where('status','active');
-        $today = new Carbon();
+        if(!$bills){
+            $bills = Bill::where('status','active')->get();
+            $date = new Carbon();
+        }
 
-        foreach($bills->get() as $bill){
+        foreach($bills as $bill){
             switch($bill->frequency){
                 case 'daily':
                     break;
@@ -52,14 +54,14 @@ class TransactionRepository
                    
                     if ( !self::model()
                                 ->where('bill_id',$bill->id)
-                                ->whereMonth('date', $today->month)
+                                ->whereMonth('date', $date->month  ?? $bill->due_date )
                                 ->count()
                         ){
                             $fields = [
                                 'bill_id' => $bill->id,
                                 'title' => $bill->title,
                                 'value' => $bill->value,
-                                'date' =>  $today,
+                                'date' =>  $date ?? $bill->due_date,
                                 'category_id' => $bill->category_id,
                                 'payment_type_id' => $this->listRelation('paymentType')[0]->id
                             ];
@@ -77,19 +79,21 @@ class TransactionRepository
 
     public function checkTransactions()
     {
-        $transactions = self::model()->whereDoesntHave('transactionParts');
+        $transactions = self::model()
+                        ->whereDoesntHave('transactionParts')
+                        ->whereDoesntHave('bill');
 
-        foreach ($transactions->get() as $key => $transaction) {
-            $fields = [
-                'transaction_id' => $transaction->id,
-                'due_date' =>  $transaction->date,
-                'value' => $transaction->value
-            ];
+        // foreach ($transactions->get() as $key => $transaction) {
+        //     $fields = [
+        //         'transaction_id' => $transaction->id,
+        //         'due_date' =>  $transaction->date,
+        //         'value' => $transaction->value
+        //     ];
 
-            TransactionPart::create(
-                $fields
-            );
-        }
+        //     TransactionPart::create(
+        //         $fields
+        //     );
+        // }
 
         foreach(self::model()->with(['transactionParts'])
                 ->whereIn('payment_type_id', [1,3,4])
