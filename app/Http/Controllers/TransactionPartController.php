@@ -34,6 +34,6 @@ class TransactionPartController extends Controller
 
         $transactionPart->save();
 
-        return redirect()->route('check_summary_month');
+        return redirect()->route('summary.check_month');
     }
 }

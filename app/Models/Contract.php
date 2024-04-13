@@ -35,4 +35,14 @@ class Contract extends Model
     {
         return $this->hasOne(Bill::class);
     }
+    
+    // public function transaction()
+    // {
+    //     return $this->hasOne(Transaction::class);
+    // }
+
+    // public function transactions()
+    // {
+    //     return $this->hasMany(Transaction::class);
+    // }
 }

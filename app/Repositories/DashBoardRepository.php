@@ -6,9 +6,9 @@ use App\Models\User;
 
 class DashBoardRepository
 {
-    public function index()
+    public function summary()
     {
-        $results =  User::with([
+        $results = User::with([
             'bills' => function($query){
                 $query->isActive();
                 $query->whereDueDateActualMonth();

@@ -7,31 +7,42 @@ use App\Models\Bill;
 use App\Models\Contract;
 use App\Models\FinancialAccount;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
 class SummaryRepository
 {
     // use HandleModel;
     protected static $model;
-    
-    public function check()
-    {
-        $summary = self::model()->whereMonth('date', date('m'));
-        dd($summary->count());
 
-        if(!$summary->count()){
-            $summary = new SummaryMonth();
-            $summary->date = Carbon::now();
-            $summary->in_process = 'checking';
-            $summary->save();
+    public function list()
+    {
+        return self::model()->/*whereHas('items')->*/get();
+    }
+    
+    public function check($month = null, $bills = null, $contracts = null, $financialAccounts = null)
+    {
+        $month  = $month ?? date('m');
+
+        $summary = self::model()->whereMonth('date', $month);
+        dump($summary->has('items')->first());
+
+        if(!$summary){
+            if(!$summary->whereHas('items'))
+            {
+                $summary = new SummaryMonth();
+                $summary->date = Carbon::now()->setMonth($month);
+                $summary->in_process = 'checking';
+                $summary->save();
+            }
 
             // todos contratos ativos
-            $contracts = Contract::isActive()->get();
+            $contracts = $contracts ?? Contract::isActive()->get();
 
             // todas contas bancárias ativas
-            $financialAccounts = FinancialAccount::isActive()->get();
+            $financialAccounts = $financialAccounts  ?? FinancialAccount::isActive()->get();
 
             // contas
-            $bills = Bill::isActive()->get();
+            $bills = $bills ?? Bill::isActive()->get();
             foreach($contracts as $key => $contract){
                 $summaryItems = [];
 
@@ -84,7 +95,7 @@ class SummaryRepository
                 $summaryItems['entity_id'] = $contract->id;
                 $summaryItems['value'] = $contract->value;
                 $summaryItems['model'] =  get_class($contract);
-
+                dd($contractReceive->count(), $contract->transaction);
                 
                 if($contractReceive){
                     /**
@@ -136,6 +147,12 @@ class SummaryRepository
             }
         }
     }
+
+    public function hasPreviousMonth()
+    {   
+
+        // dd(self::model()->whereMonth('date', Carbon::now()->subDays(Carbon::now()->endOfMonth()->day)->format('m'))->count() );
+        return (bool) self::model()->whereMonth('date', Carbon::now()->subDays(Carbon::now()->endOfMonth()->day)->format('m'))->count() == 0;    }
 
     private function model()
     {
