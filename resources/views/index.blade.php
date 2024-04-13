@@ -30,6 +30,9 @@
         <x-system-icon :link="route('users')">
           {{ __('Users') }}      
         </x-system-icon>
+        <x-system-icon :link="route('summaries')">
+          {{ __('Summaries') }}
+        </x-system-icon>
       </div>
     </x-flex-box> 
 </x-app-layout>
