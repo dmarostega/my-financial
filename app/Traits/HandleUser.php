@@ -3,8 +3,6 @@
 namespace App\Traits;
 
 use App\Models\User;
-use Auth;
-
 trait HandleUser 
 {
     protected static function boot()
@@ -12,14 +10,14 @@ trait HandleUser
         parent::boot();
 
         static::addGlobalScope('owner', function($query){
-            $query->where('user_id',Auth::user()->id);
+            $query->where('user_id', auth()->user()->id);
         });
     }
 
     protected static function bootHandleUser(){
         self::creating(function($model){
             if(!$model->user_id){
-            $model->user_id = Auth::user()->id;
+                $model->user_id = auth()->user()->id;
             }
         });
     }
