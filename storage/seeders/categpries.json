@@ -1,0 +1,131 @@
+[
+    {
+      "name": "Fixas",
+      "description": "Despesas fixas, como aluguel, prestações, assinaturas, etc."
+    },
+    {
+      "name": "Alimentação",
+      "description": "Despesas relacionadas a alimentos e refeições."
+    },
+    {
+      "name": "Moradia",
+      "description": "Gastos com aluguel, hipoteca, contas de serviços públicos, etc."
+    },
+    {
+      "name": "Transporte",
+      "description": "Custos relacionados a transporte público, combustível, manutenção do veículo, etc."
+    },
+    {
+      "name": "Educação",
+      "description": "Despesas relacionadas à educação formal, cursos, livros, material escolar, etc."
+    },
+    {
+      "name": "Saúde",
+      "description": "Gastos com serviços de saúde, consultas médicas, medicamentos, seguro saúde, etc."
+    },
+    {
+      "name": "Lazer",
+      "description": "Despesas com entretenimento, atividades recreativas, viagens, etc."
+    },
+    {
+      "name": "Contas Domésticas",
+      "description": "Custos de serviços domésticos, como água, luz, gás, internet, telefone, etc."
+    },
+    {
+      "name": "Impostos",
+      "description": "Pagamentos de impostos sobre renda, propriedade, entre outros."
+    },
+    {
+      "name": "Investimentos",
+      "description": "Gastos destinados a investimentos, poupança, ações, fundos, etc."
+    },
+    {
+      "name": "Seguros",
+      "description": "Despesas com seguros de vida, saúde, automóvel, residencial, etc."
+    },
+    {
+      "name": "Doações",
+      "description": "Contribuições para instituições de caridade ou ajuda humanitária."
+    },
+    {
+      "name": "Compras",
+      "description": "Despesas relacionadas a compras de bens materiais, roupas, eletrônicos, etc."
+    },
+    {
+      "name": "Serviços Financeiros",
+      "description": "Taxas de serviços bancários, tarifas, juros, etc."
+    },
+    {
+      "name": "Cigarro",
+      "description": "Despesas relacionadas a compra de cigarros."
+    },
+    {
+      "name": "Pessoal",
+      "description": "Gastos pessoais não classificados em outras categorias."
+    },
+    {
+      "name": "Vestiário",
+      "description": "Despesas com roupas e acessórios."
+    },
+    {
+      "name": "Bares",
+      "description": "Gastos com bares, bebidas alcoólicas, etc."
+    },
+    {
+      "name": "Carro",
+      "description": "Gastos relacionados ao veículo, como seguro, manutenção, impostos, etc."
+    },
+    {
+      "name": "Abastecimento",
+      "description": "Despesas com combustível para o veículo."
+    },
+    {
+      "name": "Farmácia",
+      "description": "Gastos com medicamentos e produtos de saúde."
+    },
+    {
+      "name": "Mercado",
+      "description": "Despesas com compras de supermercado e alimentos."
+    },
+    {
+      "name": "Lanche",
+      "description": "Despesas com lanches rápidos ou refeições leves."
+    },
+    {
+      "name": "Pizza",
+      "description": "Gastos com pizzas ou entregas de comida."
+    },
+    {
+      "name": "Trabalho",
+      "description": "Despesas relacionadas ao trabalho, como transporte para o trabalho, uniformes, etc."
+    },
+    {
+      "name": "Almoço",
+      "description": "Gastos com almoços fora de casa."
+    },
+    {
+      "name": "Social",
+      "description": "Despesas relacionadas a eventos sociais, festas, presentes, etc."
+    },
+    {
+      "name": "Exames",
+      "description": "Gastos com exames médicos e laboratoriais."
+    },
+    {
+      "name": "Ferramentas",
+      "description": "Despesas com ferramentas e equipamentos."
+    },
+    {
+      "name": "Manutenção",
+      "description": "Custos relacionados à manutenção de bens materiais, veículos, etc."
+    },
+    {
+      "name": "Posto",
+      "description": "Gastos relacionados ao correio, envio de correspondências, etc."
+    },
+    {
+      "name": "Outros",
+      "description": "Despesas que não se enquadram em outras categorias especificadas."
+    }
+  ]
+  
