@@ -145,6 +145,13 @@ Route::prefix('transaction')->name('transaction.')->group(function(){
     Route::delete('{id}',[TransactionController::class,'destroy'])->name('destroy');
 });
 
+Route::get('/summaries', [SummaryController::class, 'index'])->name('summaries');
+Route::prefix('summary')->name('summary.')->group(function(){
+    Route::get('/selecting-resrouces', [SummaryController::class, 'selectingResources'])->name('selecting_resources');
+    Route::post('/create-resources/{month}', [SummaryController::class, 'createResources'])->name('create_resources');
+    Route::get('/check-summary-month',[SummaryController::class,'checkSummaryMonth'])->name('check_month');    
+});
+
 Route::prefix('resolving')->name('resolving.')->group( function(){
     Route::get('{id}', [TransactionPartController::class,'confirm'])->name('confirm');
     Route::post('{id}', [TransactionPartController::class,'transaction'])->name('transaction');
@@ -153,6 +160,5 @@ Route::prefix('resolving')->name('resolving.')->group( function(){
 
 Route::get('/check-transactions',[TransactionController::class,'checkTransactions'])->name('check_transactions');
 Route::get('/check-bills',[TransactionController::class,'checkBills'])->name('check_bills');
-Route::get('/check-summary-month',[SummaryController::class,'checkSummaryMonth'])->name('check_summary_month');
 
 require __DIR__.'/auth.php';
