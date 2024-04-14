@@ -53,14 +53,29 @@ class User extends Authenticatable
         return $this->hasMany(Bill::class);
     }
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
     public function contracts()
     {
         return $this->hasMany(Contract::class);
     }
 
+    public function paymentTypes()
+    {
+        return $this->hasMany(PaymentType::class);
+    }
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function financialEntities() 
+    {
+        return $this->hasMany(FinancialEntity::class);
     }
 
     public function financialAccounts()
