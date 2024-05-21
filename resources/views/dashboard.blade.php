@@ -5,12 +5,6 @@
         </h2>
     </x-slot>
 
-    @php
-        
-    var_dump($summary->transactions->count() > 0);
-    // var_dump($summary->transactions->toArray());
-    //  exit;
-    @endphp
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -91,9 +85,8 @@
                                 </p>
                             </div>
                             <div>
-                                @foreach ($summary->transactions->pluck('paymentType.name','paymentType.id')->unique() as $paymentType => $name)
-
-                                    <p> {{ $name }}: 
+                                <h4>{{__('Per Payment Type')}}</h4>
+                        @foreach ($summary->transactions->pluck('paymentType.name','paymentType.id')->unique() as $paymentType => $name)                                    <p> {{ $name }}: 
                                 @if($summary->transactions->count() > 0)
 
                                         {{ 
@@ -157,9 +150,9 @@
                         <x-link href="{{ route('check_bills') }}" class="m-1">
                         {{ __('Check bills') }}
                         </x-link>
-                        <x-link href="{{ route('check_transactions') }}" class="m-3">
+                        {{-- <x-link href="{{ route('check_transactions') }}" class="m-3">
                         {{ __('Check transactions') }}
-                        </x-link>
+                        </x-link> --}}
                         <x-link href="{{ route('summary.check_month') }}" class="m-3">
                         {{ __('Check summary month') }}
                         </x-link>
