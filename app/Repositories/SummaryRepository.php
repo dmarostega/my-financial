@@ -22,9 +22,7 @@ class SummaryRepository
     public function check($month = null, $bills = null, $contracts = null, $financialAccounts = null)
     {
         $month  = $month ?? date('m');
-
         $summary = self::model()->whereMonth('date', $month);
-        dump($summary->has('items')->first());
 
         if(!$summary){
             if(!$summary->whereHas('items'))
@@ -86,16 +84,16 @@ class SummaryRepository
                      *    - 
                  */
 
-                $contractReceive = $contract->with('bill.transaction.transactionParts')->whereHas('bill.transaction.transactionParts', function($query){
-                    $query->whereMonth('due_date', date('m'));
-                    $query->whereNotNull('value_paid');
-                })->first();
+                $contractReceive = $contract->with('bill.transaction.transactionParts')
+                                        ->whereHas('bill.transaction.transactionParts', function($query){
+                                            $query->whereMonth('due_date', date('m'));
+                                            $query->whereNotNull('value_paid');
+                                        })->first();
 
                 $summaryItems['summary_month_id'] = $summary->id;
                 $summaryItems['entity_id'] = $contract->id;
                 $summaryItems['value'] = $contract->value;
                 $summaryItems['model'] =  get_class($contract);
-                dd($contractReceive->count(), $contract->transaction);
                 
                 if($contractReceive){
                     /**
@@ -150,9 +148,9 @@ class SummaryRepository
 
     public function hasPreviousMonth()
     {   
-
         // dd(self::model()->whereMonth('date', Carbon::now()->subDays(Carbon::now()->endOfMonth()->day)->format('m'))->count() );
-        return (bool) self::model()->whereMonth('date', Carbon::now()->subDays(Carbon::now()->endOfMonth()->day)->format('m'))->count() == 0;    }
+        return (bool) self::model()->whereMonth('date', Carbon::now()->subDays(Carbon::now()->endOfMonth()->day)->format('m'))->count() == 0;
+    }
 
     private function model()
     {

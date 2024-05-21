@@ -61,8 +61,8 @@
                                 <x-link :href="route('resolving.confirm',['id' => $transaction->transactionPartOfMonth()->id, 'to_receive'])">
                                     {{ __('To receive') }}
                                 </x-link>
-                            @endif
-                        @endif                        
+                            @endif 
+                        @endif           
                     </div>
                     <div>
                         <small>

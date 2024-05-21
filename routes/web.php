@@ -147,7 +147,7 @@ Route::prefix('transaction')->name('transaction.')->group(function(){
 
 Route::get('/summaries', [SummaryController::class, 'index'])->name('summaries');
 Route::prefix('summary')->name('summary.')->group(function(){
-    Route::get('/selecting-resrouces', [SummaryController::class, 'selectingResources'])->name('selecting_resources');
+    Route::get('/selecting-resources', [SummaryController::class, 'selectingResources'])->name('selecting_resources');
     Route::post('/create-resources/{month}', [SummaryController::class, 'createResources'])->name('create_resources');
     Route::get('/check-summary-month',[SummaryController::class,'checkSummaryMonth'])->name('check_month');    
 });

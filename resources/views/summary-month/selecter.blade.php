@@ -16,7 +16,6 @@
                         <input type="text" name="bills[{{ $bill->id }}]" >
                     </div>
                 </div>
-                
             @endforeach
         </div>
 
