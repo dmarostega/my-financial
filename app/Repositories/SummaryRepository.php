@@ -24,8 +24,8 @@ class SummaryRepository
         $month  = $month ?? date('m');
         $summary = self::model()->whereMonth('date', $month);
 
-        if(!$summary){
-            if(!$summary->whereHas('items'))
+        if(!$summary->count() > 0){
+            if(!$summary->whereHas('items')->count())
             {
                 $summary = new SummaryMonth();
                 $summary->date = Carbon::now()->setMonth($month);
