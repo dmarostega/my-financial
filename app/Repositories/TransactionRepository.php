@@ -13,7 +13,7 @@ class TransactionRepository
 
     public function list()
     {
-        return self::model()->get();
+        return self::model()->with('transactionParts')->orderBy('date')->get();
     }
 
     public function save($request)
@@ -39,6 +39,13 @@ class TransactionRepository
         return self::model()->findOrFail($id);
     }
 
+    /**
+     * @method checkBills
+     * 
+     * Gera transações de contas fixas para o Mês corrente.
+     * 
+     * Tela: dashboard
+     */
     public function checkBills($bills = null)
     {
         if(!$bills){
@@ -77,35 +84,30 @@ class TransactionRepository
         }
     }
 
+    /**
+     * @method checkTransactions
+     * 
+     * Gera transações para 
+     */
     public function checkTransactions()
     {
         $transactions = self::model()
                         ->whereDoesntHave('transactionParts')
                         ->whereDoesntHave('bill');
 
-        // foreach ($transactions->get() as $key => $transaction) {
-        //     $fields = [
-        //         'transaction_id' => $transaction->id,
-        //         'due_date' =>  $transaction->date,
-        //         'value' => $transaction->value
-        //     ];
-
-        //     TransactionPart::create(
-        //         $fields
-        //     );
-        // }
-
         foreach(self::model()->with(['transactionParts'])
-                ->whereIn('payment_type_id', [1,3,4])
+                ->whereIn('payment_type_id', [1,3,4, 7]) // dinheiro, décito, tranferência, pix
                 ->whereHas('transactionParts', function($query){
                     $query->whereNull('payment_date');
                 })->get() as $transaction){
-            $transactinPart = $transaction->transactionPartOfMonth();
-            
-            $transactinPart->payment_date = $transaction->date;
-            $transactinPart->value_paid = $transaction->value;
-            
-            $transactinPart->save();
+            $transactionParts = $transaction->transactionPartOfMonth();
+
+            $transactionParts->get()->each(function($transactionPart) use ($transaction) {
+                $transactionPart->payment_date = $transaction->date;
+                $transactionPart->value_paid = $transaction->value;
+                
+                $transactionPart->save();
+            });
         }
     }
 
