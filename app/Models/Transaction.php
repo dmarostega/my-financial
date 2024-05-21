@@ -63,8 +63,7 @@ class Transaction extends Model
      *  FIXME: scope sem query.. ver
      */
     public function scopeTransactionPartOfMonth($query){
-        return $this->transactionParts()->whereMonth('due_date', date('m',strtotime($this->attributes['date']) ) )  
-            ->first();
+        return $this->transactionParts()->whereMonth('due_date', date('m',strtotime($this->attributes['date'])));
     }
 
     /**

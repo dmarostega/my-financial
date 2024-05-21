@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Transaction;
+use App\Models\PaymentType;
 use App\Models\TransactionPart;
 
 class TransactionObserver
@@ -22,20 +23,17 @@ class TransactionObserver
             'value' => $transaction->value
         ];
 
-        switch($transaction->payment_type_id){
-            case 1:
-            case 3:
-            case 4:
-                $fields['payment_date'] = date('Y-m-d h:i:s');
-                break;
+        if(PaymentType::where('is_installment', 0)->where('id',$transaction->payment_type_id)->count() > 0){
+            $fields['payment_date'] = $transaction->date;
+            $fields['value_paid'] = $transaction->value;
         }
 
-        TransactionPart::create(
+        $t = TransactionPart::create(
             $fields
         );
     }
 
-    public function updated(Transaction $transaction)
+    public function updating(Transaction $transaction)
     {
         $fields = [
             'transaction_id' => $transaction->id,
@@ -43,22 +41,12 @@ class TransactionObserver
             'value' => $transaction->value
         ];
 
-        switch($transaction->payment_type_id){
-            case 1:
-            case 3:
-            case 4:
-                $fields['payment_date'] = date('Y-m-d h:i:s');
-                $fields['value_paid'] = $transaction->value;
-                $fields['value'] = $transaction->value;
-                break;
-            case 2:
-                
-                $fields['payment_date'] = '';
-                $fields['value_paid'] = '';
-                break;
+        if(PaymentType::where('is_installment', 0)->where('id',$transaction->payment_type_id)->count() > 0){
+            $fields['payment_date'] = $transaction->date;
+            $fields['value_paid'] = $transaction->value;
         }
-        // dd($fields, $transaction->transactionPartOfMonth());
-        $transaction->transactionPartOfMonth()->update(
+
+        $transactionPart = $transaction->transactionParts()->update(
             $fields            
         );
     }

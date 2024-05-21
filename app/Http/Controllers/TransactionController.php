@@ -40,9 +40,12 @@ class TransactionController extends Controller
 
     public function update(Request $request, $id)
     {
-        self::repository()->update($request, $id);
-
-        return redirect()->route('transactions');
+        try {
+            self::repository()->update($request, $id);
+            return redirect()->route('transactions');
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     public function delete($id)
