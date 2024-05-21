@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -13,7 +14,9 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::truncate();
-        \App\Models\User::factory()->count(15)->create();
+        User::truncate();
+        User::factory()->count(15)->create();
+        User::first()->update(['name' => 'Diogo', 'email' =>'dmarostega@gmail.com.br']);
+        User::find(2)->update(['name' => 'Dev', 'email' =>'dev@dev.com.br']);
     }
 }
