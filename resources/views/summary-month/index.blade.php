@@ -24,15 +24,7 @@
                             <p>Não há itens. Deseja fazer rechecagem?</p>
                         @endif
                         @foreach ($summary->items as $item)
-                            <p>
-                                {{ $item->model }}
-                            </p>
-                            <p>
-                                {{ $item->contract() }}
-                            </p>
-                            <p>
-                                {{ $item->ammount }}
-                            </p>
+                               @include('components.cards.summary-item', $item)
                         @endforeach
                     </td>
                 </tr>
