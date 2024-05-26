@@ -23,7 +23,7 @@ class TransactionObserver
             'value' => $transaction->value
         ];
 
-        if(PaymentType::where('is_installment', 0)->where('id',$transaction->payment_type_id)->count() > 0){
+        if(PaymentType::where('allow_installments', 0)->where('id',$transaction->payment_type_id)->count() > 0){
             $fields['payment_date'] = $transaction->date;
             $fields['value_paid'] = $transaction->value;
         }
@@ -41,7 +41,7 @@ class TransactionObserver
             'value' => $transaction->value
         ];
 
-        if(PaymentType::where('is_installment', 0)->where('id',$transaction->payment_type_id)->count() > 0){
+        if(PaymentType::where('allow_installments', 0)->where('id',$transaction->payment_type_id)->count() > 0){
             $fields['payment_date'] = $transaction->date;
             $fields['value_paid'] = $transaction->value;
         }

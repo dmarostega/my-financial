@@ -17,7 +17,7 @@ class DefaultsPaymentTypeSeeder extends Seeder
     {
         $users = \App\Models\User::whereNotIn('id', PaymentType::withoutGlobalScope('owner')->select('user_id'));
         if($users->count() == 0){
-            echo 'Normalizado, não executará!';
+            echo 'Não usuários sem tipos de pagamentos, não executará!\n Verifique se existe usuários cadastrados.';
             return;     
         }
 
@@ -33,7 +33,7 @@ class DefaultsPaymentTypeSeeder extends Seeder
                     ],
                     [                        
                         'name' => $paymentType['name'],
-                        'is_installment' => $paymentType['is_installment']
+                        'allow_installments' => $paymentType['allow_installments']
                     ]);
                 });
             });

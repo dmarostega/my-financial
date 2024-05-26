@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('card_id')->nullable()->constrained('cards'); // nullable deve ser antes de constrainde
             $table->string('title');
             $table->text('description')->nullable();
-            $table->tinyInteger('repeat')->default('0');
+            $table->tinyInteger('repeat')->default(0);
             $table->double('prediction')->nullable();
             $table->double('value');
             $table->dateTime('date', $precision = 0);

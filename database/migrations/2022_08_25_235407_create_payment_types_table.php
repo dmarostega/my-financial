@@ -27,8 +27,11 @@ class CreatePaymentTypesTable extends Migration
                                     "cheque",
                                     "pix"
                                 ]);
-            $table->tinyInteger('is_installment')->default('0');
-            $table->enum('status', ['active','inactive'])->default('active');
+            $table->tinyInteger('allow_installmentss')->default(false);
+            $table->integer('max_installments')->default(1);
+            $table->enum('discount_timing', ['immediate', 'delayed'])->default('immediate');
+            $table->tinyInteger('is_default')->default('false');
+            $table->enum('status', ['active','inactive', 'obsolete'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
