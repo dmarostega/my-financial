@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         User::truncate();
         User::factory()->count(15)->create();
-        User::first()->update(['name' => 'Diogo', 'email' =>'dmarostega@gmail.com.br']);
-        User::find(2)->update(['name' => 'Dev', 'email' =>'dev@dev.com.br']);
+        User::first()->update(['name' => 'Diogo', 'email' =>'dmarostega@gmail.com']);
+        User::find(2)->update(['name' => 'Dev', 'email' =>'dev@dev.com']);
     }
 }
