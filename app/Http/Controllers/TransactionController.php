@@ -16,9 +16,15 @@ class TransactionController extends Controller
     public function create()
     {
         return view('transaction.create', [
-                    'types' => self::repository()->listRelation('paymentType'), 
-                    'cards' => self::repository()->listRelation('card'),
-                    'categories'=> self::repository()->listRelation('category')]);
+                    'types' => self::repository()->listRelation('paymentType')
+                            ->orderBy('name')
+                            ->get(), 
+                    'cards' => self::repository()->listRelation('card')
+                            ->orderBy('title')
+                            ->get(),
+                    'categories'=> self::repository()->listRelation('category')
+                            ->orderBy('name')
+                            ->get()]);
     }
 
     public function store(Request $request)
@@ -33,9 +39,9 @@ class TransactionController extends Controller
         $transaction =  self::repository()->findById($id);
         return view('transaction.edit',[
                     'transaction' => $transaction,
-                    'types' => self::repository()->listRelation('paymentType'),
-                    'cards' => self::repository()->listRelation('card'),
-                    'categories' => self::repository()->listRelation('category')]);
+                    'types' => self::repository()->listRelation('paymentType')->get(),
+                    'cards' => self::repository()->listRelation('card')->get(),
+                    'categories' => self::repository()->listRelation('category')->get()]);
     }
 
     public function update(Request $request, $id)

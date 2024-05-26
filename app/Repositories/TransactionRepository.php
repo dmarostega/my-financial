@@ -115,6 +115,6 @@ class TransactionRepository
         $namespace = "\\App\\Models\\";
         $relation = Str::ucfirst($relation);
         $model = $namespace . $relation;
-        return $model::get();
+        return new $model();
     }
 }
