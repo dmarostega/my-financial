@@ -130,18 +130,43 @@
                     </div>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1  class="mb-4 ">{{ __('My accounts') }}</h1>
-                    <div style="width: 90%; margin: 0 auto; display: flex">
-                        <div class="mb-4 p-6">
-                            <h3 class="pb-8"> Total: {{ $summary->financialAccounts->sum('balance') }}</h3>
-                            @foreach($summary->financialAccounts as $account)
-                                <div class="pb-3">
-                                    <p>{{ __('Entity') }}: {{ $account->entity->name }}</p>
-                                    <p>   {{ __('balance') }}: {{ $account->balance }} <small><a href="{{ route('financial_account.edit', ['id' => $account->id]) }}" style="color: blue">Atualizar</a></small></p>
+                    <div  style="display:flex">
+                        <div class="p-6 bg-white border border-gray-200">
+                            <h1  class="mb-4 ">{{ __('My accounts') }}</h1>
+                            <div style="width: 90%; margin: 0 auto; display: flex">
+                                <div class="mb-4 p-6">
+                                    <h3 class="pb-8"> Total: {{ $summary->financialAccounts->sum('balance') }}</h3>
+                                    @foreach($summary->financialAccounts as $account)
+                                        <div class="pb-3">
+                                            <p>{{ __('Entity') }}: {{ $account->entity->name }}</p>
+                                            <p>   {{ __('balance') }}: {{ $account->balance }} <small><a href="{{ route('financial_account.edit', ['id' => $account->id]) }}" style="color: blue">Atualizar</a></small></p>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>                    
                         </div>
-                    </div>                    
+                        <div class="p-6 bg-white border border-gray-200">
+                            <h2>{{__('Daily expenses')}}</h2>
+                            @if(isset($expenses))
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($expenses as $date => $expensed)
+                                            <tr style="padding: 1em; border-botton: 1px solid gray">
+                                                <td>{{ date('d/m/Y', strtotime($date)) }}</td>
+                                                <td>{{$expensed}}</td>
+                                            </tr>                                            
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 <div  class="p-6 bg-white border-b border-gray-200">
