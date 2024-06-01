@@ -76,7 +76,7 @@ class TransactionRepository
                                 'value' => $bill->value,
                                 'date' =>  $date ?? $bill->due_date,
                                 'category_id' => $bill->category_id,
-                                'payment_type_id' => $this->listRelation('paymentType')[0]->id
+                                'payment_type_id' => $this->listRelation('paymentType')->where('is_default',1)->first()->id ?? 1 
                             ];
                             
                              self::model()->create(
