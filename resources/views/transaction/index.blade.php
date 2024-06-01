@@ -5,6 +5,7 @@
     <x-link href="{{ route('transaction.create') }}">
         {{ __('New') }}
     </x-link>
+    <x-link href="{{ route('transactions',['actual-month'])}}">only actual month</x-link>
     <x-table>
         <x-slot name="headers">
             <tr>

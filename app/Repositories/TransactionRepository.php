@@ -11,9 +11,15 @@ class TransactionRepository
 {
     use HandleModel;
 
-    public function list()
+    public function list(array $filters)
     {
-        return self::model()->with('transactionParts')->orderBy('date')->get();
+        return self::model()
+            ->with('transactionParts')
+            ->when($filters, function($query){
+                $query->isActive();
+                $query->whereActualMonth();
+            })
+            ->orderBy('date')->get();
     }
 
     public function save($request)

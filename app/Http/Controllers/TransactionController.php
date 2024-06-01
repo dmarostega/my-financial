@@ -8,9 +8,10 @@ class TransactionController extends Controller
 {
     use HandleRepository;
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('transaction.index',['transactions' => self::repository()->list()]);
+        $filters = $request->only(['actual-month']);
+        return view('transaction.index',['transactions' => self::repository()->list($filters)]);
     }
 
     public function create()
