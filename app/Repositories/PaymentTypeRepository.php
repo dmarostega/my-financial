@@ -17,9 +17,8 @@ class PaymentTypeRepository
         return self::model()->findOrFail($id);
     }
 
-    public function save($request)
-    {
-        $fields = $request->except(['_token']);
+    public function save(array $campos)
+    {        
         $paymentType = self::model();
         $paymentType->fill($fields);
 
@@ -28,14 +27,24 @@ class PaymentTypeRepository
         return $paymentType;
     }
 
-    public function update($request, $id)
+    public function update(array $campos, $id)
     {
-        $paymentType = $this->find($id);
-        $paymentType->fill($request->except(['_token']));
+        $paymentType = $this->model()->find($id);
+        $paymentType->fill($campos);
 
         $paymentType->save();
 
         return $paymentType;
+    }
+
+    public function returnStatuses() : array
+    {
+        return self::model()->statuses();
+    }
+
+    public function returnTimings() : array 
+    {
+        return self::model()->timings();
     }
 
     private static function model()

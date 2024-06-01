@@ -16,11 +16,21 @@ class PaymentType extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'discount_timing',
+        'is_default'
     ];
 
     public static function timings()
     {
         return ['immediate','delayed'];
+    }
+    
+    public function statuses() : array 
+    {
+        return  [
+                    'active' => 'Ativo',
+                    'inactive' => 'Inativo'
+                ];
     }
 }

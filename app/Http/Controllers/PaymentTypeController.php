@@ -13,28 +13,43 @@ class PaymentTypeController extends Controller
 
     public function index()
     {
-        return view('payment-type.index', ['paymentTypes' => self::repository()->list()]);
+        return view('payment-type.index', [
+                                            'paymentTypes' => self::repository()->list(),
+                                            'statuses' => self::repository()->returnStatuses()
+                                        ]);
     }
 
     public function create()
     {
-        return view('payment-type.create');
+        return view('payment-type.create', [
+            'statuses' => self::repository()->returnStatuses(),
+            'timings' => self::repository()->returnTimings()
+        ]);
     }
 
     public function store(PaymentTypeRequest $request)
     {
-        self::repository()->save($request);
+        $campos = $request->except(['_token','_method']);
+        $campos['is_default'] = $campos['is_default'] == 'on' ? 1 : 0;
+
+        self::repository()->save($campos);
         return redirect()->action([PaymentTypeController::class,'index']);
     }
 
     public function edit($id)
     {
-       return view('payment-type.edit',[ 'paymentType' => self::repository()->find($id)]);
+       return view('payment-type.edit', [
+                                            'paymentType' => self::repository()->find($id),
+                                            'statuses' => self::repository()->returnStatuses(),
+                                            'timings' => self::repository()->returnTimings()
+                                        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(PaymentTypeRequest $request, $id)
     {
-        self::repository()->update($request, $id);
+        $campos = $request->except(['_token','_method']);
+        $campos['is_default'] = $campos['is_default'] == 'on' ? 1 : 0;
+        self::repository()->update($campos, $id);
         return redirect()->action([PaymentTypeController::class,'index']);
     }
 
