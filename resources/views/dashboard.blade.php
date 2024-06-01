@@ -28,34 +28,43 @@
 
                             <p>{{ __('Contracts Received') }}</p>
                             @if($summary->transactions->count() > 0)
-                              <p>{{ $summary->transactions()->contractsReceived()->sum('value') }}</p>
+                              <p>{{ 
+                              $total_received ?? 0
+                            }}</p>
                             @endif
                         </div>
+                        {{-- BILLS --}}
                         <div class="mb-4 p-6 ">
                             <p>{{ __('BILLS') }}</p>
-                            @if($summary->bills->count() > 0)
-                            <p>{{ $summary->bills->where('type','to_pay')->sum('value') }}</p>
-                            @endif
-
-                            <p>{{ __('Paid out') }}</p>
-                            @if($summary->transactions->count() > 0)
-                                <p>{{ $summary->transactions()->paidOut()->sum('value') }}
-                            @endif
-                            @if($summary->bills->count() > 0)
-                            <small>(
-                                    {{ 
-                                        $summary->bills()->inCards()->sum('value')
-                                    }}  
-                                ) in Card</small>
+                            <p>
+                                {{ 
+                                    $summary->transactions->filter(function($item) {                                    
+                                        return $item->bill_id && $item->bill->type == 'to_pay';
+                                    })->sum('value')
+                                }} 
                             </p>
-                            @endif
+                            <p>{{ __('Paid out') }}</p>
+                                @if($summary->transactions->count() > 0)
+                                    <p>{{ 
+                                        $summary->transactions->filter(function($item) {
+                                            return $item->bill_id && $item->bill->type == 'to_pay'
+                                            &&
+                                            $item->transactionParts->first()->payment_date != null;
+                                        })->sum('value') }}
+                                @endif
                             <p>{{ __('Balance') }}</p>
                             <p>
                                 @if($summary->transactions->count() > 0)
                                     {{
-                                        $summary->transactions()->contractsReceived()->sum('value') 
+                                         (
+                                            $total_received ?? 0
+                                        )
                                         -
-                                        $summary->transactions()->paidOut()->sum('value')
+                                        ($summary->transactions->filter(function($item) {
+                                            return $item->bill_id && $item->bill->type == 'to_pay'
+                                            &&
+                                            $item->transactionParts->first()->payment_date != null;
+                                        })->sum('value'))
                                     }}
                                 @endif
                             </p>
@@ -94,11 +103,11 @@
                                     <p> 
                                         {{ $name }}: 
                                         @if($summary->transactions->count() > 0)
-                                        {{ $summary->transactions()
-                                                ->hasPaymentIn([$paymentType])
-                                                ->whereDoesntHave('bill')
-                                                ->sum('value')
-                                            }}
+                                        {{  
+                                            $summary->transactions->filter(function($item) use ($paymentType) {
+                                                return !$item->bill_id && $item->payment_type_id == $paymentType;
+                                            })->sum('value')
+                                        }}
                                         @endif
                                     </p>
                                 @endforeach
@@ -109,41 +118,38 @@
                             <h2>
                                 @if($summary->transactions->count() > 0)
                                     {{ 
-                                        (   
-                                            $summary->transactions()->contractsReceived()->sum('value')
-                                        )
-                                        -
                                         (
-                                            $summary->transactions()->paidOut()->sum('value')
-                                                +
-                                            $summary->transactions()
-                                                ->hasPaymentIn(1)
-                                                ->whereDoesntHave('bill')
-                                                ->whereDoesntHave('card')
-                                                ->sum('value')
-                                            +
-                                            $summary->transactions()
-                                                ->whereDoesntHave('bill')
-                                                ->hasPaymentIn([3,4])
-                                                ->sum('value')                                       
+                                            $total_received ?? 0
                                         )
+                                       -
+                                       (
+                                        $expenses_paided
+                                                ->sum('value') 
+                                        +
+                                        $summary->transactions
+                                            ->filter(function($item) {
+                                                return $item->bill_id && $item->bill->type == 'to_pay';
+                                            })
+                                            ->sum('value')
+                                       )
                                     }}
                                 @endif
                             </h2>
-                            <p>
-                                Next Month 
-                                <p>
+                        </div>
+                        <div  class="mb-4 p-6">
+                                <h2>Prevision for {{$nextMonth->format('F')}}({{$nextMonth->month}})</h2>
+                                 <p>
                                     {{
-                                        $summary->transactions()->contractsReceived()->sum('value') 
+                                        $summary->contracts->sum('value')                                         
                                         -
                                         $expenses_to_pay
                                                 ->sum('value') 
                                         -
-                                        \App\Models\Bill::where('type','to_pay')->sum('value') 
+                                        \App\Models\Bill::isActive()->where('type','to_pay')->sum('value') 
                                     }}
                                 </p>
-                            </p>
-                        </div>                            
+                        </div>
+                          
                     </div>
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">

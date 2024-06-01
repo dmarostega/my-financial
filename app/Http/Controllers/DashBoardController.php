@@ -23,7 +23,7 @@ class DashBoardController extends Controller
             'actualMonth' => $actualMonth,
             'lastMonth' => $lastMonth->previous('month'),
             'nextMonth' => $nextMonth->next('month'),
-            'daily_expenses' =>  $expenses->sortBy('date')
+            'daily_expenses' => $expenses->sortBy('date')
                         ->groupBy(function($item) {
                             return \Carbon\Carbon::parse($item['date'])->toDateString();
                         })
@@ -36,7 +36,12 @@ class DashBoardController extends Controller
             }),
             'expenses_to_pay' =>  $expenses->filter(function($item){
                 return $item->paymentType->discount_timing == 'delayed';
-            }),           
+            }),
+            'total_received' => $summary->transactions
+                    ->filter(function($item) {
+                        return $item->bill_id && $item->bill->type == 'to_receive';
+                    })
+                    ->sum('value')
         ]);
     }
 }
