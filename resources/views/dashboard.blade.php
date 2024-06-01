@@ -9,9 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $month }}) {{ date('M') }}</h1>
-                    <h2>{{ $lastMonth }}</h2>
-                    <h3>{{ $nextMonth }}</h3>
+                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $actualMonth->month }}) {{ date('M') }}</h1>
+                    <h2>{{  $lastMonth->month }}</h2>
+                    <h3>{{  $nextMonth->month }}</h3>
                     <div style="width: 90%; margin: 0 auto; display: flex">
                         <div class="mb-4 p-6">
                             

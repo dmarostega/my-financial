@@ -10,13 +10,19 @@ class DashBoardController extends Controller
 
     public function index()
     {
-        $today = Carbon::now();
+        $actualMonth = Carbon::now();
+        $lastMonth = clone $actualMonth;
+        $nextMonth = clone $actualMonth;
+
         $summary =  self::repository()->summary();
         $expenses = $summary->transactions
                         ->whereNull('bill_id');
 
         return view('dashboard',[
             'summary' => $summary,
+            'actualMonth' => $actualMonth,
+            'lastMonth' => $lastMonth->previous('month'),
+            'nextMonth' => $nextMonth->next('month'),
             'daily_expenses' =>  $expenses->sortBy('date')
                         ->groupBy(function($item) {
                             return \Carbon\Carbon::parse($item['date'])->toDateString();
