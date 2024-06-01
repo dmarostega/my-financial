@@ -15,16 +15,18 @@ class DefaultsPaymentTypeSeeder extends Seeder
      */
     public function run()
     {
-        $users = \App\Models\User::whereNotIn('id', PaymentType::withoutGlobalScope('owner')->select('user_id'));
-        if($users->count() == 0){
-            echo 'Não usuários sem tipos de pagamentos, não executará!\n Verifique se existe usuários cadastrados.';
-            return;     
-        }
+        // $users = \App\Models\User::whereNotIn('id', PaymentType::withoutGlobalScope('owner')->select('user_id'));
+        // if($users->count() == 0){
+        //     echo 'Não usuários sem tipos de pagamentos, não executará!\n Verifique se existe usuários cadastrados.';
+        //     return;     
+        // }
+
+        // $users = \App\Models\User::get(); //whereNotIn('id', PaymentType::withoutGlobalScope('owner')->select('user_id'));
 
         $json = Storage::disk('local')->get('seeders/payment-types.json');
         $paymentTypes = collect(json_decode($json,true));
 
-        $users->chunkById(500, function($userSlice) use ($paymentTypes) {
+        \App\Models\User::chunkById(500, function($userSlice) use ($paymentTypes) {
             $userSlice->each(function($user) use ($paymentTypes) {
                 $paymentTypes->each(function($paymentType) use ($user) {
                     PaymentType::withoutGlobalScope('owner')->updateOrCreate([
@@ -33,7 +35,8 @@ class DefaultsPaymentTypeSeeder extends Seeder
                     ],
                     [                        
                         'name' => $paymentType['name'],
-                        'allow_installments' => $paymentType['allow_installments']
+                        'allow_installments' => $paymentType['allow_installments'],
+                        'discount_timing' => $paymentType['discount_timing']
                     ]);
                 });
             });

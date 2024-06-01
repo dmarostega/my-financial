@@ -18,4 +18,9 @@ class PaymentType extends Model
         'name',
         'description'
     ];
+
+    public static function timings()
+    {
+        return ['immediate','delayed'];
+    }
 }
