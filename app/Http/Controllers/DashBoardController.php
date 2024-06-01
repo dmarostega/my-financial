@@ -12,22 +12,25 @@ class DashBoardController extends Controller
     {
         $today = Carbon::now();
         $summary =  self::repository()->summary();
+        $expenses = $summary->transactions
+                        ->whereNull('bill_id');
 
         return view('dashboard',[
             'summary' => $summary,
-            'month' => $today->month,
-            'lastMonth' => $today->previous('month')->month,
-            'nextMonth' => $today->next('month')->month,
-            'expenses' => $summary->transactions
-                            ->whereNull('bill_id')
-                            ->whereNull('transactionParts.payment_date')
-                            ->sortBy('date')
-                            ->groupBy(function($item) {
-                                return \Carbon\Carbon::parse($item['date'])->toDateString() /*. (empty($item['card_id'])) */;
-                            })
-                            ->map(function($item) {
-                                return $item->sum('value');
-                            })
+            'daily_expenses' =>  $expenses->sortBy('date')
+                        ->groupBy(function($item) {
+                            return \Carbon\Carbon::parse($item['date'])->toDateString();
+                        })
+                        ->map(function($item) {
+                            return $item->sum('value');
+                        }),
+            'expenses' =>  $expenses,                        
+            'expenses_paided' =>  $expenses->filter(function($item){
+                return $item->paymentType->discount_timing == 'immediate';
+            }),
+            'expenses_to_pay' =>  $expenses->filter(function($item){
+                return $item->paymentType->discount_timing == 'delayed';
+            }),           
         ]);
     }
 }

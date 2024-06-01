@@ -62,22 +62,27 @@
                         </div>       
                         <div class="mb-4 p-6">
                             <div class="pb-3">
+                                {{-- SPENDING --}}
                                 {{ __('Spending') }}: 
                                 <p>All: 
-                                    @if($summary->transactions->count() > 0)
+                                    @if(isset($expenses))
                                         {{
-                                            $summary->transactions()
-                                            ->whereDoesntHave('bill')                                      
-                                            ->sum('value') 
+                                           $expenses->sum('value') 
                                         }}
                                     @endif
                                 </p>
                                 <p> To pay: 
-                                    @if($summary->transactions->count() > 0)
+                                    @if(isset($expenses_to_pay))
+                                    {{
+                                        $expenses_to_pay
+                                            ->sum('value') 
+                                    }}
+                                @endif
+                                </p>
+                                <p>  paid: 
+                                    @if(isset($expenses_paided))
                                         {{
-                                            $summary->transactions()
-                                                ->whereDoesntHave('bill')
-                                                ->noHasPayment()
+                                            $expenses_paided
                                                 ->sum('value') 
                                         }}
                                     @endif
@@ -125,6 +130,19 @@
                                     }}
                                 @endif
                             </h2>
+                            <p>
+                                Next Month 
+                                <p>
+                                    {{
+                                        $summary->transactions()->contractsReceived()->sum('value') 
+                                        -
+                                        $expenses_to_pay
+                                                ->sum('value') 
+                                        -
+                                        \App\Models\Bill::where('type','to_pay')->sum('value') 
+                                    }}
+                                </p>
+                            </p>
                         </div>                            
                     </div>
                 </div>
@@ -146,7 +164,7 @@
                         </div>
                         <div class="p-6 bg-white border border-gray-200">
                             <h2>{{__('Daily expenses')}}</h2>
-                            @if(isset($expenses))
+                            @if(isset($daily_expenses))
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -155,7 +173,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($expenses as $date => $expensed)
+                                        @foreach ($daily_expenses as $date => $expensed)
                                             <tr style="padding: 1em; border-botton: 1px solid gray">
                                                 <td>{{ date('d/m/Y', strtotime($date)) }}</td>
                                                 <td>{{$expensed}}</td>
