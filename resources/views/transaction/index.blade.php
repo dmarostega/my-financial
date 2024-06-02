@@ -63,6 +63,10 @@
                                     {{ __('To receive') }}
                                 </x-link>
                             @endif 
+                        @else 
+                            <x-link :href="route('resolving.confirm', ['id' => $transaction->transactionParts->first()->id])">
+                                {{ __('extort') }}
+                            </x-link>
                         @endif           
                     </div>
                     <div>

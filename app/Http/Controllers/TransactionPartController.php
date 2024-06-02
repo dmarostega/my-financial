@@ -36,4 +36,16 @@ class TransactionPartController extends Controller
 
         return redirect()->route('summary.check_month');
     }
+
+    public function extort(Request $request, int $id){
+        $transactionPart = TransactionPart::find($id);
+        $transactionPart->value_paid = null;
+        $transactionPart->payment_date = null;
+        $transactionPart->discount = 0;
+        $transactionPart->fees = 0;
+
+        $transactionPart->save();
+
+        return redirect()->route('transactions');        
+    }
 }

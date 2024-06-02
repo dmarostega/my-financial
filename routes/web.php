@@ -155,6 +155,7 @@ Route::prefix('summary')->name('summary.')->group(function(){
 Route::prefix('resolving')->name('resolving.')->group( function(){
     Route::get('{id}', [TransactionPartController::class,'confirm'])->name('confirm');
     Route::post('{id}', [TransactionPartController::class,'transaction'])->name('transaction');
+    Route::post('{id}/extort', [TransactionPartController::class,'extort'])->name('extort');
 });
 
 
