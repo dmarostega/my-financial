@@ -123,4 +123,12 @@ class Transaction extends Model
             $query->whereIn('id', $paymentTypeIds);
         });
     }
+    
+    public function statuses() : array 
+    {
+        return  [
+                    'active' => 'Ativo',
+                    'inactive' => 'Inativo'
+                ];
+    }
 }
