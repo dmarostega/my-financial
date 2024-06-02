@@ -39,7 +39,7 @@ class DashBoardController extends Controller
             }),
             'total_received' => $summary->transactions
                     ->filter(function($item) {
-                        return $item->bill_id && $item->bill->type == 'to_receive';
+                        return $item->bill_id && $item->bill->type == 'to_receive' && !empty($item->transactionParts->first()->payment_date);
                     })
                     ->sum('value')
         ]);
