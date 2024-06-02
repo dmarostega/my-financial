@@ -19,13 +19,14 @@ class CreatePaymentTypesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->enum('type',[  
-                                    "dinheiro",
-                                    "credito",
-                                    "debito",
-                                    "transferencia",
-                                    "boleto",
-                                    "cheque",
-                                    "pix"
+                                    "money",
+                                    "credit",
+                                    "debit",
+                                    "transfer",
+                                    "ticket",
+                                    "check",
+                                    "pix",
+                                    "unknown"
                                 ]);
             $table->tinyInteger('allow_installments')->default(false);
             $table->integer('max_installments')->default(1);

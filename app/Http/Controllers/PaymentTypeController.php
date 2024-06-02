@@ -30,7 +30,8 @@ class PaymentTypeController extends Controller
     public function store(PaymentTypeRequest $request)
     {
         $campos = $request->except(['_token','_method']);
-        $campos['is_default'] = $campos['is_default'] == 'on' ? 1 : 0;
+        if(isset($campos['is_default']))
+            $campos['is_default'] = (int) $campos['is_default'] === 'on' ;
 
         self::repository()->save($campos);
         return redirect()->action([PaymentTypeController::class,'index']);
@@ -48,7 +49,9 @@ class PaymentTypeController extends Controller
     public function update(PaymentTypeRequest $request, $id)
     {
         $campos = $request->except(['_token','_method']);
-        $campos['is_default'] = $campos['is_default'] == 'on' ? 1 : 0;
+        if(isset($campos['is_default']))
+            $campos['is_default'] = (int) $campos['is_default'] === 'on' ;
+        
         self::repository()->update($campos, $id);
         return redirect()->action([PaymentTypeController::class,'index']);
     }
