@@ -36,10 +36,28 @@
                         {{-- BILLS --}}
                         <div class="mb-4 p-6 ">
                             <p>{{ __('BILLS') }}</p>
-                            <p>
+                            <div>All
                                 {{ 
                                     $summary->transactions->filter(function($item) {                                    
                                         return $item->bill_id && $item->bill->type == 'to_pay';
+                                    })->sum('value')
+                                }} 
+                                <small>
+                                    {{
+                                        (
+                                            $summary->contracts->sum('value') ?? 0
+                                        )
+                                        -
+                                        $summary->transactions->filter(function($item) {                                    
+                                           return $item->bill_id && $item->bill->type == 'to_pay';
+                                        })->sum('value')
+                                    }}
+                                </small>
+                            </div>
+                            <p>Fixas
+                                {{ 
+                                    $summary->transactions->filter(function($item) {                                    
+                                        return $item->bill_id && $item->bill->type == 'to_pay' && !$item->card_id;
                                     })->sum('value')
                                 }} 
                             </p>
@@ -56,7 +74,7 @@
                             <p>
                                 @if($summary->transactions->count() > 0)
                                     {{
-                                         (
+                                        (
                                             $total_received ?? 0
                                         )
                                         -
