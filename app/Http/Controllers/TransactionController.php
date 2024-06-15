@@ -10,7 +10,7 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['actual-month']);
+        $filters = $request->only(['actual-month','only-bills']);
         return view('transaction.index',['transactions' => self::repository()->list($filters)]);
     }
 

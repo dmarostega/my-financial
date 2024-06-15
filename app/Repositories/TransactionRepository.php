@@ -15,11 +15,18 @@ class TransactionRepository
     {
         return self::model()
             ->with('transactionParts')
-            ->when($filters, function($query){
-                $query->isActive();
-                $query->whereActualMonth();
+            ->isActive()
+            ->whereActualMonth()
+            ->when(isset($filters['only-bills']) && $filters['only-bills'] !== null, function($query, $filters){
+                //['actual-month','only-bills']
+
+                // dd($filters, $filters['only-bills'], ($filters['only-bills'] !== null));
+                // if((isset($filters['only-bills']) && $filters['only-bills'] !== null)){
+                    $query->whereHas('bill');
+                // }
             })
-            ->orderBy('date')->get();
+            ->orderByDesc('date')
+            ->paginate(15);
     }
 
     public function save($request)

@@ -6,6 +6,7 @@
         {{ __('New') }}
     </x-link>
     <x-link href="{{ route('transactions',['actual-month'])}}">only actual month</x-link>
+    <x-link href="{{ route('transactions',['only-bills' => 1])}}">Only Bills</x-link>
     <x-table>
         <x-slot name="headers">
             <tr>
@@ -79,4 +80,5 @@
             @endforeach
         </x-slot>
     </x-table>
+    {{$transactions->links()}}
 </x-app-layout>
