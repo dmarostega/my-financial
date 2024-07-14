@@ -21,9 +21,7 @@ class CardObserver
 
     public function created(Card $card)
     {
-        $creditTypes = collect(['credit','multiple','prepaid']);
-        
-        if($creditTypes->contains($card->type)){        
+        if(CreditCard::acceptedTypes()->contains($card->type)){        
             $user = auth()->user();
             CreditCard::create([
                 'card_id' => $card->id,
@@ -33,15 +31,15 @@ class CardObserver
     }
 
     public function updated(Card $card)
-    {
-        $creditTypes = collect(['credit','multiple','prepaid']);
-        
-        if($creditTypes->contains($card->type)){        
+    {        
+        if(CreditCard::acceptedTypes()->contains($card->type)){        
             $user = auth()->user();
             CreditCard::updateOrCreate([
                 'card_id' => $card->id,
                 'card_user_id' => $card->user_id
             ]);
+        }else if($card->creditCard->count() > 0) {
+            $card->creditCard()->delete();
         }
     }
 

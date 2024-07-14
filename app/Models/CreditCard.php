@@ -23,4 +23,8 @@ class CreditCard extends Model
     {
         return $this->belongsTo(Card::class);
     }
+
+    public static function acceptedTypes() {
+        return collect(['credit','multiple','prepaid']);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Card;
+use App\Models\CreditCard;
 use App\Models\FinancialEntity;
 use Str;
 
@@ -25,10 +26,15 @@ class CardRepository
 
     public function save($request){
         $fields = $request->except(['_token', 'credit']);
+        
         self::model()->fill($fields);
         self::model()->save();
 
-        if($request->has('credit') && $request->credit){
+        if( $request->has('credit') 
+            &&
+            $request->credit
+            &&
+            CreditCard::acceptedTypes()->contains($request->type)) {
             self::model()->creditCard->credit = $request->credit;
             self::model()->creditCard->save();
         }
@@ -41,7 +47,8 @@ class CardRepository
         $fields = $request->except(['_token','credit','_method']);
         $card = self::model()->find($id);
         $card->update($fields);
-        if($request->credit){
+        // if($request->credit){
+        if(CreditCard::acceptedTypes()->contains($request->type)){
             $card->creditCard()->update(['credit' => $request->credit, 'due_day' => $request->due_day]);
         }
 
