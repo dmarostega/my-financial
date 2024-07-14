@@ -8,7 +8,7 @@
         <x-label for="value">{{ __('Value') }}</x-label>
         <x-input type="text" id="value" name="value" value="{{ old('value') }}"/>
         <x-label for="due_date">{{ __('Due Date') }}</x-label>
-        <x-input type="text" id="due_date" name="due_date" value="{{ old('due_date') }}"/>
+        <x-input type="date" id="due_date" name="due_date" value="{{ old('due_date') }}"/>
         <x-label for="type">{{ __('Type') }}</x-label>
         <x-select name="type" id="type">
             @foreach($types as $key => $type)

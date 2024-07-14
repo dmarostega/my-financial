@@ -15,10 +15,10 @@
         <x-input id="prediction" name="prediction" class="lg:w-80" value="{{ old('prediction') }}"/>  
 
         <x-label for="date_init">{{  __('Inicio') }}</x-label>
-        <x-input id="date_init" name="date_init" value="{{ old('date_init') }}"/>
+        <x-input type="date" id="date_init" name="date_init" value="{{ old('date_init') }}"/>
 
         <x-label for="date_end">{{ __('Final') }}</x-label>
-        <x-input id="date_end" name="date_end" value="{{ old('date_end') }}" />
+        <x-input type="date" id="date_end" name="date_end" value="{{ old('date_end') }}" />
 
         <div>
             <hr>

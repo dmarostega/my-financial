@@ -2,11 +2,28 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
+
 trait CastingAttributes
 {
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = \Carbon\Carbon::parse($value);
+        $this->attributes['date'] = Carbon::parse($value);
+    }
+
+    public function setDueDateAttribute($value)
+    {
+        $this->attributes['due_date'] = Carbon::parse($value);
+    }
+
+    public function setDateInitAttribute($value)
+    {
+        $this->attributes['date_init'] = Carbon::parse($value);
+    }
+
+    public function setDateEndAttribute($value)
+    {
+        $this->attributes['date_end'] = Carbon::parse($value);
     }
 
     /**
