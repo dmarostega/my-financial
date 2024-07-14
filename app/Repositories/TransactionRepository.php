@@ -18,12 +18,7 @@ class TransactionRepository
             ->isActive()
             ->whereActualMonth()
             ->when(isset($filters['only-bills']) && $filters['only-bills'] !== null, function($query, $filters){
-                //['actual-month','only-bills']
-
-                // dd($filters, $filters['only-bills'], ($filters['only-bills'] !== null));
-                // if((isset($filters['only-bills']) && $filters['only-bills'] !== null)){
-                    $query->whereHas('bill');
-                // }
+                $query->whereHas('bill');
             })
             ->orderByDesc('date')
             ->paginate(15);
@@ -109,7 +104,7 @@ class TransactionRepository
                         ->whereDoesntHave('bill');
 
         foreach(self::model()->with(['transactionParts'])
-                ->whereIn('payment_type_id', [1,3,4, 7]) // dinheiro, décito, tranferência, pix
+                ->whereIn('payment_type_id', [1,3,4, 7]) // NOTE - dinheiro, décito, tranferência, pix
                 ->whereHas('transactionParts', function($query){
                     $query->whereNull('payment_date');
                 })->get() as $transaction){
