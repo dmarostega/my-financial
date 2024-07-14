@@ -26,8 +26,14 @@ class TransactionRepository
 
     public function save($request)
     {
-        $fields = $request->except('_token','_method');
+        $fields = array_filter($request->except('_token','_method'));
         $transaction = self::model();
+        
+        if(isset($fields['time']) ) {
+            $fields['date'] = substr($fields['date'], 0, 10) . ' ' . $fields['time'];
+            unset($fields['time']);
+        }
+
         $transaction->updateOrCreate(
             $fields
         );
@@ -35,8 +41,14 @@ class TransactionRepository
     
     public function update($request, $id)
     {
-        $fields = $request->except('_token','_method');
+        $fields = array_filter($request->except('_token','_method'));
         $transaction = self::model();
+        
+        if(isset($fields['time']) ) {
+            $fields['date'] = substr($fields['date'], 0, 10) . ' ' . $fields['time'];
+            unset($fields['time']);
+        }
+
         $transaction->find($id)->update(
             $fields            
         );
