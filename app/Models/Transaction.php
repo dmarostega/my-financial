@@ -1,14 +1,18 @@
 <?php 
 namespace App\Models;
 
+use App\Traits\CastingAttributes;
 use App\Traits\CommonFilter;
 use App\Traits\HandleUser;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
     use HandleUser;
+
+    use CastingAttributes;
     
     use CommonFilter;
 
@@ -32,8 +36,14 @@ class Transaction extends Model
      * CRIAR RELAÇÃO 
      * CRIAR COLUNA OBSERVAÇÃO
      * 
+     * Tentar lembrar para que isso descrito acima.
+     * 
      */
 
+
+    /**
+     * NOTE = Relations
+     *  */
     public function paymentType()
     {
         return $this->belongsTo(PaymentType::class);

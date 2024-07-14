@@ -3,8 +3,7 @@
         <h2>{{ __('Cadastrando') }} {{  __('uma') }} {{ __('transação') }}</h2>
     </x-slot>
     <x-form :action="route('transaction.store')">
-        <x-label for="date">{{ __('Data') }}</x-label>
-        <x-input id="date" name="date" value="{{ @date(old('date')) }}"/>
+            <x-input type="date" class="form-input w-full" id="date" name="date" value="{{ @date(old('date')) }}"/>        
         <x-label for="title">{{ __('Título') }}</x-label>
         <x-input id="title" name="title" value="{{ old('title') }}" />
         <x-label for="description">{{ __('Descrição') }}</x-label>
