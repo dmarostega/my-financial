@@ -31,8 +31,22 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $redirect = redirect()->route('transactions');
+
+        if($request->has('add_more') && $request->add_more = 'on') {
+            $redirect = redirect()->route('transaction.create')
+                        ->withInput($request
+                            ->only(     'date',
+                                        'time',
+                                        'card_id',
+                                        'category_id',
+                                        'payment_type_id',
+                                        'add_more'
+                                    ));
+        }
+
         $fields = array_filter($request->except('_token','_method','add_more'));
         self::repository()->save($fields);
+       
         return $redirect;
     }
 
