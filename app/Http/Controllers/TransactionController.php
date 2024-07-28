@@ -30,9 +30,10 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        self::repository()->save($request);
-        
-        return redirect()->route('transactions');
+        $redirect = redirect()->route('transactions');
+        $fields = array_filter($request->except('_token','_method','add_more'));
+        self::repository()->save($fields);
+        return $redirect;
     }
 
     public function edit($id)
@@ -48,7 +49,9 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            self::repository()->update($request, $id);
+            $fields = array_filter($request->except('_token','_method','add_more'));
+
+            self::repository()->update($fields, $id);
             return redirect()->route('transactions');
         } catch (\Throwable $th) {
             dd($th);

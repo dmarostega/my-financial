@@ -24,9 +24,8 @@ class TransactionRepository
             ->paginate(15);
     }
 
-    public function save($request)
+    public function save(array $fields)
     {
-        $fields = array_filter($request->except('_token','_method'));
         $transaction = self::model();
         
         if(isset($fields['time']) ) {
@@ -39,9 +38,8 @@ class TransactionRepository
         );
     }
     
-    public function update($request, $id)
-    {
-        $fields = array_filter($request->except('_token','_method'));
+    public function update(array $fields, $id)
+    {        
         $transaction = self::model();
         
         if(isset($fields['time']) ) {
