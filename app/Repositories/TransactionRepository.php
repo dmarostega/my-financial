@@ -33,9 +33,13 @@ class TransactionRepository
             unset($fields['time']);
         }
 
-        $transaction->updateOrCreate(
+        $transaction->fill(
             $fields
         );
+        $transaction->save();
+
+        
+        return $transaction;
     }
     
     public function update(array $fields, $id)

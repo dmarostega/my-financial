@@ -26,6 +26,17 @@ trait CastingAttributes
         $this->attributes['date_end'] = Carbon::parse($value);
     }
 
+    public function moneyToDatabase($value)
+    {
+        // Remove tudo que não é dígito ou vírgula
+        $numericValue = preg_replace('/[^0-9,]/', '', $value);
+
+        // Substitui a vírgula decimal por ponto
+        $numericValue = str_replace(',', '.', $numericValue);
+        
+        return $numericValue;
+    }
+
     /**
      * FIXME: Implementar migration para alterar tipo da coluna value
      *        de DOUBLE para DECIMAL, de todas tabelas.
