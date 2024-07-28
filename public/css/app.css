@@ -3,7 +3,7 @@
 }
 .table td, 
 .table th{
-    width: 10%;
+    /* width: 10%; */
     padding: 1px 10px;
     border: 1px solid rgb(35, 48, 73);
 }
@@ -822,6 +822,9 @@ select {
 }
 .w-5 {
   width: 1.25rem;
+}
+.w-32 {
+  width: 8rem;
 }
 .w-48 {
   width: 12rem;

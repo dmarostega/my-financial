@@ -10,9 +10,9 @@
     <x-table>
         <x-slot name="headers">
             <tr>
-                <th>{{ __('Date') }}</th>
+                <th  class="w-8">{{ __('Date') }}</th>
                 <th>{{ __('Title') }}</th>
-                <th>{{ __('Value') }}</th>
+                <th class="w-8">{{ __('Value') }}</th>
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Payment') }}</th>
                 <th>{{ __('Infos') }}</th>
@@ -27,8 +27,8 @@
             <tr>
                 <td>{{ date('d/m',strtotime($transaction->date)) }}</td>
                 <td>{{ $transaction->title }}</td>
-                <td>{{ $transaction->value }}</td>
-                <td>{{ $transaction->category->name }}</td>
+                <td class="text-center">{{ number_format($transaction->value, 2, ',' ,'.') }}</td>
+                <td class="text-center">{{ $transaction->category->name }}</td>
                 <td>
                     <p>{{ $transaction->paymentType->name }}</p>
                     <p>{{ $transaction->card->title ?? '' }}</p>
@@ -41,7 +41,7 @@
                             @else
                                 {{  __('Paid Out')  }}
                             @endif
-                            <p> {{  $transaction->transactionParts->first()->value_paid }}</p>
+                            <p> {{  number_format($transaction->transactionParts->first()->value_paid, 2, ',', '.') }}</p>
                         @endif
                     </p>
 
