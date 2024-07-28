@@ -7,10 +7,9 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-
 document.addEventListener('alpine:init', () => {
-    Alpine.data('moneyMask', () => ({
-        value: '',
+    Alpine.data('moneyMask', (value) => ({
+        value: value ? maskMoney(value) : '',
         applyMask() {
             this.value = maskMoney(this.value);
         }
@@ -19,22 +18,23 @@ document.addEventListener('alpine:init', () => {
 
 
 const maskMoney = function (input) {
-    // Remove tudo que não é dígito
+        
     let v = input.replace(/\D/g, '');
-    
-    // Adiciona os zeros no início caso o valor seja menor que 3 dígitos (para garantir pelo menos R$ 0,00)
-    v = (v / 100).toFixed(2) + '';
-    
-    // Substitui ponto por vírgula
-    v = v.replace('.', ',');
-    
-    // Adiciona o separador de milhar
-    v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    
-    // Adiciona o prefixo "R$ "
-    return 'R$ ' + v;
-}
+    let hasDecimalSeparator = input.includes('.') || input.includes(',');
+    let numberValue = parseFloat(v);
 
+    if(hasDecimalSeparator) {
+        numberValue = numberValue / 100;
+    }
+
+    let formattedValue = numberValue.toLocaleString('pt-BR', {
+        style: 'decimal',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+
+    return 'R$ ' + formattedValue;
+}
 
 Alpine.start();
 

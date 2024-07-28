@@ -3362,9 +3362,9 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 document.addEventListener('alpine:init', function () {
-  alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data('moneyMask', function () {
+  alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data('moneyMask', function (value) {
     return {
-      value: '',
+      value: value ? maskMoney(value) : '',
       applyMask: function applyMask() {
         this.value = maskMoney(this.value);
       }
@@ -3372,20 +3372,18 @@ document.addEventListener('alpine:init', function () {
   });
 });
 var maskMoney = function maskMoney(input) {
-  // Remove tudo que não é dígito
   var v = input.replace(/\D/g, '');
-
-  // Adiciona os zeros no início caso o valor seja menor que 3 dígitos (para garantir pelo menos R$ 0,00)
-  v = (v / 100).toFixed(2) + '';
-
-  // Substitui ponto por vírgula
-  v = v.replace('.', ',');
-
-  // Adiciona o separador de milhar
-  v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-
-  // Adiciona o prefixo "R$ "
-  return 'R$ ' + v;
+  var hasDecimalSeparator = input.includes('.') || input.includes(',');
+  var numberValue = parseFloat(v);
+  if (hasDecimalSeparator) {
+    numberValue = numberValue / 100;
+  }
+  var formattedValue = numberValue.toLocaleString('pt-BR', {
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  return 'R$ ' + formattedValue;
 };
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 
