@@ -22,8 +22,8 @@ class CreateTransactionsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->tinyInteger('repeat')->default(0);
-            $table->double('prediction')->nullable();
-            $table->double('value');
+            $table->decimal('prediction', 20, 2)->nullable();
+            $table->decimal('value', 20, 2);
             $table->dateTime('date', $precision = 0);
             $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();

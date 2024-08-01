@@ -27,8 +27,8 @@ class CreateSummaryMonthTable extends Migration
             $table->unsignedBigInteger('summary_month_id');
             $table->unsignedBigInteger('entity_id');
             $table->string('model');
-            $table->double('value')->comment('Standard value');
-            $table->double('ammount')->comment('Standard value, when modify');
+            $table->decimal('value', 20, 2)->comment('Standard value');
+            $table->decimal('ammount', 20, 2)->comment('Standard value, when modify');
             $table->enum('in_process',['receiving','checking','check-updated']);       
 
             $table->timestamps();

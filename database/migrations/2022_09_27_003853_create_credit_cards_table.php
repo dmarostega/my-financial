@@ -17,8 +17,8 @@ class CreateCreditCardsTable extends Migration
             $table->id();
             $table->foreignId('card_id')->constrained();
             $table->foreignId('card_user_id')->constrained();
-            $table->double('credit')->default(0);
-            $table->double('amount')->default(0);
+            $table->decimal('credit', 20, 2)->default(0);
+            $table->decimal('amount', 20, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
