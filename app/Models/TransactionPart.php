@@ -1,0 +1,26 @@
+<?php 
+namespace App\Models;
+
+use App\Traits\CastingAttributes;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class TransactionPart extends Model
+{
+    use CastingAttributes;
+
+    protected $table = 'transactions_parts';
+
+    protected $fillable = [
+        'transaction_id',
+        'due_date',
+        'payment_date',
+        'value_paid',
+        'value'
+    ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+}
