@@ -38,7 +38,7 @@ class CardObserver
                 'card_id' => $card->id,
                 'card_user_id' => $card->user_id
             ]);
-        }else if($card->creditCard->count() > 0) {
+        }else if($card->has('creditCard')) {
             $card->creditCard()->delete();
         }
     }

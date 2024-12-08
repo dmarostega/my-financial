@@ -197,6 +197,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{$daily_expenses->sum() }} / {{ $daily_expenses->count() }} = 
+                                        {{($daily_expenses->sum() > 0 ? $daily_expenses->sum() :1 ) / ($daily_expenses->count() > 0 ? $daily_expenses->count() : 1) }}
                                         @foreach ($daily_expenses as $date => $expensed)
                                             <tr style="padding: 1em; border-botton: 1px solid gray">
                                                 <td>{{ date('d/m/Y', strtotime($date)) }}</td>
