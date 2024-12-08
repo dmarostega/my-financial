@@ -18,8 +18,8 @@ class CreateContractsTable extends Migration
             $table->foreignId('user_id')->constrained();
             // $table->foreignId('person_id')->constrained();
             $table->string('title');
-            $table->double('value');
-            $table->double('prediction');
+            $table->decimal('value', 20, 2);
+            $table->decimal('prediction', 20, 2);
             $table->timestamp('date_init');
             $table->timestamp('date_end')->nullable();
             $table->enum('status', ['active','inactive'])->default('active');

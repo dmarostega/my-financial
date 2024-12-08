@@ -15,14 +15,6 @@ class DefaultsPaymentTypeSeeder extends Seeder
      */
     public function run()
     {
-        // $users = \App\Models\User::whereNotIn('id', PaymentType::withoutGlobalScope('owner')->select('user_id'));
-        // if($users->count() == 0){
-        //     echo 'Não usuários sem tipos de pagamentos, não executará!\n Verifique se existe usuários cadastrados.';
-        //     return;     
-        // }
-
-        // $users = \App\Models\User::get(); //whereNotIn('id', PaymentType::withoutGlobalScope('owner')->select('user_id'));
-
         $json = Storage::disk('local')->get('seeders/payment-types.json');
         $paymentTypes = collect(json_decode($json,true));
 
@@ -36,7 +28,8 @@ class DefaultsPaymentTypeSeeder extends Seeder
                     [                        
                         'name' => $paymentType['name'],
                         'allow_installments' => $paymentType['allow_installments'],
-                        'discount_timing' => $paymentType['discount_timing']
+                        'discount_timing' => $paymentType['discount_timing'],
+                        'is_default' => $paymentType['is_default']
                     ]);
                 });
             });

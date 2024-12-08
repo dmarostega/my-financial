@@ -14,7 +14,7 @@ class AddBalanceColumnToFinancialAccountsTable extends Migration
     public function up()
     {
         Schema::table('financial_accounts', function (Blueprint $table) {
-            $table->double('balance')->after('account_dv')->default(0);
+            $table->decimal('balance', 20, 2)->after('account_dv')->default(0);
         });
     }
 

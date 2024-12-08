@@ -30,6 +30,17 @@ class Transaction extends Model
         'bill_id',
         'card_id'
     ];
+
+
+    /**
+     * NOTE: Mutations
+     */
+    public function setValueAttribute($value)
+    {
+        $this->attributes['value'] = $this->moneyToDatabase($value);
+    }
+
+
     /**
      * 
      * CRIAR TABELA "ESTABECIMENTO, APLICATIVO"
@@ -43,7 +54,7 @@ class Transaction extends Model
 
     /**
      * NOTE = Relations
-     *  */
+     * */
     public function paymentType()
     {
         return $this->belongsTo(PaymentType::class);
