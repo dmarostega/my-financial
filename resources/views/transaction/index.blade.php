@@ -2,11 +2,21 @@
     <x-slot name="header">
         <h2>{{ __('Transactions') }}</h2>
     </x-slot>
-    <x-link href="{{ route('transaction.create') }}">
-        {{ __('New') }}
-    </x-link>
-    <x-link href="{{ route('transactions',['actual-month'])}}">only actual month</x-link>
-    <x-link href="{{ route('transactions',['only-bills' => 1])}}">Only Bills</x-link>
+    <div class='btn-line'>
+        <x-link href="{{ route('transaction.create') }}">
+            {{ __('New') }}
+        </x-link>
+        <x-link href="{{ route('transactions',['actual-month' => true])}}">only actual month</x-link>
+        <x-link href="{{ route('transactions',['only-bills' => true])}}">Only Bills</x-link>
+    </div>
+    @if($months)
+        <div>
+            @foreach ($months as $key => $month)
+                <x-link href="{{ route('transactions',['month' => $key])}}"> {{ $month }} </x-link>
+            @endforeach
+        </div>
+    @endif
+    <div></div>
     <x-table>
         <x-slot name="headers">
             <tr>
@@ -17,8 +27,8 @@
                 <th>{{ __('Payment') }}</th>
                 <th>{{ __('Infos') }}</th>
                 <th>
-                        <p>{{ __('Actions') }}</p> 
-                        <p><small>{{ __('Updated at') }}</small></p>
+                    <p>{{ __('Actions') }}</p> 
+                    <p><small>{{ __('Updated at') }}</small></p>
                 </th>
             </tr>
         </x-slot>

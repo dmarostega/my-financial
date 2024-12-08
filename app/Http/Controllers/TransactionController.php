@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\HandleRepository;
+use App\Helpers\Month;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -10,8 +11,16 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['actual-month','only-bills']);
-        return view('transaction.index',['transactions' => self::repository()->list($filters)]);
+        $filters = $request->only([
+                                    'actual-month',
+                                    'only-bills',
+                                    'month'
+                                ]);
+
+        return view('transaction.index',[
+                                        'transactions' => self::repository()->list($filters),
+                                        'months' => Month::all()
+                                        ]);
     }
 
     public function create()
