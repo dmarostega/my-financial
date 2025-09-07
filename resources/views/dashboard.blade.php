@@ -39,7 +39,7 @@
                             <div>All
                                 {{ 
                                     $summary->transactions->filter(function($item) {                                    
-                                        return $item->bill_id && $item->bill->type == 'to_pay';
+                                        return $item->bill && $item->bill->type == 'to_pay' && $item->card && $item->bill->status = 1;
                                     })->sum('value')
                                 }} 
                                 <small>
@@ -49,7 +49,7 @@
                                         )
                                         -
                                         $summary->transactions->filter(function($item) {                                    
-                                           return $item->bill_id && $item->bill->type == 'to_pay';
+                                           return $item->bill && $item->bill->type == 'to_pay' && $item->card && $item->bill->status = 1;
                                         })->sum('value')
                                     }}
                                 </small>
@@ -57,7 +57,7 @@
                             <p>Fixas
                                 {{ 
                                     $summary->transactions->filter(function($item) {                                    
-                                        return $item->bill_id && $item->bill->type == 'to_pay' && !$item->card_id;
+                                        return $item->bill && $item->bill->type == 'to_pay' && !$item->card && $item->bill->status = 1;
                                     })->sum('value')
                                 }} 
                             </p>
@@ -65,7 +65,7 @@
                                 @if($summary->transactions->count() > 0)
                                     <p>{{ 
                                         $summary->transactions->filter(function($item) {
-                                            return $item->bill_id && $item->bill->type == 'to_pay'
+                                            return $item->bill && $item->bill->type == 'to_pay'
                                             &&
                                             $item->transactionParts->first()->payment_date != null;
                                         })->sum('value') }}
@@ -79,7 +79,7 @@
                                         )
                                         -
                                         ($summary->transactions->filter(function($item) {
-                                            return $item->bill_id && $item->bill->type == 'to_pay'
+                                            return $item->bill && $item->bill->type == 'to_pay'
                                             &&
                                             $item->transactionParts->first()->payment_date != null;
                                         })->sum('value'))
@@ -123,7 +123,7 @@
                                         @if($summary->transactions->count() > 0)
                                         {{  
                                             $summary->transactions->filter(function($item) use ($paymentType) {
-                                                return !$item->bill_id && $item->payment_type_id == $paymentType;
+                                                return !$item->bill && $item->payment_type_id == $paymentType;
                                             })->sum('value')
                                         }}
                                         @endif
@@ -146,7 +146,7 @@
                                         +
                                         $summary->transactions
                                             ->filter(function($item) {
-                                                return $item->bill_id && $item->bill->type == 'to_pay';
+                                                return $item->bill && $item->bill->type == 'to_pay';
                                             })
                                             ->sum('value')
                                        )

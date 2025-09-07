@@ -50,7 +50,7 @@ class ContractRepository
     public function update($request,$id)
     {
         $contract = $this->find($id);
-        $fields = $request->except(array_merge(['_token'],$personFields));
+        $fields = $request->except(array_merge(['_token']));
         $contract->update($fields);
 
         return $contract;
