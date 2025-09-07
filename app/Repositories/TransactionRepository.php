@@ -12,16 +12,17 @@ class TransactionRepository
     use HandleModel;
 
     public function list(array $filters)
-    {
+    {        
         return self::model()
             ->with('transactionParts')
             ->isActive()
-            ->whereActualMonth()
-            ->when(isset($filters['only-bills']) && $filters['only-bills'] !== null, function($query, $filters){
-                $query->whereHas('bill');
+            ->when(isset($filters['actual-month']), function($query) {
+                $query->whereActualMonth();
             })
+            ->filterMonth($filters)
+            ->filterOnlyBills($filters)
             ->orderByDesc('date')
-            ->paginate(15);
+            ->paginate(15)->appends($filters);
     }
 
     public function save(array $fields)
@@ -33,9 +34,12 @@ class TransactionRepository
             unset($fields['time']);
         }
 
-        $transaction->updateOrCreate(
+        $transaction->fill(
             $fields
         );
+        $transaction->save();
+                
+        return $transaction;
     }
     
     public function update(array $fields, $id)
@@ -90,7 +94,7 @@ class TransactionRepository
                                 'category_id' => $bill->category_id,
                                 'payment_type_id' => $this->listRelation('paymentType')->where('is_default',1)->first()->id ?? 1 
                             ];
-                            
+                                                        
                              self::model()->create(
                                 $fields 
                              );

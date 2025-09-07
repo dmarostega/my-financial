@@ -3,6 +3,7 @@ namespace App\Models;
 
 use App\Traits\CastingAttributes;
 use App\Traits\CommonFilter;
+use App\Traits\HandleMonth;
 use App\Traits\HandleUser;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,17 @@ class Transaction extends Model
         'bill_id',
         'card_id'
     ];
+
+
+    /**
+     * NOTE: Mutations
+     */
+    public function setValueAttribute($value)
+    {
+        $this->attributes['value'] = $this->moneyToDatabase($value);
+    }
+
+
     /**
      * 
      * CRIAR TABELA "ESTABECIMENTO, APLICATIVO"
@@ -43,7 +55,7 @@ class Transaction extends Model
 
     /**
      * NOTE = Relations
-     *  */
+     * */
     public function paymentType()
     {
         return $this->belongsTo(PaymentType::class);
@@ -131,6 +143,19 @@ class Transaction extends Model
 
         return $query->whereHas('paymentType', function($query) use ($paymentTypeIds) {
             $query->whereIn('id', $paymentTypeIds);
+        });
+    }
+
+    public function scopeFilterMonth($query, array $args) {
+        $query->when(isset($args['month']), function($query) use ($args) {
+            $query->whereMonth("{$this->table}.date", $args['month']);
+        });
+    }
+
+    public function scopeFilterOnlyBills($query, array $args)
+    {
+        $query->when(isset($args['only-bills']), function($query) {
+            $query->whereHas('bill');
         });
     }
     

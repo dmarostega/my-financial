@@ -17,12 +17,12 @@ class CreateTransactionsPartsTable extends Migration
             $table->id();
             $table->foreignId('transaction_id')->constrained();
             $table->dateTime('due_date');
-            $table->double('value');
-            $table->double('value_paid')->nullable();
+            $table->decimal('value', 20, 2);
+            $table->decimal('value_paid', 20, 2)->nullable();
             $table->dateTime('payment_date')->nullable();
             $table->smallInteger('part_number')->default(1);
-            $table->double('discount')->default(0);
-            $table->double('fees')->default(0); // tarifas
+            $table->decimal('discount', 4, 2)->default(0);
+            $table->decimal('fees', 4, 2)->default(0); // tarifas
             $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
             $table->softDeletes();

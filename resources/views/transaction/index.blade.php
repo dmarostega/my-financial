@@ -2,23 +2,33 @@
     <x-slot name="header">
         <h2>{{ __('Transactions') }}</h2>
     </x-slot>
-    <x-link href="{{ route('transaction.create') }}">
-        {{ __('New') }}
-    </x-link>
-    <x-link href="{{ route('transactions',['actual-month'])}}">only actual month</x-link>
-    <x-link href="{{ route('transactions',['only-bills' => 1])}}">Only Bills</x-link>
+    <div class='btn-line'>
+        <x-link href="{{ route('transaction.create') }}">
+            {{ __('New') }}
+        </x-link>
+        <x-link href="{{ route('transactions',['actual-month' => true])}}">only actual month</x-link>
+        <x-link href="{{ route('transactions',['only-bills' => true])}}">Only Bills</x-link>
+    </div>
+    @if($months)
+        <div>
+            @foreach ($months as $key => $month)
+                <x-link href="{{ route('transactions',['month' => $key])}}"> {{ $month }} </x-link>
+            @endforeach
+        </div>
+    @endif
+    <div></div>
     <x-table>
         <x-slot name="headers">
             <tr>
-                <th>{{ __('Date') }}</th>
+                <th  class="w-8">{{ __('Date') }}</th>
                 <th>{{ __('Title') }}</th>
-                <th>{{ __('Value') }}</th>
+                <th class="w-8">{{ __('Value') }}</th>
                 <th>{{ __('Category') }}</th>
                 <th>{{ __('Payment') }}</th>
                 <th>{{ __('Infos') }}</th>
                 <th>
-                        <p>{{ __('Actions') }}</p> 
-                        <p><small>{{ __('Updated at') }}</small></p>
+                    <p>{{ __('Actions') }}</p> 
+                    <p><small>{{ __('Updated at') }}</small></p>
                 </th>
             </tr>
         </x-slot>
@@ -27,8 +37,8 @@
             <tr>
                 <td>{{ date('d/m',strtotime($transaction->date)) }}</td>
                 <td>{{ $transaction->title }}</td>
-                <td>{{ $transaction->value }}</td>
-                <td>{{ $transaction->category->name }}</td>
+                <td class="text-center">{{ number_format($transaction->value, 2, ',' ,'.') }}</td>
+                <td class="text-center">{{ $transaction->category->name }}</td>
                 <td>
                     <p>{{ $transaction->paymentType->name }}</p>
                     <p>{{ $transaction->card->title ?? '' }}</p>
@@ -41,7 +51,7 @@
                             @else
                                 {{  __('Paid Out')  }}
                             @endif
-                            <p> {{  $transaction->transactionParts->first()->value_paid }}</p>
+                            <p> {{  number_format($transaction->transactionParts->first()->value_paid, 2, ',', '.') }}</p>
                         @endif
                     </p>
 

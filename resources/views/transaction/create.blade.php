@@ -14,7 +14,14 @@
         <x-label for="description">{{ __('Descrição') }}</x-label>
         <x-textarea id="description" name="description"></x-textarea>
         <x-label for="value">{{ __('Valor') }}</x-label>
-        <x-input id="value" name="value" value="{{ old('value') }}" />
+        <x-input id="value" name="value" value="{{ old('value') }}" 
+            x-data="moneyMask" 
+            type="text" 
+            x-model="value" 
+            x-on:input="applyMask" 
+            placeholder="R$ 0,00" 
+        />
+
         <x-label for="payment_type_id">{{ __('Tipo') }} {{ __('Pagamento') }}</x-label>
         <x-select id="payment_type_id" name="payment_type_id">
             @foreach($types as $type)
@@ -36,7 +43,7 @@
         </x-select>
         <label class="mt-2" for="add-more">
             <input type="radio" id="add-more" name="add_more" value="{{ old('add_more') }}">
-            <span>Registrar novos</span>
+            <span>Continuar registrando</span>
         </label>
         <x-form-action-buttons></x-form-action-buttons>
         </x-form>
