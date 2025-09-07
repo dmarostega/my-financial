@@ -16,8 +16,10 @@ class TransactionRepository
         return self::model()
             ->with('transactionParts')
             ->isActive()
-            ->when(isset($filters['actual-month']), function($query) {
-                $query->whereActualMonth();
+            ->whereActualMonth()
+            ->whereActualYear()
+            ->when(isset($filters['only-bills']) && $filters['only-bills'] !== null, function($query, $filters){
+                $query->whereHas('bill');
             })
             ->filterMonth($filters)
             ->filterOnlyBills($filters)
@@ -84,6 +86,7 @@ class TransactionRepository
                     if ( !self::model()
                                 ->where('bill_id',$bill->id)
                                 ->whereMonth('date', $date->month  ?? $bill->due_date )
+                                ->whereYear('date', $date->year)
                                 ->count()
                         ){
                             $fields = [
