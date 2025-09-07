@@ -9,10 +9,22 @@
         <x-input id="title" name="title" value="{{ old('title') }}"/>
 
         <x-label for="value" class="lg:w-80">{{ __('Valor') }}</x-label>
-        <x-input id="value" name="value" value="{{ old('value') }}" />
+        <x-input id="value" name="value" value="{{ old('value') }}"
+            x-data="moneyMask" 
+            type="text" 
+            x-model="value" 
+            x-on:input="applyMask" 
+            placeholder="R$ 0,00"  
+        />
     
-        <x-label for="prediction" class="lg:w-80">{{ __('Previsão') }}</x-label>
-        <x-input id="prediction" name="prediction" class="lg:w-80" value="{{ old('prediction') }}"/>  
+        <x-label for="prediction" class="lg:w-80">{{ __('Previsão') }}</x-label>        
+        <x-input id="prediction" name="prediction" class="lg:w-80" value="{{ old('prediction') }}"
+            x-data="moneyMask" 
+            type="text" 
+            x-model="value" 
+            x-on:input="applyMask" 
+            placeholder="R$ 0,00" 
+        />  
 
         <x-label for="date_init">{{  __('Inicio') }}</x-label>
         <x-input type="date" id="date_init" name="date_init" value="{{ old('date_init') }}"/>
@@ -46,6 +58,14 @@
                 </x-select-option>
             @endforeach
         </x-select>
+        <x-label for="status">{{ __('Status') }}</x-label>
+        <x-select name="status">
+            @foreach($statuses as $key => $status)
+                <x-select-option :value="$key">
+                    {{ $status }}
+                </x-select-option>
+            @endforeach
+        </x-select>        
     
         @if($errors)
             <div>

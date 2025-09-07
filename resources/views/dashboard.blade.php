@@ -17,7 +17,7 @@
                             
                             <p>{{ __('Contracts') }}</p>
                             @if($summary->contracts->count() > 0)
-                                <p>{{ $summary->contracts->sum('value') }}</p>
+                                <p>{{ $summary->contracts()->isActive()->sum('value') }}</p>
                             @endif
                             <p>{{ __('Contracts to receive') }}</p>                            
                             <p>
@@ -39,17 +39,17 @@
                             <div>All
                                 {{ 
                                     $summary->transactions->filter(function($item) {                                    
-                                        return $item->bill && $item->bill->type == 'to_pay' && $item->card && $item->bill->status = 1;
+                                        return $item->bill && $item->bill->type == 'to_pay' && !$item->card && $item->bill->status = 1;
                                     })->sum('value')
                                 }} 
                                 <small>
                                     {{
                                         (
-                                            $summary->contracts->sum('value') ?? 0
+                                            $summary->contracts()->isActive()->sum('value') ?? 0
                                         )
                                         -
                                         $summary->transactions->filter(function($item) {                                    
-                                           return $item->bill && $item->bill->type == 'to_pay' && $item->card && $item->bill->status = 1;
+                                           return $item->bill && $item->bill->type == 'to_pay' && !$item->card && $item->bill->status = 1;
                                         })->sum('value')
                                     }}
                                 </small>

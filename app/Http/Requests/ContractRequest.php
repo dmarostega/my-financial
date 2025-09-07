@@ -15,10 +15,11 @@ class ContractRequest extends FormRequest
     {
         return [
             'title' => ['required','max:191'],
-            'value' => ['required','numeric'],
-            'prediction' => ['required','numeric'],
+            'value' => ['required'],
+            'prediction' => ['required'],
             'date_init' => ['required','date'],
-            'date_end' => ['nullable','date']
+            'date_end' => ['nullable','date'],
+            'status' => ['nullable','string']
         ];
     }
 

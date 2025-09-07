@@ -15,7 +15,7 @@ class ContractController extends Controller
 
     public function create()
     {
-        return view('contracts.create');
+        return view('contracts.create', ['statuses' => self::repository()->getStatuses()]);
     }
 
     public function store(ContractRequest $request)
@@ -26,14 +26,21 @@ class ContractController extends Controller
 
     public function edit($id)
     {
-        return view('contracts.edit',['contract' => self::repository()->find($id)]);
+        return view('contracts.edit',[
+                                        'contract' => self::repository()->find($id),
+                                        'statuses' => self::repository()->getStatuses()
+                                    ]);
     }
 
     public function update(ContractRequest $request,$id)
     {
-        self::repository()->update($request,$id);
+        try {
+            self::repository()->update($request,$id);
 
-        return redirect()->action([ContractController::class,'index']);
+            return redirect()->action([ContractController::class,'index']);
+        } catch(Throwable $th) {
+            dd($th);
+        }
     }
 
     public function delete($id)
