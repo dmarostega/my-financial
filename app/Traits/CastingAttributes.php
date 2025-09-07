@@ -28,11 +28,13 @@ trait CastingAttributes
 
     public function moneyToDatabase($value)
     {
-        // Remove tudo que não é dígito ou vírgula
-        $numericValue = preg_replace('/[^0-9,]/', '', $value);
+        if(!is_numeric($value)){
+            // Remove tudo que não é dígito ou vírgula
+            $numericValue = preg_replace('/[^0-9,]/', '', $value);
 
-        // Substitui a vírgula decimal por ponto
-        $numericValue = str_replace(',', '.', $numericValue);
+            // Substitui a vírgula decimal por ponto
+            $value = str_replace(',', '.', $numericValue);
+        }
         
         return $numericValue;
     }
