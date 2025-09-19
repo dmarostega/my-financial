@@ -153,8 +153,10 @@ Route::prefix('summary')->name('summary.')->group(function(){
 });
 
 Route::prefix('resolving')->name('resolving.')->group( function(){
-    Route::get('{id}', [TransactionPartController::class,'confirm'])->name('confirm');
-    Route::post('{id}', [TransactionPartController::class,'transaction'])->name('transaction');
+    Route::get('{id}/{action}', [TransactionPartController::class,'confirm'])->name('confirm');
+    Route::get('{id}/payment', [TransactionPartController::class,'confirmPayment'])->name('payment');
+    Route::post('{id}/payment', [TransactionPartController::class,'payment'])->name('payment');
+    Route::post('{id}/receipt', [TransactionPartController::class,'receipt'])->name('receipt');
     Route::post('{id}/extort', [TransactionPartController::class,'extort'])->name('extort');
 });
 

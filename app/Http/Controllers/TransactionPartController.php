@@ -10,13 +10,19 @@ class TransactionPartController extends Controller
     /**
      * Transaction $id
      */
-    public function confirm($id)
+    public function confirm($id, $action)
     {
         $transactionPart = TransactionPart::find($id);
-        return view('transaction-part.confirm', ['transactionPart' => $transactionPart]);
+        return view('transaction-part.confirm', ['transactionPart' => $transactionPart, 'action' => $action]);
     }
 
-    public function transaction(Request $request, $id)
+    public function confirmPayment($id) 
+    {
+        $transactionPart = TransactionPart::find($id);
+        return view('transaction-part.confirm-payment', ['transactionPart' => $transactionPart]);
+    }
+
+    public function payment(Request $request, $id)
     {
         $transactionPart = TransactionPart::find($id);
         $transactionPart->value_paid = $request->value_paid ?? $transactionPart->transaction->value;
@@ -44,6 +50,16 @@ class TransactionPartController extends Controller
         $transactionPart->discount = 0;
         $transactionPart->fees = 0;
 
+        $transactionPart->save();
+
+        return redirect()->route('transactions');        
+    }
+
+    public function receipt(Request $request, int $id) {
+        $transactionPart = TransactionPart::find($id);
+        $transactionPart->value_paid = $transactionPart->transaction->value;
+        $transactionPart->payment_date = Carbon::now();
+        
         $transactionPart->save();
 
         return redirect()->route('transactions');        
