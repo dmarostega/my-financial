@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $actualMonth->month }}) {{ date('M') }}</h1>
+                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $today->month }}) {{ date('M') }}</h1>
                     <h2>{{  $lastMonth->month }}</h2>
                     <h3>{{  $nextMonth->month }}</h3>
                     <div style="width: 90%; margin: 0 auto; display: flex">
@@ -158,7 +158,7 @@
                                 <h2>Prevision for {{$nextMonth->format('F')}}({{$nextMonth->month}})</h2>
                                  <p>
                                     {{
-                                        $summary->contracts->sum('value')                                         
+                                        $summary->contracts()->isActive()->sum('value')                                         
                                         -
                                         $expenses_to_pay
                                                 ->sum('value') 
@@ -197,8 +197,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{$daily_expenses->sum() }} / {{ $daily_expenses->count() }} = 
-                                        {{($daily_expenses->sum() > 0 ? $daily_expenses->sum() :1 ) / ($daily_expenses->count() > 0 ? $daily_expenses->count() : 1) }}
+                                        {{$daily_expenses->sum() }} / {{ ($today->day) }} = 
+                                        {{($daily_expenses->sum() > 0 ? $daily_expenses->sum() :1 ) / ( ($today->day) > 0 ?  ($today->day) : 1) }}
                                         @foreach ($daily_expenses as $date => $expensed)
                                             <tr style="padding: 1em; border-botton: 1px solid gray">
                                                 <td>{{ date('d/m/Y', strtotime($date)) }}</td>
