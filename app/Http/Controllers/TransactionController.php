@@ -14,12 +14,14 @@ class TransactionController extends Controller
         $filters = $request->only([
                                     'actual-month',
                                     'only-bills',
-                                    'month'
+                                    'month',
+                                    'year'
                                 ]);
 
         return view('transaction.index',[
                                         'transactions' => self::repository()->list($filters),
-                                        'months' => Month::all()
+                                        'months' => Month::all(),
+                                        'years' => self::repository()->yearsWithTransaction()
                                         ]);
     }
 
