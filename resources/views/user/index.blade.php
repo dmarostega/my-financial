@@ -2,9 +2,9 @@
     <x-slot name="header">
         <h2>{{ __('Users') }}</h2>
     </x-slot>
-    <x-link href="{{ route('user.create') }}">
+    {{-- <x-link href="{{ route('user.create') }}">
         {{ __('New') }}
-    </x-link>
+    </x-link> --}}
     <x-table>
         <x-slot name="headers">
             <tr>
@@ -24,14 +24,14 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>                    
                     <td>
-                        <div>
+                        {{-- <div>
                             <x-link href="{{ route('user.edit', ['id' => $user->id]) }}">
                                 {{ __('Edit') }}
                             </x-link>
                             <x-link href="{{ route('user.delete', ['id' => $user->id]) }}">
                                 {{ __('Delete') }}
                             </x-link>
-                        </div>
+                        </div> --}}
                         <div>
                             {{ $user->updated_at }}
                         </div>
