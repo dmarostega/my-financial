@@ -229,4 +229,9 @@
             </div>
         </div>
     </div>
+
+    {{-- 
+        esconde experiência proffisionais para teste
+    --}}
+    {{-- @include('extra-expertises') --}}
 </x-app-layout>
