@@ -16,6 +16,5 @@ class CategoryRequest extends FormRequest
             'name' => ['required','string'],
             'description' => ['sometimes']
         ];    
-    }   
-
+    }
 }

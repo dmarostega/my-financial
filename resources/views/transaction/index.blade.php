@@ -9,6 +9,13 @@
         <x-link href="{{ route('transactions',['actual-month' => true])}}">only actual month</x-link>
         <x-link href="{{ route('transactions',['only-bills' => true])}}">Only Bills</x-link>
     </div>
+    @if($years)
+        <div>
+            @foreach ($years as $year)
+                <x-link href="{{ route('transactions',['year' => $year])}}"> {{ $year }} </x-link>
+            @endforeach
+        </div>
+    @endif
     @if($months)
         <div>
             @foreach ($months as $key => $month)
@@ -35,7 +42,7 @@
         <x-slot name="body">
             @foreach($transactions as $transaction)
             <tr>
-                <td>{{ date('d/m',strtotime($transaction->date)) }}</td>
+                <td>{{ date('d/m/Y',strtotime($transaction->date)) }}</td>
                 <td>{{ $transaction->title }}</td>
                 <td class="text-center">{{ number_format($transaction->value, 2, ',' ,'.') }}</td>
                 <td class="text-center">{{ $transaction->category->name }}</td>
@@ -63,19 +70,20 @@
                         </x-link>
                         <x-link class="bg-red-800" :href="route('transaction.delete', ['id' => $transaction->id])">
                             {{ __('Delete') }}
-                        </x-link>
+                        </x-link>   
                         @if($transaction->transactionParts->first() && !filled($transaction->transactionParts->first()->payment_date))
                             @if($transaction->bill &&  $transaction->bill->type == 'to_pay'  && !$transaction->card)                        
-                                <x-link :href="route('resolving.confirm',['id' => $transaction->transactionParts->first()->id])">
+                                <x-link :href="route('resolving.payment',['id' => $transaction->transactionParts->first()->id
+                                ])">
                                     {{ __('Pay') }}
                                 </x-link>
                             @elseif ($transaction->bill && $transaction->bill->type == 'to_receive')
-                                <x-link :href="route('resolving.confirm',['id' => $transaction->transactionParts->first()->id, 'to_receive'])">
+                                <x-link :href="route('resolving.confirm',['id' => $transaction->transactionParts->first()->id, 'action' => 'resolving.receipt'])">
                                     {{ __('To receive') }}
                                 </x-link>
                             @endif 
                         @else 
-                            <x-link :href="route('resolving.confirm', ['id' => $transaction->transactionParts->first()->id])">
+                            <x-link :href="route('resolving.confirm', ['id' => $transaction->transactionParts->first()->id, 'action' => 'resolving.extort'])">
                                 {{ __('extort') }}
                             </x-link>
                         @endif           

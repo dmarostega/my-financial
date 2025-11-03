@@ -10,9 +10,12 @@ class UserRepository
 
     public function list()
     {
-        return  $this->model()->get();
+        return $this->model()->where('id',auth()->user()->id)->get();
     }
 
+    /**
+     * NOTE: Não funciona erro passwoard
+     */
     public function save($request) : void
     {
         $user = $this->model();

@@ -14,5 +14,4 @@ class BillRequest extends FormRequest
     {
         return [];
     }
-
 }

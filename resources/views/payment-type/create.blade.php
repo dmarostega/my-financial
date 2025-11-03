@@ -7,14 +7,14 @@
     <x-form :action="route('payment_type.store')">
             <x-label for="name">{{ __('Nome') }}</x-label>
             <x-input id="name" name="name"></x-input>
-            @error('name')
-                <span>{{ $message }}</span>
-            @enderror
+                @error('name')
+                    <span>{{ $message }}</span>
+                @enderror
             <x-label for="description">{{ __('Descrição') }}</x-label>
             <x-textarea id="description" name="description"></x-textarea>
-            @error('description')
-                <span>{{ $message }}</span>
-            @enderror
+                @error('description')
+                    <span>{{ $message }}</span>
+                @enderror
             <x-label for="status">{{ __('Status') }}</x-label>
             <x-select name="status">
                 @foreach($statuses as $key => $status)

@@ -12,7 +12,13 @@ class TransactionObserver
     {   
         $user = auth()->user();
         $transaction->user_id = $user->id;
-        $transaction->repeat = 0;
+
+        /**
+         * 
+         * FIXME: Verificar após montar "Transações Parceladas"
+         * 
+         */
+        $transaction->installment = 0;
     }
 
     public function created(Transaction $transaction)

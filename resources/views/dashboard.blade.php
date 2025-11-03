@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $actualMonth->month }}) {{ date('M') }}</h1>
+                    <h1  class="mb-4 ">{{ __('Month') }}: ({{ $today->month }}) {{ date('M') }}</h1>
                     <h2>{{  $lastMonth->month }}</h2>
                     <h3>{{  $nextMonth->month }}</h3>
                     <div style="width: 90%; margin: 0 auto; display: flex">
@@ -17,7 +17,7 @@
                             
                             <p>{{ __('Contracts') }}</p>
                             @if($summary->contracts->count() > 0)
-                                <p>{{ $summary->contracts->sum('value') }}</p>
+                                <p>{{ $summary->contracts()->isActive()->sum('value') }}</p>
                             @endif
                             <p>{{ __('Contracts to receive') }}</p>                            
                             <p>
@@ -39,17 +39,17 @@
                             <div>All
                                 {{ 
                                     $summary->transactions->filter(function($item) {                                    
-                                        return $item->bill_id && $item->bill->type == 'to_pay';
+                                        return $item->bill && $item->bill->type == 'to_pay' && !$item->card && $item->bill->status = 1;
                                     })->sum('value')
                                 }} 
                                 <small>
                                     {{
                                         (
-                                            $summary->contracts->sum('value') ?? 0
+                                            $summary->contracts()->isActive()->sum('value') ?? 0
                                         )
                                         -
                                         $summary->transactions->filter(function($item) {                                    
-                                           return $item->bill_id && $item->bill->type == 'to_pay';
+                                           return $item->bill && $item->bill->type == 'to_pay' && !$item->card && $item->bill->status = 1;
                                         })->sum('value')
                                     }}
                                 </small>
@@ -57,7 +57,7 @@
                             <p>Fixas
                                 {{ 
                                     $summary->transactions->filter(function($item) {                                    
-                                        return $item->bill_id && $item->bill->type == 'to_pay' && !$item->card_id;
+                                        return $item->bill && $item->bill->type == 'to_pay' && !$item->card && $item->bill->status = 1;
                                     })->sum('value')
                                 }} 
                             </p>
@@ -65,7 +65,7 @@
                                 @if($summary->transactions->count() > 0)
                                     <p>{{ 
                                         $summary->transactions->filter(function($item) {
-                                            return $item->bill_id && $item->bill->type == 'to_pay'
+                                            return $item->bill && $item->bill->type == 'to_pay'
                                             &&
                                             $item->transactionParts->first()->payment_date != null;
                                         })->sum('value') }}
@@ -79,7 +79,7 @@
                                         )
                                         -
                                         ($summary->transactions->filter(function($item) {
-                                            return $item->bill_id && $item->bill->type == 'to_pay'
+                                            return $item->bill && $item->bill->type == 'to_pay'
                                             &&
                                             $item->transactionParts->first()->payment_date != null;
                                         })->sum('value'))
@@ -123,7 +123,7 @@
                                         @if($summary->transactions->count() > 0)
                                         {{  
                                             $summary->transactions->filter(function($item) use ($paymentType) {
-                                                return !$item->bill_id && $item->payment_type_id == $paymentType;
+                                                return !$item->bill && $item->payment_type_id == $paymentType;
                                             })->sum('value')
                                         }}
                                         @endif
@@ -146,7 +146,7 @@
                                         +
                                         $summary->transactions
                                             ->filter(function($item) {
-                                                return $item->bill_id && $item->bill->type == 'to_pay';
+                                                return $item->bill && $item->bill->type == 'to_pay';
                                             })
                                             ->sum('value')
                                        )
@@ -158,7 +158,7 @@
                                 <h2>Prevision for {{$nextMonth->format('F')}}({{$nextMonth->month}})</h2>
                                  <p>
                                     {{
-                                        $summary->contracts->sum('value')                                         
+                                        $summary->contracts()->isActive()->sum('value')                                         
                                         -
                                         $expenses_to_pay
                                                 ->sum('value') 
@@ -197,8 +197,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{$daily_expenses->sum() }} / {{ $daily_expenses->count() }} = 
-                                        {{($daily_expenses->sum() > 0 ? $daily_expenses->sum() :1 ) / ($daily_expenses->count() > 0 ? $daily_expenses->count() : 1) }}
+                                        {{$daily_expenses->sum() }} / {{ ($today->day) }} = 
+                                        {{($daily_expenses->sum() > 0 ? $daily_expenses->sum() :1 ) / ( ($today->day) > 0 ?  ($today->day) : 1) }}
                                         @foreach ($daily_expenses as $date => $expensed)
                                             <tr style="padding: 1em; border-botton: 1px solid gray">
                                                 <td>{{ date('d/m/Y', strtotime($date)) }}</td>
@@ -229,4 +229,9 @@
             </div>
         </div>
     </div>
+
+    {{-- 
+        esconde experiência proffisionais para teste
+    --}}
+    {{-- @include('extra-expertises') --}}
 </x-app-layout>

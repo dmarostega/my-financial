@@ -147,8 +147,14 @@ class Transaction extends Model
     }
 
     public function scopeFilterMonth($query, array $args) {
-        $query->when(isset($args['month']), function($query) use ($args) {
+        $query->when(!empty($args['month']), function($query) use ($args) {
             $query->whereMonth("{$this->table}.date", $args['month']);
+        });
+    }
+
+    public function scopeFilterYear($query, array $args) {
+        $query->when(!empty($args['year']), function($query) use ($args) {
+            $query->whereYear("{$this->table}.date", $args['year']);
         });
     }
 

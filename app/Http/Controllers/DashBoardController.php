@@ -10,9 +10,9 @@ class DashBoardController extends Controller
 
     public function index()
     {
-        $actualMonth = Carbon::now();
-        $lastMonth = clone $actualMonth;
-        $nextMonth = clone $actualMonth;
+        $today = Carbon::now();
+        $lastMonth = clone $today;
+        $nextMonth = clone $today;
 
         $summary =  self::repository()->summary();
         $expenses = $summary->transactions
@@ -20,7 +20,7 @@ class DashBoardController extends Controller
 
         return view('dashboard',[
             'summary' => $summary,
-            'actualMonth' => $actualMonth,
+            'today' => $today,
             'lastMonth' => $lastMonth->previous('month'),
             'nextMonth' => $nextMonth->next('month'),
             'daily_expenses' => $expenses->sortBy('date')
@@ -39,7 +39,7 @@ class DashBoardController extends Controller
             }),
             'total_received' => $summary->transactions
                     ->filter(function($item) {
-                        return $item->bill_id && $item->bill->type == 'to_receive' && !empty($item->transactionParts->first()->payment_date);
+                        return $item->bill && $item->bill->type == 'to_receive' && !empty($item->transactionParts->first()->payment_date);
                     })
                     ->sum('value')
         ]);

@@ -6,20 +6,35 @@ use App\Models\TransactionPart;
 use App\Traits\HandleModel;
 use Carbon\Carbon;
 use Str;
+use DB;
+use Session;
 
 class TransactionRepository
 {
     use HandleModel;
 
     public function list(array $filters)
-    {        
+    {
+        Session::put('transaction-list-month-selected', $filters['month'] ?? Session::get('transaction-list-month-selected'));        
+        Session::put('transaction-list-year-selected', $filters['year'] ?? Session::get('transaction-list-year-selected'));
+        //  dump(Session::get('transaction-list-month-selected'), Session::get('transaction-list-year-selected'));
+        $filters['month'] = Session::get('transaction-list-month-selected');
+        $filters['year'] = Session::get('transaction-list-year-selected');
+        
         return self::model()
             ->with('transactionParts')
             ->isActive()
-            ->when(isset($filters['actual-month']), function($query) {
+            ->when(Session::get('transaction-list-month-selected') === null, function($query){
                 $query->whereActualMonth();
             })
+            ->when(Session::get('transaction-list-year-selected')  === null, function($query) {
+                $query->whereActualYear();
+            })
+            ->when(isset($filters['only-bills']) && $filters['only-bills'] !== null, function($query, $filters){
+                $query->whereHas('bill');
+            })
             ->filterMonth($filters)
+            ->filterYear($filters)
             ->filterOnlyBills($filters)
             ->orderByDesc('date')
             ->paginate(15)->appends($filters);
@@ -84,6 +99,7 @@ class TransactionRepository
                     if ( !self::model()
                                 ->where('bill_id',$bill->id)
                                 ->whereMonth('date', $date->month  ?? $bill->due_date )
+                                ->whereYear('date', $date->year)
                                 ->count()
                         ){
                             $fields = [
@@ -138,5 +154,9 @@ class TransactionRepository
         $relation = Str::ucfirst($relation);
         $model = $namespace . $relation;
         return new $model();
+    }
+
+    public static function yearsWithTransaction() {
+        return self::model()->selectRaw('YEAR(date) as year')->groupBy(DB::raw('YEAR(date)'))->pluck('year');
     }
 }

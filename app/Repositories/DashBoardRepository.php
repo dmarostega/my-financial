@@ -12,10 +12,12 @@ class DashBoardRepository
             'bills' => function($query){
                 $query->isActive();
                 $query->whereDueDateActualMonth();
+                $query->whereDueDateActualYear();
             },
             'transactions'=> function($query){
                 $query->isActive();
                 $query->whereActualMonth();
+                $query->whereActualYear();
             },
             'transactions.transactionParts' => function($query){
                 //  $query->whereNotNull('payment_date');

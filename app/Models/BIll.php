@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Category;
 use App\Models\Contract;
+use App\Traits\CastingAttributes;
 use App\Traits\CommonFilter;
 use App\Traits\HandleUser;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Bill extends Model
 {    
     use HandleUser;
+
+    use CastingAttributes;
 
     use CommonFilter;
 
@@ -30,6 +33,14 @@ class Bill extends Model
         'due_date',
         'contract_id'
     ];  
+
+    /**
+     * NOTE: Mutations
+     */
+    public function setValueAttribute($value)
+    {
+        $this->attributes['value'] = $this->moneyToDatabase($value);
+    }
 
     public function category()
     {
@@ -63,7 +74,9 @@ class Bill extends Model
 
     public function scopeContractsToReceive($query)
     {
-        return $query->toReceive()->whereHas('contract');
+        return $query->toReceive()->whereHas('contract', function($query){
+            $query->isActive();
+        });
     }
         
     public function frequencies() : array

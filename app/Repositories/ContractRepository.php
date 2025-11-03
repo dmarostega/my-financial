@@ -49,11 +49,28 @@ class ContractRepository
 
     public function update($request,$id)
     {
-        $contract = $this->find($id);
-        $fields = $request->except(array_merge(['_token'],$personFields));
-        $contract->update($fields);
+        try {
+            $contract = $this->find($id);
+            $fields = $request->except(array_merge(['_token']));
+            $contract->update($fields);
 
-        return $contract;
+            $dataPerson = [
+                'name' => $fields['name'],
+                "last_name" => $fields['last_name'],
+                "register_number" => $fields['register_number']
+            ];
+
+            $person = Person::find( $contract->id )->update($dataPerson);
+
+            return $contract;
+        } catch(Throwable $th) {
+            dd($th);
+        }
+    }
+
+    public function getStatuses()
+    {
+        return self::model()->statuses();
     }
 
     private static function model()

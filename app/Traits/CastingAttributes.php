@@ -8,33 +8,45 @@ trait CastingAttributes
 {
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = Carbon::parse($value);
+        if(!empty($value)) {
+            $value = Carbon::parse($value);
+        }
+        $this->attributes['date'] = $value;
     }
 
     public function setDueDateAttribute($value)
     {
-        $this->attributes['due_date'] = Carbon::parse($value);
+        if(!empty($value)) {
+            $value = Carbon::parse($value);
+        }
+        $this->attributes['due_date'] = $value;
     }
 
     public function setDateInitAttribute($value)
     {
-        $this->attributes['date_init'] = Carbon::parse($value);
+        if(!empty($value)) {
+            $value = Carbon::parse($value);
+        }
+        $this->attributes['date_init'] = $value;
     }
 
     public function setDateEndAttribute($value)
     {
-        $this->attributes['date_end'] = Carbon::parse($value);
+        if(!empty($value)) {
+            $value = Carbon::parse($value);
+        }
+        $this->attributes['date_end'] = $value;
     }
 
     public function moneyToDatabase($value)
     {
-        // Remove tudo que não é dígito ou vírgula
-        $numericValue = preg_replace('/[^0-9,]/', '', $value);
+        if(!is_numeric($value)){
+            $value = preg_replace('/[^0-9,]/', '', $value);
+        }
 
-        // Substitui a vírgula decimal por ponto
-        $numericValue = str_replace(',', '.', $numericValue);
+        $value = str_replace(',', '.', $value);
         
-        return $numericValue;
+        return $value;
     }
 
     /**

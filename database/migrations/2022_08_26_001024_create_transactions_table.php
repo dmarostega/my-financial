@@ -13,24 +13,24 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained();
-            $table->foreignId('payment_type_id')->constrained('payment_types');
-            $table->foreignId('card_id')->nullable()->constrained('cards'); // nullable deve ser antes de constrainde
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->tinyInteger('repeat')->default(0);
-            $table->decimal('prediction', 20, 2)->nullable();
-            $table->decimal('value', 20, 2);
-            $table->dateTime('date', $precision = 0);
-            $table->enum('status', ['active','inactive'])->default('active');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-
+        if(!Schema::hasTable('transactions')) {
+            Schema::create('transactions', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained();
+                $table->foreignId('category_id')->constrained();
+                $table->foreignId('payment_type_id')->constrained('payment_types');
+                $table->unsignedBigInteger('card_id')->nullable();
+                $table->string('title');
+                $table->text('description')->nullable();
+                $table->tinyInteger('repeat')->default(0);
+                $table->decimal('prediction', 20, 2)->nullable();
+                $table->decimal('value', 20, 2);
+                $table->dateTime('date', $precision = 0);
+                $table->enum('status', ['active','inactive'])->default('active');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
