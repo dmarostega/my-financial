@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\HandleRepository;
 use App\Helpers\Month;
+use App\Http\Requests\TransactionRequest;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -39,7 +40,7 @@ class TransactionController extends Controller
                             ->get()]);
     }
 
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
         $redirect = redirect()->route('transactions');
 
@@ -71,7 +72,7 @@ class TransactionController extends Controller
                     'categories' => self::repository()->listRelation('category')->get()]);
     }
 
-    public function update(Request $request, $id)
+    public function update(TransactionRequest $request, $id)
     {
         try {
             $fields = array_filter($request->except('_token','_method','add_more'));
