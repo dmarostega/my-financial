@@ -18,6 +18,18 @@
                 </div>
             </div>
 
+            <!-- Language Selector -->
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <form id="locale-form" action="{{ url('/greeting') }}" method="GET">
+                    <select name="locale" 
+                            onchange="window.location.href='/greeting/' + this.value"
+                            class="border-gray-300 text-gray-600 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                        <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>🇺🇸 English</option>
+                        <option value="pt-BR" {{ app()->getLocale() == 'pt-BR' ? 'selected' : '' }}>🇧🇷 Português</option>
+                    </select>
+                </form>
+            </div>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -35,6 +47,7 @@
                                
 
                     <x-slot name="content">
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

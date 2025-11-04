@@ -6,10 +6,10 @@
         @csrf
         @method('put')
         <div class="flex flex-col">
-            <x-label for="code">{{ __('code') }}</x-label>
+            <x-label for="code">{{ __('Code') }}</x-label>
             <x-input id="code" name="code" value="{{ $financialEntity->code }}"/>
             <x-label for="name">
-                {{ __('name') }}
+                {{ __('Name') }}
             </x-label>
             <x-input id="name" name="name" type="text" value="{{ $financialEntity->name }}" />
             @if($errors)

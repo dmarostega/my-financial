@@ -10,7 +10,7 @@
         @error('name')
             <span>{{ $message }}</span>
         @enderror
-        <x-label for="description">{{ __('Descrição') }}</x-label>
+        <x-label for="description">{{ __('Description') }}</x-label>
         <x-textarea id="description" name="description">{{ $paymentType->description }}</x-textarea>
         @error('description')
             <span>{{ $message }}</span>
@@ -27,12 +27,12 @@
         <x-select id="discount_timing" name="discount_timing">
             @foreach($timings as $key => $timing)
                 <x-select-option :value="$timing" :isSelected="(bool)($paymentType->discount_timing == $timing)">
-                    {{ $timing }}
+                    {{ __($timing) }}
                 </x-select-option>
             @endforeach
         </x-select>
         <x-radio-button id="is_default" name="is_default" :isChecked="(bool)($paymentType->is_default)">
-            is Default
+            {{ __('is Default') }}
         </x-radio-button>
         @if($errors)
             @foreach ($errors->all() as $error)

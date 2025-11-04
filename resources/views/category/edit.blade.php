@@ -7,10 +7,10 @@
         @method('put')
         <div class="flex flex-col">
             <x-label for="name">
-                {{ __('name') }}
+                {{ __('Name') }}
             </x-label>
             <x-input id="name" name="name" type="text" value="{{ $category->name }}" />
-            <x-label for="description">{{ __('descrição') }}</x-label>
+            <x-label for="description">{{ __('Description') }}</x-label>
             <x-textarea id="description" name="description" >{{ $category->description }}</x-textarea>
             @if($errors)
                 @foreach ($errors->all() as $error)

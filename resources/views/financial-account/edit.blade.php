@@ -3,17 +3,17 @@
         <h2>{{ __('Editando') }} {{ __('conta') }} {{ __('bancária') }}</h2>     
     </x-slot>
     <x-form :action="route('financial_account.update', ['id' => $financialAccount->id ])" :method="__('put')">
-        <x-label for="entity_number">{{ __('Entity number') }}</x-label>
+        <x-label for="entity_number">{{ __('Entity Number') }}</x-label>
         <x-input id="entity_number" name="entity_number"  value="{{ $financialAccount->entity_number }}"/>
-        <x-label for="entity_dv">{{ __('Digit entity') }}</x-label>
+        <x-label for="entity_dv">{{ __('Digit Entity') }}</x-label>
         <x-input id="entity_dv" name="entity_dv" value="{{ $financialAccount->entity_dv }}"/>
         <x-label for="account">{{ __('Account') }}</x-label>
         <x-input id="account" name="account" value="{{ $financialAccount->account }}"/>
-        <x-label for="account_dv">{{ __('Digit account') }}</x-label>
+        <x-label for="account_dv">{{ __('Digit Account') }}</x-label>
         <x-input id="account_dv" name="account_dv" value="{{ $financialAccount->account_dv }}"/>
         <x-label for="balance">{{ __('Balance') }}</x-label>
         <x-input id="balance" name="balance"  value="{{ $financialAccount->balance }}" />
-        <x-label for="financial_entity_id">{{ __('Instituição') }}</x-label>
+        <x-label for="financial_entity_id">{{ __('Institution') }}</x-label>
         <x-select id="financial_entity_id" name="financial_entity_id">
             @foreach($financialEntities as $entity)
                 <x-select-option :value="$entity->id" :isSelected="(bool)($entity->id == $financialAccount->entity->id)">

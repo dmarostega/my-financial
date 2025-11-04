@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Editando') }}  {{  __('Conta') }}</h2>
+        <h2>{{ __('Editing') }}  {{  __('Account') }}</h2>
     </x-slot>
     <x-form :action="route('bill.update', ['id' => $bill->id])" :method="__('put')">
         <x-label for="title">{{ __('Title') }}</x-label>
         <x-input type="text" id="title" name="title" value="{{ $bill->title }}"/>
         <x-label for="value">{{ __('Value') }}</x-label>
         <x-input type="text" id="value" name="value" value="{{ $bill->value }}"/>
-        <x-label for="due_date">{{ __('due_date') }}</x-label>
+        <x-label for="due_date">{{ __('Due Date') }}</x-label>
         <x-input type="text" id="due_date" name="due_date" value="{{ @date($bill->due_date) }}"/>
         <x-label for="type">{{ __('Type') }}</x-label>
         <x-select name="type" id="type">
@@ -41,7 +41,7 @@
                 </x-select-option>
             @endforeach
         </x-select>
-        <x-label for="contract_id">Contracts</x-label>
+        <x-label for="contract_id">{{ __('Contracts') }}</x-label>
         <x-select name="contract_id" id="contract_id">
             <x-select-option></x-select-option>
             @foreach($contracts as $contract)

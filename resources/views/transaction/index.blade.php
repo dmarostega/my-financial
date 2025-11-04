@@ -4,10 +4,10 @@
     </x-slot>
     <div class='btn-line'>
         <x-link href="{{ route('transaction.create') }}">
-            {{ __('New') }}
+            {{ __('general.new') }}
         </x-link>
-        <x-link href="{{ route('transactions',['actual-month' => true])}}">only actual month</x-link>
-        <x-link href="{{ route('transactions',['only-bills' => true])}}">Only Bills</x-link>
+        <x-link href="{{ route('transactions',['actual-month' => true])}}">{{ __('Only actual month') }}</x-link>
+        <x-link href="{{ route('transactions',['only-bills' => true])}}">{{ __('Only Bills') }}</x-link>
     </div>
     @if($years)
         <div>

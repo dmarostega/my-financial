@@ -12,6 +12,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionPartController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -160,8 +161,18 @@ Route::prefix('resolving')->middleware(['auth'])->name('resolving.')->group( fun
     Route::post('{id}/extort', [TransactionPartController::class,'extort'])->name('extort');
 });
 
-
 Route::get('/check-transactions',[TransactionController::class,'checkTransactions'])->middleware(['auth'])->name('check_transactions');
 Route::get('/check-bills',[TransactionController::class,'checkBills'])->middleware(['auth'])->name('check_bills');
+
+ 
+Route::get('/greeting/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'pt-BR'])) {
+        abort(400);
+    }
+    session(['locale' => $locale]);
+    app()->setLocale($locale);
+
+    return redirect()->back();
+})->name('greeting');
 
 require __DIR__.'/auth.php';

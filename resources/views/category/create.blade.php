@@ -6,10 +6,10 @@
         @csrf
         <div class="flex flex-col">
             <x-label for="name">
-                {{ __('name') }}
+                {{ __('Name') }}
             </x-label>
             <x-input id="name" name="name" type="text" />
-            <x-label for="description">{{ __('descrição') }}</x-label>
+            <x-label for="description">{{ __('Description') }}</x-label>
             <x-textarea id="description" name="description" />
             @if($errors)
                 @foreach ($errors->all() as $error)
