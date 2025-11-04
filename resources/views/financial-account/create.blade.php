@@ -1,19 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Cadastrando') }} {{ __('conta') }} {{ __('bancária') }}</h2>     
+        <h2>{{ __('Registering') }} {{ __('Financial Account') }}</h2>     
     </x-slot>
     <x-form :action="route('financial_account.store')" >
-        <x-label for="entity_number">{{ __('Entity number') }}</x-label>
+        <x-label for="entity_number">{{ __('Entity Number') }}</x-label>
         <x-input id="entity_number" name="entity_number"  value="{{ old('entity_number') }}"/>
-        <x-label for="entity_dv">{{ __('Digit entity') }}</x-label>
+        <x-label for="entity_dv">{{ __('Digit Entity') }}</x-label>
         <x-input id="entity_dv" name="entity_dv" value="{{ old('entity_dv') }}"/>
         <x-label for="account">{{ __('Account') }}</x-label>
         <x-input id="account" name="account" value="{{ old('account') }}"/>
-        <x-label for="account_dv">{{ __('Digit account') }}</x-label>
+        <x-label for="account_dv">{{ __('Digit Account') }}</x-label>
         <x-input id="account_dv" name="account_dv" value="{{ old('account_dv') }}"/>
         <x-label for="balance">{{ __('Balance') }}</x-label>
         <x-input id="balance" name="balance"  value="{{ old('balance') }}" />
-        <x-label for="financial_entity_id">{{ __('Instituição') }}</x-label>
+        <x-label for="financial_entity_id">{{ __('Institution') }}</x-label>
         <x-select id="financial_entity_id" name="financial_entity_id">
             @foreach($entities as $entity)
                 <x-select-option :value="$entity->id">

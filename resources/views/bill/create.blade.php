@@ -41,7 +41,7 @@
                 </x-select-option>
             @endforeach
         </x-select>
-        <x-label for="contract_id">Contracts</x-label>
+        <x-label for="contract_id">{{ __('Contracts') }}</x-label>
         <x-select name="contract_id" id="contract_id">
             <x-select-option></x-select-option> 
             @foreach($contracts as $contract)

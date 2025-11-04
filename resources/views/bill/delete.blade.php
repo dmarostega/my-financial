@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2> {{ __('Deleting') }} {{ __('bill') }}</h2>
+        <h2> {{ __('Deleting') }} {{ __('Bill') }}</h2>
     </x-slot>
     <x-form :action="route('bill.destroy',['id' => $bill->id ])" :method="__('delete')">
         <x-dialog-message>

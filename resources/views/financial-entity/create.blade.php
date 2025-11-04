@@ -7,11 +7,11 @@
             </h2>
         </x-slot>
         <x-label for="code">
-            {{ __('code') }}
+            {{ __('Code') }}
         </x-label>
         <x-input name="code" id="code"></x-input>
         <x-label for="name">
-            {{ __('name') }}
+            {{ __('Name') }}
         </x-label>
         <x-input name="name" id="name"></x-input>
         <x-form-action-buttons></x-form-action-buttons>

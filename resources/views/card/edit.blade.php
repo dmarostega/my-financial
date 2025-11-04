@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2>{{ __('Editing Card') }}</h2>
+        <h2>{{ __('Editing') }} {{ __('Card') }}</h2>
     </x-slot>
     <x-form :action="route('card.update',['id' => $card->id])" :method="__('put')">
         <x-label for="title">{{ __('Title') }}</x-label>
@@ -11,7 +11,7 @@
         <x-input id="holder_name" name="holder_name" value="{{ $card->holder_name }}" />
        
         <div>
-            <x-label for="security_code">{{ __('Security code') }}</x-label>
+            <x-label for="security_code">{{ __('Security Code') }}</x-label>
             <x-input id="security_code" name="security_code" value="{{ $card->security_code }}" />
             <x-label for="due_day">{{ __('Due day') }}</x-label>
             <x-input type="number" id="due_day" name="due_day" value="{{ $card->creditCard ? $card->creditCard->due_day : '' }}" />

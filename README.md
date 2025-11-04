@@ -7,5 +7,4 @@ Permite Registros:
 4. Cartões de Crédito
 5. Entidade Bancárias
 6. Contas Bancárias.
-
-Apresentação de Dahsboard
+7. Apresentação de Dahsboard

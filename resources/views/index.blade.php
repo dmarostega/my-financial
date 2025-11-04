@@ -2,36 +2,36 @@
   <x-flex-box>
     <div>
         <x-system-icon :link="route('transactions')">
-          {{ __('Transações') }}
+          {{ __('Transactions') }}
         </x-system-icon>
         <x-system-icon :link="route('bills')">
-          {{ __('Contas') }}
+          {{ __('Accounts') }}
         </x-system-icon>
       </div>
       <div>
         <x-system-icon :link="route('categories')">
-          {{ __('Categorias') }}
+          {{ __('Categories') }}
         </x-system-icon>
         <x-system-icon :link="route('contracts')">
-          {{ __('Contratos') }}
+          {{ __('Contracts') }}
         </x-system-icon>
         <x-system-icon :link="route('financial_entities')">
-          {{ __('Bancos') }}
+          {{ __('Financial Entities') }}
         </x-system-icon>
         <x-system-icon :link="route('financial_accounts')">
-          {{ __('Contas Bancárias') }}
+          {{ __('Financial Accounts') }}
         </x-system-icon>
         <x-system-icon :link="route('cards')">
-          {{ __('Cartões') }} 
+          {{ __('Cards') }} 
         </x-system-icon>
         <x-system-icon :link="route('payment_types')">
-          {{ __('Tipos de Pagamento') }}
+          {{ __('Payment Types') }}
         </x-system-icon>
         <x-system-icon :link="route('users')">
-          {{ __('Usuários') }}      
+          {{ __('Users') }}      
         </x-system-icon>
         <x-system-icon :link="route('summaries')">
-          {{ __('Relatórios') }}
+          {{ __('Summaries') }}
         </x-system-icon>
       </div>
     </x-flex-box> 
